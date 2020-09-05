@@ -41,6 +41,16 @@ dependencies {
     // optional - Test helpers
     testImplementation "androidx.room:room-testing:$room_version"
 
+    // retrofit
+    def version_retrofit = "2.9.0"
+    implementation "com.squareup.retrofit2:retrofit:$version_retrofit"
+
+    // Moshi
+    def version_moshi = "1.9.3"
+    implementation "com.squareup.moshi:moshi:$version_moshi"
+    implementation "com.squareup.moshi:moshi-kotlin:1.10.0"    // for kotlin
+    implementation "com.squareup.retrofit2:converter-moshi:$version_retrofit"
+
     testImplementation 'junit:junit:4.13'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
