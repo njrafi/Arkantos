@@ -12,10 +12,8 @@ import kotlinx.coroutines.launch
 class MainActivity : AppCompatActivity() {
     private var viewModelJob = Job()
     private var coroutineScope = CoroutineScope(viewModelJob + Dispatchers.Main)
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
 
+    private fun testNetworkCall() {
         coroutineScope.launch {
             try {
                 val gameList = GameApi.retrofitService.getGames()
@@ -31,8 +29,13 @@ class MainActivity : AppCompatActivity() {
                 else
                     Log.i("gg", "error with null message")
             }
-
-
         }
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+
+        testNetworkCall()
     }
 }
