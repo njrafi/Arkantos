@@ -5,26 +5,33 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.ViewModelProvider
 import com.example.gameapp.R
+import com.example.gameapp.databinding.FragmentGenreGridViewBinding
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [GenreGridViewFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class GenreGridViewFragment : Fragment() {
+
+    private val gameViewModel: GameGridViewModel by lazy {
+        ViewModelProvider(this).get(GameGridViewModel::class.java)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_genre_grid_view_fragmnet, container, false)
+
+        val binding = DataBindingUtil.inflate<FragmentGenreGridViewBinding>(inflater,
+        R.layout.fragment_genre_grid_view,container,false)
+        val adapter = GameGridAdapter()
+        binding.movieGridView.adapter = adapter
+
+
+        gameViewModel.allGames.observe(viewLifecycleOwner,{
+            adapter.submitList(it)
+        })
+        return binding.root
     }
 
 }

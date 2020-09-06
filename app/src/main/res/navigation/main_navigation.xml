@@ -18,5 +18,5 @@
         android:id="@+id/genreGridViewFragment"
         android:name="com.example.gameapp.ui.genreGridView.GenreGridViewFragment"
         android:label="fragment_genre_grid_view_fragmnet"
-        tools:layout="@layout/fragment_genre_grid_view_fragmnet" />
+        tools:layout="@layout/fragment_genre_grid_view" />
 </navigation>

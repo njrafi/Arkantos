@@ -19,7 +19,8 @@ class GameRepository {
         withContext(Dispatchers.IO) {
             try {
                 val gameList = GameApi.retrofitService.getGames()
-                _allGames.value = gameList.asDomainModel()
+                Log.i("GameRepository", gameList.size.toString())
+                _allGames.postValue(gameList.asDomainModel())
             } catch (t : Throwable) {
                 if(t.message != null)
                     Log.i("GameRepository", t.message!!)
