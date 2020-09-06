@@ -28,7 +28,8 @@ class GameGridAdapter :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item: Game) {
-            binding.gameNameTextView.text = item.name
+            binding.game = item
+            binding.executePendingBindings()
         }
 
         companion object {

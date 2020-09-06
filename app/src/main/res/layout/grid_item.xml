@@ -4,7 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
+        <variable
+            name="game"
+            type="com.example.gameapp.domain.Game" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -17,7 +19,8 @@
             android:layout_height="200dp"
             android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp"
-            android:contentDescription="@string/gamecoverart"
+            android:contentDescription="@string/gameCoverArt"
+            app:imageUrl="@{game.thumbnailUrl}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -25,14 +28,16 @@
 
         <TextView
             android:id="@+id/gameNameTextView"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginBottom="2dp"
+            android:text="@{game.name}"
+            android:textAlignment="center"
+            android:textSize="12sp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/gameCoverImageView"
+            app:layout_constraintStart_toStartOf="@+id/gameCoverImageView"
             app:layout_constraintTop_toBottomOf="@+id/gameCoverImageView"
             tools:text="Game Name" />
     </androidx.constraintlayout.widget.ConstraintLayout>
