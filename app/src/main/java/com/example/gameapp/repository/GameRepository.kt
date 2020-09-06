@@ -21,6 +21,10 @@ class GameRepository {
                 val gameList = GameApi.retrofitService.getGames()
                 Log.i("GameRepository", gameList.size.toString())
                 _allGames.postValue(gameList.asDomainModel())
+                for (game in gameList.asDomainModel()) {
+                    game.name?.let { Log.i("GameRepository", it) }
+                    game.coverImageUrl?.let { Log.i("GameRepository", it) }
+                }
             } catch (t : Throwable) {
                 if(t.message != null)
                     Log.i("GameRepository", t.message!!)

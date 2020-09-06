@@ -25,9 +25,10 @@ interface GameApiService {
     @Headers("user-key: $USER_KEY")
     @POST("games")
     suspend fun getGames(
-        @Query("fields") fields: String = "name, summary",
+        @Query("fields") fields: String = "name, summary, cover.image_id",
         @Query("limit") limit: Int = 20,
-        @Query("offset") offset: Int = 0):
+        @Query("offset") offset: Int = 0,
+        @Query("where") whereCondition: String = "cover.image_id!=n"):
             List<GameNetworkModel>
 }
 

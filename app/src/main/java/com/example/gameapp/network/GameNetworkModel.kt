@@ -6,15 +6,21 @@ import com.squareup.moshi.Json
 data class GameNetworkModel(val id: Long?,
                             val name: String?,
                             val summary: String?,
-                            @Json(name = "cover") val coverId: Long?
+                            val cover: GameCover?,
                             )
+
+data class GameCover(val image_id: String)
 
 fun List<GameNetworkModel>.asDomainModel(): List<Game> {
     return map {
         Game(
             id = it.id,
             name = it.name,
-            summary = it.summary
+            summary = it.summary,
+            thumbnailUrl = "https://images.igdb.com/igdb/image/upload/t_cover_big/"
+                    + it.cover?.image_id + ".jpg",
+            coverImageUrl = "https://images.igdb.com/igdb/image/upload/t_1080p/"
+                    + it.cover?.image_id + ".jpg"
         )
     }
 }
