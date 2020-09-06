@@ -1,4 +1,4 @@
-package com.example.gameapp.UI.GenreGridView
+package com.example.gameapp.ui.genreGridView
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
