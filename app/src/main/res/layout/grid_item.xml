@@ -10,16 +10,17 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <ImageView
             android:id="@+id/gameCoverImageView"
-            android:layout_width="100dp"
-            android:layout_height="200dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
+            android:layout_width="match_parent"
+            android:layout_height="170dp"
+            android:adjustViewBounds="true"
             android:contentDescription="@string/gameCoverArt"
+            android:padding="2dp"
+            android:scaleType="centerCrop"
             app:imageUrl="@{game.thumbnailUrl}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -31,7 +32,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="2dp"
-            android:layout_marginBottom="2dp"
+            android:layout_marginBottom="8dp"
             android:text="@{game.name}"
             android:textAlignment="center"
             android:textSize="12sp"
