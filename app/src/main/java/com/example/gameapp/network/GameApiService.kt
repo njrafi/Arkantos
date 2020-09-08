@@ -13,7 +13,6 @@ import java.net.URI
 
 private const val BASE_URL = "https://api-v3.igdb.com/"
 private const val USER_KEY = BuildConfig.IGDB_USER_KEY
-private const val bodyString = "where cover.image_id != null"
 private val moshi = Moshi.Builder()
     .add(KotlinJsonAdapterFactory())
     .build()
