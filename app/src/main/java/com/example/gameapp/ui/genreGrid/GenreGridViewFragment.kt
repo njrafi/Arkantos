@@ -1,4 +1,4 @@
-package com.example.gameapp.ui.genreGridView
+package com.example.gameapp.ui.genreGrid
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -24,13 +24,17 @@ class GenreGridViewFragment : Fragment() {
 
         val binding = DataBindingUtil.inflate<FragmentGenreGridViewBinding>(inflater,
         R.layout.fragment_genre_grid_view,container,false)
+        // Setting view model
+        binding.viewModel = gameViewModel
+        binding.lifecycleOwner = this
+
+        // Setting the adapter
         val adapter = GameGridAdapter()
         binding.movieGridView.adapter = adapter
-
-
         gameViewModel.allGames.observe(viewLifecycleOwner,{
             adapter.submitList(it)
         })
+
         return binding.root
     }
 

@@ -1,4 +1,4 @@
-package com.example.gameapp.ui.genreGridView
+package com.example.gameapp.ui.genreGrid
 
 
 import android.view.LayoutInflater

@@ -19,7 +19,7 @@
             android:layout_height="170dp"
             android:adjustViewBounds="true"
             android:contentDescription="@string/gameCoverArt"
-            android:padding="2dp"
+            android:padding="3dp"
             android:scaleType="centerCrop"
             app:imageUrl="@{game.thumbnailUrl}"
             app:layout_constraintEnd_toEndOf="parent"

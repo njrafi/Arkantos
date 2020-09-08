@@ -25,7 +25,7 @@ private val retrofit = Retrofit.Builder()
     .build()
 
 const val fields: String = "name, summary, cover.image_id"
-const val limit: Int = 500
+const val limit: Int = 50
 const val offset: Int = 0
 const val whereConditions: String = "cover.image_id != null"
 

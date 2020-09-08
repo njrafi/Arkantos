@@ -1,4 +1,4 @@
-package com.example.gameapp.ui.genreGridView
+package com.example.gameapp.ui.genreGrid
 
 import androidx.lifecycle.ViewModel
 import com.example.gameapp.repository.GameRepository
@@ -11,7 +11,7 @@ class GameGridViewModel: ViewModel() {
     private val viewModelJob = Job()
     private val viewModelScope = CoroutineScope(viewModelJob + Dispatchers.Main)
     private val gameRepository = GameRepository()
-
+    val apiStatus = gameRepository.apiStatus
     val allGames = gameRepository.allGames
     init {
         viewModelScope.launch {
