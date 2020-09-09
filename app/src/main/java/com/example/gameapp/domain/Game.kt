@@ -5,5 +5,6 @@ data class Game(
     val name: String?,
     val summary: String?,
     val thumbnailUrl: String?,
-    val coverImageUrl: String?
+    val coverImageUrl: String?,
+    val storyline: String?
 )

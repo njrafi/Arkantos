@@ -1,5 +1,6 @@
 package com.example.gameapp.ui.gameDetails
 
+import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 import com.example.gameapp.repository.GameRepository
 import kotlinx.coroutines.CoroutineScope
@@ -15,7 +16,14 @@ class GameDetailsViewModel : ViewModel() {
     val apiStatus = gameRepository.apiStatus
     val game = gameRepository.singleGame
 
-    fun getSpecificGame(id: String) {
+    val summaryShouldBeShown = Transformations.map(game) {
+        it?.summary != null
+    }
+    val storylineShouldBeShown = Transformations.map(game) {
+        it?.storyline != null
+    }
+
+    fun getSpecificGame(id: Long) {
         viewModelScope.launch {
             gameRepository.getGameById(id)
         }

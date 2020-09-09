@@ -4,4 +4,6 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="gameCoverArt">GameCoverArt</string>
     <string name="api_status">Api Status</string>
+    <string name="summary">Summary:</string>
+    <string name="storyline">Storyline</string>
 </resources>

@@ -41,11 +41,11 @@ class GameRepository {
         }
     }
 
-    suspend fun getGameById(id: String) {
-        val fields: String = "name, summary, cover.image_id"
+    suspend fun getGameById(id: Long) {
+        val fields: String = "name, summary, cover.image_id, storyline"
         val whereConditions: String = "id = $id"
-        val body = "fields $fields; where $whereConditions"
-
+        val body = "fields $fields; where $whereConditions;"
+        Log.i("GameRepository", body)
         withContext(Dispatchers.IO) {
             try {
                 _apiStatus.postValue(GameApiStatus.LOADING)

@@ -21,9 +21,9 @@ fun ImageView.setImageFromUrl(imageUrl: String?) {
 
 @BindingAdapter("apiStatus")
 fun ImageView.setApiStatus(status: GameApiStatus?) {
-    if(status != null)
+    if (status != null)
         Log.i("ImageGameApiStatus", status.name)
-    when(status) {
+    when (status) {
         GameApiStatus.LOADING -> {
             visibility = View.VISIBLE
             setImageResource(R.drawable.loading_animation)
@@ -34,4 +34,10 @@ fun ImageView.setApiStatus(status: GameApiStatus?) {
         }
         else -> visibility = View.GONE
     }
+}
+
+@BindingAdapter("goneUnless")
+fun View.setVisibility(visible: Boolean) {
+    Log.i("View gone unless", visible.toString())
+    visibility = if (visible) View.VISIBLE else View.GONE
 }

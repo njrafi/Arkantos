@@ -18,5 +18,17 @@
         android:id="@+id/genreGridViewFragment"
         android:name="com.example.gameapp.ui.genreGrid.GenreGridViewFragment"
         android:label="fragment_genre_grid_view_fragmnet"
-        tools:layout="@layout/fragment_genre_grid_view" />
+        tools:layout="@layout/fragment_genre_grid_view" >
+        <action
+            android:id="@+id/action_genreGridViewFragment_to_gameDetailsFragment"
+            app:destination="@id/gameDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/gameDetailsFragment"
+        android:name="com.example.gameapp.ui.gameDetails.GameDetailsFragment"
+        android:label="GameDetailsFragment" >
+        <argument
+            android:name="id"
+            app:argType="long" />
+    </fragment>
 </navigation>

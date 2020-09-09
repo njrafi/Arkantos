@@ -7,11 +7,15 @@
         <variable
             name="game"
             type="com.example.gameapp.domain.Game" />
+        <variable
+            name="clickListener"
+            type="com.example.gameapp.ui.genreGrid.GameClickListener" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:onClick="@{() -> clickListener.onClick(game.id)}">
 
         <ImageView
             android:id="@+id/gameCoverImageView"

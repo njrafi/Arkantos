@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.gameapp.databinding.GridItemBinding
 import com.example.gameapp.domain.Game
 
-class GameGridAdapter :
+class GameGridAdapter(val clickListener: GameClickListener) :
     ListAdapter<Game, GameGridAdapter.CustomViewHolder>(GameDiffCallBack()) {
 
     override fun onCreateViewHolder(
@@ -21,14 +21,15 @@ class GameGridAdapter :
 
     override fun onBindViewHolder(holder: GameGridAdapter.CustomViewHolder, position: Int) {
         val item = getItem(position)
-        holder.bind(item)
+        holder.bind(item, clickListener)
     }
 
     class CustomViewHolder private constructor(private val binding: GridItemBinding):
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(item: Game) {
+        fun bind(item: Game, clickListener: GameClickListener) {
             binding.game = item
+            binding.clickListener = clickListener
             binding.executePendingBindings()
         }
 
@@ -50,4 +51,7 @@ class GameGridAdapter :
             return oldItem == newItem
         }
     }
+}
+class GameClickListener(val clickListener: (id: Long) -> Unit) {
+    fun onClick(id: Long) = clickListener(id)
 }
