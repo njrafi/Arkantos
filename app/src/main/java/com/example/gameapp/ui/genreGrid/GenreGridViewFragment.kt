@@ -38,7 +38,7 @@ class GenreGridViewFragment : Fragment() {
             )
         })
         binding.movieGridView.adapter = adapter
-        gameViewModel.allGames.observe(viewLifecycleOwner, {
+        gameViewModel.gamePagedList.observe(viewLifecycleOwner, {
             adapter.submitList(it)
         })
 

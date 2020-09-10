@@ -1,26 +1,27 @@
 package com.example.gameapp.ui.genreGrid
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
-import com.example.gameapp.repository.GameRepository
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.launch
+import androidx.paging.LivePagedListBuilder
+import androidx.paging.PageKeyedDataSource
+import androidx.paging.PagedList
+import com.example.gameapp.domain.Game
+import com.example.gameapp.domain.GameDataSource
+import com.example.gameapp.domain.GameDataSourceFactory
+import com.example.gameapp.repository.GameApiStatus
 
-class GameGridViewModel: ViewModel() {
-    private val viewModelJob = Job()
-    private val viewModelScope = CoroutineScope(viewModelJob + Dispatchers.Main)
-    private val gameRepository = GameRepository()
-    val apiStatus = gameRepository.apiStatus
-    val allGames = gameRepository.allGames
+class GameGridViewModel : ViewModel() {
+    val apiStatus : LiveData<GameApiStatus>
+    var gamePagedList: LiveData<PagedList<Game>>
+    private var liveDataSource: LiveData<PageKeyedDataSource<Int, Game>>
     init {
-        viewModelScope.launch {
-            gameRepository.refreshGames()
-        }
-    }
-
-    override fun onCleared() {
-        super.onCleared()
-        viewModelJob.cancel()
+        val gameDataSourceFactory = GameDataSourceFactory()
+        liveDataSource = gameDataSourceFactory.gameDateSourceLiveData
+        apiStatus = gameDataSourceFactory.gameDataSource.gameApiStatus
+        val pagedListConfig = PagedList.Config.Builder()
+            .setPageSize(GameDataSource.pageSize)
+            .build()
+        gamePagedList = LivePagedListBuilder(gameDataSourceFactory, pagedListConfig)
+            .build()
     }
 }

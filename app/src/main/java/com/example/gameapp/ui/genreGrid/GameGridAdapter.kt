@@ -1,16 +1,19 @@
 package com.example.gameapp.ui.genreGrid
 
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.gameapp.databinding.GridItemBinding
 import com.example.gameapp.domain.Game
 
-class GameGridAdapter(val clickListener: GameClickListener) :
-    ListAdapter<Game, GameGridAdapter.CustomViewHolder>(GameDiffCallBack()) {
+class GameGridAdapter(private val clickListener: GameClickListener) :
+    PagedListAdapter<Game, GameGridAdapter.CustomViewHolder>(GameDiffCallBack()) {
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -21,7 +24,11 @@ class GameGridAdapter(val clickListener: GameClickListener) :
 
     override fun onBindViewHolder(holder: GameGridAdapter.CustomViewHolder, position: Int) {
         val item = getItem(position)
-        holder.bind(item, clickListener)
+        if(item != null)
+            holder.bind(item, clickListener)
+        else {
+            Log.i("GameGridAdapter", "Item in null")
+        }
     }
 
     class CustomViewHolder private constructor(private val binding: GridItemBinding):

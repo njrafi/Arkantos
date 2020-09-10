@@ -28,11 +28,11 @@ class GameRepository {
     val apiStatus: LiveData<GameApiStatus>
         get() = _apiStatus
 
-    suspend fun refreshGames() {
+    suspend fun refreshGames(gameApiBody: GameApiBody = GameApiBody()) {
         withContext(Dispatchers.IO) {
             try {
                 _apiStatus.postValue(GameApiStatus.LOADING)
-                val gameList = GameApi.retrofitService.getGames()
+                val gameList = GameApi.retrofitService.getGames(gameApiBody.getBodyString())
                 Log.i("GameRepository", gameList.size.toString())
                 _allGames.postValue(gameList.asDomainModel())
                 _apiStatus.postValue(GameApiStatus.DONE)
