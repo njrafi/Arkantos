@@ -5,5 +5,5 @@
     <string name="gameCoverArt">GameCoverArt</string>
     <string name="api_status">Api Status</string>
     <string name="summary">Summary:</string>
-    <string name="storyline">Storyline</string>
+    <string name="storyline">Storyline:</string>
 </resources>

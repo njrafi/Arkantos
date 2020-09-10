@@ -4,6 +4,7 @@ import android.net.Uri
 import android.util.Log
 import android.view.View
 import android.widget.ImageView
+import android.widget.ProgressBar
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
 import com.example.gameapp.repository.GameApiStatus
@@ -33,6 +34,16 @@ fun ImageView.setApiStatus(status: GameApiStatus?) {
             setImageResource(R.drawable.ic_connection_error)
         }
         else -> visibility = View.GONE
+    }
+}
+
+@BindingAdapter("apiStatus")
+fun ProgressBar.setApiStatus(status: GameApiStatus?) {
+    if (status == GameApiStatus.LOADING) {
+        visibility = View.VISIBLE
+        animate()
+    } else {
+        visibility = View.GONE
     }
 }
 

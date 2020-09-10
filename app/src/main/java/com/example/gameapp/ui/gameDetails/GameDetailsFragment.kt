@@ -10,6 +10,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import com.example.gameapp.R
 import com.example.gameapp.databinding.FragmentGameDetailsBinding
+import com.example.gameapp.repository.GameApiStatus
 import com.example.gameapp.ui.genreGrid.GameGridViewModel
 
 class GameDetailsFragment : Fragment() {
@@ -26,9 +27,10 @@ class GameDetailsFragment : Fragment() {
             inflater,
             R.layout.fragment_game_details, container, false
         )
-        val args = arguments?.let { GameDetailsFragmentArgs.fromBundle(it) }
         binding.viewModel = gameDetailsViewModel
         binding.lifecycleOwner = this
+
+        val args = arguments?.let { GameDetailsFragmentArgs.fromBundle(it) }
         args?.id?.let {
             gameDetailsViewModel.getSpecificGame(it)
         }
