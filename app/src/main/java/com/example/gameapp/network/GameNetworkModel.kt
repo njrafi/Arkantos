@@ -1,28 +1,43 @@
 package com.example.gameapp.network
 
 import com.example.gameapp.domain.Game
-import com.squareup.moshi.Json
+import kotlin.math.roundToInt
 
-data class GameNetworkModel(val id: Long?,
-                            val name: String?,
-                            val summary: String?,
-                            val cover: GameCover?,
-                            val storyline: String?
-                            )
+data class GameNetworkModel(
+    val id: Long?,
+    val name: String?,
+    val summary: String?,
+    val cover: GameCover?,
+    val storyline: String?,
+    val rating: Double?,
+    val first_release_date: Long?,
+    val genres: List<Genre>?,
+    val platforms: List<Platform>?
+)
 
 data class GameCover(val image_id: String)
+data class Genre(val name: String)
+data class Platform(val name: String)
 
 fun List<GameNetworkModel>.asDomainModel(): List<Game> {
-    return map {
+    return map { game ->
         Game(
-            id = it.id,
-            name = it.name,
-            summary = it.summary,
+            id = game.id,
+            name = game.name,
+            summary = game.summary,
             thumbnailUrl = "https://images.igdb.com/igdb/image/upload/t_cover_big/"
-                    + it.cover?.image_id + ".jpg",
+                    + game.cover?.image_id + ".jpg",
             coverImageUrl = "https://images.igdb.com/igdb/image/upload/t_1080p/"
-                    + it.cover?.image_id + ".jpg",
-            storyline = it.storyline
+                    + game.cover?.image_id + ".jpg",
+            storyline = game.storyline,
+            rating = game.rating?.roundToInt(),
+            releaseDate = game.first_release_date,
+            genres = game.genres?.map {
+                it.name
+            },
+            platforms = game.platforms?.map {
+                it.name
+            }
         )
     }
 }

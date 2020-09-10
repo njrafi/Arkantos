@@ -23,10 +23,11 @@ private val retrofit = Retrofit.Builder()
     .baseUrl(BASE_URL)
     .build()
 
-const val fields: String = "name, summary, cover.image_id, storyline"
+const val fields: String =
+    "name, summary, cover.image_id, storyline, rating, first_release_date, genres.name, platforms.name"
 const val limit: Int = 50
 const val offset: Int = 0
-const val whereConditions: String = "cover.image_id != null & storyline != null"
+const val whereConditions: String = "cover.image_id != null & storyline != null & rating != null"
 
 interface GameApiService {
     @Headers(
