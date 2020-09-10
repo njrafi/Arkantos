@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.gameapp.domain.Game
 import com.example.gameapp.network.GameApi
+import com.example.gameapp.network.GameApiBody
 import com.example.gameapp.network.asDomainModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -44,7 +45,7 @@ class GameRepository {
     suspend fun getGameById(id: Long) {
         val fields = "name, summary, cover.image_id, storyline, rating, first_release_date, genres.name, platforms.name"
         val whereConditions = "id = $id"
-        val body = "fields $fields; where $whereConditions;"
+        val body =  GameApiBody(fields = fields,whereConditions = whereConditions).getBodyString()
         Log.i("GameRepository", body)
         withContext(Dispatchers.IO) {
             try {
