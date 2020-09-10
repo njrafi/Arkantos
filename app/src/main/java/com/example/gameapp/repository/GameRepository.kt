@@ -42,8 +42,8 @@ class GameRepository {
     }
 
     suspend fun getGameById(id: Long) {
-        val fields: String = "name, summary, cover.image_id, storyline"
-        val whereConditions: String = "id = $id"
+        val fields = "name, summary, cover.image_id, storyline, rating, first_release_date, genres.name, platforms.name"
+        val whereConditions = "id = $id"
         val body = "fields $fields; where $whereConditions;"
         Log.i("GameRepository", body)
         withContext(Dispatchers.IO) {

@@ -49,6 +49,5 @@ fun ProgressBar.setApiStatus(status: GameApiStatus?) {
 
 @BindingAdapter("goneUnless")
 fun View.setVisibility(visible: Boolean) {
-    Log.i("View gone unless", visible.toString())
     visibility = if (visible) View.VISIBLE else View.GONE
 }
