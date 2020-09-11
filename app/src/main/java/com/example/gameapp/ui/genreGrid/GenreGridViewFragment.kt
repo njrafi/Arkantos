@@ -8,8 +8,11 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.RecyclerView
 import com.example.gameapp.R
 import com.example.gameapp.databinding.FragmentGenreGridViewBinding
+import com.example.gameapp.repository.GameApiStatus
+import kotlin.reflect.jvm.internal.impl.load.kotlin.JvmType
 
 class GenreGridViewFragment : Fragment() {
 
@@ -42,7 +45,23 @@ class GenreGridViewFragment : Fragment() {
             adapter.submitList(it)
         })
 
+        gameViewModel.apiStatus.observe(viewLifecycleOwner,{
+            if( it != GameApiStatus.LOADING) binding.progressBar.visibility = View.GONE
+        })
+
+        binding.movieGridView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                super.onScrollStateChanged(recyclerView, newState)
+                if(!recyclerView.canScrollVertically(1)) {
+                    binding.progressBar.visibility = View.VISIBLE
+                    binding.progressBar.animate()
+                }
+            }
+        })
+
         return binding.root
     }
+
+
 
 }

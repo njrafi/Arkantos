@@ -21,7 +21,7 @@ class GameDataSource : PageKeyedDataSource<Int, Game>() {
     private val gameRepository = GameRepository()
 
     companion object {
-        const val pageSize = 20
+        const val pageSize = 48
         const val firstPage = 0
     }
 
@@ -45,22 +45,26 @@ class GameDataSource : PageKeyedDataSource<Int, Game>() {
 
     override fun loadAfter(params: LoadParams<Int>, callback: LoadCallback<Int, Game>) {
         dataSourceScope.launch {
-            val body = GameApiBody(limit = pageSize, offset = params.key * pageSize).getBodyString()
-            val gameList = GameApi.retrofitService.getGames(body)
+            val body = GameApiBody(limit = pageSize, offset = params.key * pageSize)
+            gameRepository.refreshGames(body)
+            val gameList = gameRepository.allGames.value
             var nextKey: Int? = params.key + 1
             if ((params.key + 1) * pageSize > 5000) nextKey = null
-            callback.onResult(gameList.asDomainModel(), nextKey)
+            if(gameList != null)
+                 callback.onResult(gameList, nextKey)
+            else
+                callback.onResult(listOf(), null)
         }
     }
 
     override fun loadBefore(params: LoadParams<Int>, callback: LoadCallback<Int, Game>) {
-        dataSourceScope.launch {
-            val body = GameApiBody(limit = pageSize, offset = params.key * pageSize).getBodyString()
-            val gameList = GameApi.retrofitService.getGames(body)
-            var nextKey: Int? = params.key - 1
-            if (params.key == 1) nextKey = null
-            callback.onResult(gameList.asDomainModel(), nextKey)
-        }
+//        dataSourceScope.launch {
+//            val body = GameApiBody(limit = pageSize, offset = params.key * pageSize).getBodyString()
+//            val gameList = GameApi.retrofitService.getGames(body)
+//            var nextKey: Int? = params.key - 1
+//            if (params.key == 1) nextKey = null
+//            callback.onResult(gameList.asDomainModel(), nextKey)
+//        }
     }
 
 
