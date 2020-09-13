@@ -25,6 +25,9 @@
         <action
             android:id="@+id/action_genreGridViewFragment_to_gameDetailsFragment"
             app:destination="@id/gameDetailsFragment" />
+        <argument
+            android:name="genreId"
+            app:argType="integer" />
     </fragment>
     <fragment
         android:id="@+id/gameDetailsFragment"

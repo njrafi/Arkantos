@@ -10,6 +10,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.gameapp.R
 import com.example.gameapp.databinding.FragmentHomeBinding
+import com.example.gameapp.network.GameApiBody
 import com.example.gameapp.ui.genreGrid.GameClickListener
 
 // TODO: Rename parameter arguments, choose names that match
@@ -22,24 +23,43 @@ class HomeFragment : Fragment() {
     private val homeViewModel: HomeViewModel by lazy {
         ViewModelProvider(this).get(HomeViewModel::class.java)
     }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        val binding = DataBindingUtil.inflate<FragmentHomeBinding>(inflater,R.layout.fragment_home,
-            container,false)
+        val binding = DataBindingUtil.inflate<FragmentHomeBinding>(
+            inflater, R.layout.fragment_home,
+            container, false
+        )
 
         binding.lifecycleOwner = this
 
         binding.ggButton.text = "go to ggla"
-        binding.ggButton.setOnClickListener{
-            findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToGenreGridViewFragment())
+        binding.ggButton.setOnClickListener {
+            findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToGenreGridViewFragment(-1))
+        }
+
+        binding.viewAdventureGamesButton.setOnClickListener {
+            findNavController().navigate(
+                HomeFragmentDirections.actionHomeFragmentToGenreGridViewFragment(
+                    GameApiBody.GenreString.Adventure.id
+                )
+            )
+        }
+
+        binding.viewRpgGamesButton.setOnClickListener {
+            findNavController().navigate(
+                HomeFragmentDirections.actionHomeFragmentToGenreGridViewFragment(
+                    GameApiBody.GenreString.RolePlaying.id
+                )
+            )
         }
 
         val adventureGamesAdapter = GameListAdapter(GameClickListener {
             findNavController().navigate(
-               HomeFragmentDirections.actionHomeFragmentToGameDetailsFragment(it)
+                HomeFragmentDirections.actionHomeFragmentToGameDetailsFragment(it)
             )
         })
         binding.adventureGames.adapter = adventureGamesAdapter

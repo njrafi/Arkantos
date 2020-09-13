@@ -11,6 +11,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.gameapp.R
 import com.example.gameapp.databinding.FragmentGenreGridViewBinding
+import com.example.gameapp.network.GameApiBody
 import com.example.gameapp.repository.GameApiStatus
 import kotlin.reflect.jvm.internal.impl.load.kotlin.JvmType
 
@@ -33,6 +34,14 @@ class GenreGridViewFragment : Fragment() {
         // Setting view model
         binding.viewModel = gameViewModel
         binding.lifecycleOwner = this
+
+        val args = arguments?.let { GenreGridViewFragmentArgs.fromBundle(it)}
+        for(genreString in GameApiBody.GenreString.values()) {
+            if(genreString.id == args?.genreId) {
+                gameViewModel.changeGenre(genreString)
+            }
+        }
+
 
         // Setting the adapter
         val adapter = GameGridAdapter(GameClickListener {

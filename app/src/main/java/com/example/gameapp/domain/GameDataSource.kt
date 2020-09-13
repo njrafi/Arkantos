@@ -8,7 +8,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
-class GameDataSource(val genre: GameApiBody.GenreString?) : PageKeyedDataSource<Int, Game>() {
+class GameDataSource(private val genre: GameApiBody.GenreString?) : PageKeyedDataSource<Int, Game>() {
     private val job = Job()
     private val dataSourceScope = CoroutineScope(job + Dispatchers.Main)
     private val gameRepository = GameRepository()
