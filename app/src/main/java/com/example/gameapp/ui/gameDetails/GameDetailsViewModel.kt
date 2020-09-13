@@ -19,7 +19,11 @@ class GameDetailsViewModel : ViewModel() {
     val game = gameRepository.singleGame
 
     val rating = Transformations.map(game) {
-        "Rating: ${it.rating}%"
+        if(it.rating == null) {
+            "Rating: N/A"
+        } else {
+            "Rating: ${it.rating}%"
+        }
     }
 
     val releaseDate = Transformations.map(game) {
