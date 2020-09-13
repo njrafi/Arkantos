@@ -13,10 +13,10 @@ import com.example.gameapp.repository.GameApiStatus
 class GameGridViewModel : ViewModel() {
     val apiStatus : LiveData<GameApiStatus>
     var gamePagedList: LiveData<PagedList<Game>>
-    private var liveDataSource: LiveData<PageKeyedDataSource<Int, Game>>
+    //private var liveDataSource: LiveData<PageKeyedDataSource<Int, Game>>
     init {
         val gameDataSourceFactory = GameDataSourceFactory()
-        liveDataSource = gameDataSourceFactory.gameDateSourceLiveData
+       // liveDataSource = gameDataSourceFactory.gameDateSourceLiveData
         apiStatus = gameDataSourceFactory.gameDataSource.gameApiStatus
         val pagedListConfig = PagedList.Config.Builder()
             .setPageSize(GameDataSource.pageSize)

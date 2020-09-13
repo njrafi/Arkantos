@@ -13,6 +13,9 @@
         <action
             android:id="@+id/action_homeFragment_to_genreGridViewFragment"
             app:destination="@id/genreGridViewFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_gameDetailsFragment"
+            app:destination="@id/gameDetailsFragment" />
     </fragment>
     <fragment
         android:id="@+id/genreGridViewFragment"
