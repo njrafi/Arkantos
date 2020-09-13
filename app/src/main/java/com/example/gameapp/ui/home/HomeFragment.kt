@@ -1,22 +1,27 @@
 package com.example.gameapp.ui.home
 
+import android.net.Uri
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.paging.PagedList
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.gameapp.R
 import com.example.gameapp.databinding.FragmentHomeBinding
 import com.example.gameapp.domain.Game
 import com.example.gameapp.network.GameApiBody
+import com.example.gameapp.setImageFromUrl
 import com.example.gameapp.ui.genreGrid.GameClickListener
+import com.synnapps.carouselview.ImageListener
 
 class HomeFragment : Fragment() {
     private val homeViewModel: HomeViewModel by lazy {
@@ -39,7 +44,7 @@ class HomeFragment : Fragment() {
         binding.showAllGames.setOnClickListener {
             findNavController().navigate(
                 HomeFragmentDirections.actionHomeFragmentToGenreGridViewFragment(
-                    -1,"All Games"
+                    -1, "All Games"
                 )
             )
         }
@@ -54,8 +59,29 @@ class HomeFragment : Fragment() {
             homeViewModel.rpgGamesPagedList,
             binding.viewRpgGamesButton, GameApiBody.GenreString.RolePlaying
         )
-
+        //setupCarouselView(binding)
+        homeViewModel.popularGames.observe(viewLifecycleOwner) {
+            Log.i("HomeFragment", it.size.toString())
+            if (it.isNotEmpty()) {
+                binding.carouselView.setImageListener(ImageListener { position, imageView ->
+                    imageView.setImageFromUrl(it[position].coverImageUrl)
+                })
+                binding.carouselView.pageCount = it.size
+            }
+        }
         return binding.root
+    }
+
+    private fun setupCarouselView(binding: FragmentHomeBinding) {
+        homeViewModel.popularGames.observe(viewLifecycleOwner) {
+            Log.i("HomeFragment", it.size.toString())
+            if (it.isNotEmpty()) {
+                binding.carouselView.pageCount = it.size
+                binding.carouselView.setImageListener(ImageListener { position, imageView ->
+                    imageView.setImageFromUrl(it[position].coverImageUrl)
+                })
+            }
+        }
     }
 
     private fun setupGameContainer(
@@ -67,7 +93,7 @@ class HomeFragment : Fragment() {
         viewAllButton.setOnClickListener {
             findNavController().navigate(
                 HomeFragmentDirections.actionHomeFragmentToGenreGridViewFragment(
-                    genreString.id,"$genreString Games"
+                    genreString.id, "$genreString Games"
                 )
             )
         }

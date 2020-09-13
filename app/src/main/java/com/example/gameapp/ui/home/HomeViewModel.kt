@@ -9,6 +9,11 @@ import com.example.gameapp.domain.GameDataSource
 import com.example.gameapp.domain.GameDataSourceFactory
 import com.example.gameapp.network.GameApiBody
 import com.example.gameapp.repository.GameApiStatus
+import com.example.gameapp.repository.GameRepository
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
 
 class HomeViewModel : ViewModel() {
     val adventureGamesApiStatus: LiveData<GameApiStatus>
@@ -17,7 +22,15 @@ class HomeViewModel : ViewModel() {
     val rpgGamesApiStatus: LiveData<GameApiStatus>
     var rpgGamesPagedList: LiveData<PagedList<Game>>
 
+    private val job = Job()
+    private val viewModelScope = CoroutineScope(Dispatchers.Main + job)
+    private val gameRepository = GameRepository()
+    val popularGames = gameRepository.allGames
+
     init {
+        viewModelScope.launch {
+            gameRepository.getPopularGames()
+        }
         val pagedListConfig = PagedList.Config.Builder()
             .setPageSize(GameDataSource.pageSize)
             .build()

@@ -42,6 +42,12 @@ class GameRepository {
         }
     }
 
+    suspend fun getPopularGames(limit: Int = 10) {
+        val gameApiBody = GameApiBody(limit = 10)
+        gameApiBody.addGenre(GameApiBody.GenreString.Racing)
+        refreshGames(gameApiBody)
+    }
+
     suspend fun getGamesByGenre(genre: GameApiBody.GenreString) {
         val gameApiBody = GameApiBody()
         gameApiBody.addGenre(genre)

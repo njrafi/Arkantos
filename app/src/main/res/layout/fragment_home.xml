@@ -37,13 +37,29 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
+                <com.synnapps.carouselview.CarouselView
+                    android:id="@+id/carouselView"
+                    android:layout_width="match_parent"
+                    android:layout_height="300dp"
+                    app:fillColor="#FFFFFFFF"
+                    app:layout_constraintBottom_toTopOf="@+id/adventureGamesLayout"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:pageColor="#00000000"
+                    app:radius="6dp"
+                    app:slideInterval="3000"
+                    app:strokeColor="#FF777777"
+                    app:strokeWidth="1dp" />
+
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/adventureGamesLayout"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:layout_marginTop="32dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
+                    app:layout_constraintTop_toBottomOf="@+id/carouselView">
 
                     <Button
                         android:id="@+id/viewAdventureGamesButton"
