@@ -60,6 +60,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
                         android:text="@string/adventure_games"
+                        android:textSize="24sp"
+                        android:textStyle="bold"
                         app:layout_constraintStart_toStartOf="@+id/adventureGames"
                         app:layout_constraintTop_toTopOf="parent" />
 
@@ -102,6 +104,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
                         android:text="@string/rpg_games"
+                        android:textSize="24sp"
+                        android:textStyle="bold"
                         app:layout_constraintStart_toStartOf="@+id/rpgGames"
                         app:layout_constraintTop_toTopOf="parent" />
 
@@ -122,7 +126,7 @@
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <Button
-                    android:id="@+id/ggButton"
+                    android:id="@+id/show_all_games"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="32dp"
