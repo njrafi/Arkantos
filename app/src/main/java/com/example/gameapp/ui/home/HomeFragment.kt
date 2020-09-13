@@ -40,7 +40,7 @@ class HomeFragment : Fragment() {
             findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToGenreGridViewFragment())
         }
 
-        val actionGameAdapter = GameGridAdapter(GameClickListener {
+        val actionGameAdapter = GameListAdapter(GameClickListener {
             findNavController().navigate(
                HomeFragmentDirections.actionHomeFragmentToGameDetailsFragment(it)
             )
@@ -50,7 +50,7 @@ class HomeFragment : Fragment() {
             actionGameAdapter.submitList(it)
         })
 
-        val adventureGameAdapter = GameGridAdapter(GameClickListener {
+        val adventureGameAdapter = GameListAdapter(GameClickListener {
             findNavController().navigate(
                 HomeFragmentDirections.actionHomeFragmentToGameDetailsFragment(it)
             )

@@ -1,26 +1,28 @@
-package com.example.gameapp.ui.genreGrid
-
+package com.example.gameapp.ui.home
 
 import android.util.Log
+import com.example.gameapp.ui.genreGrid.GameClickListener
+import com.example.gameapp.ui.genreGrid.GameDiffCallBack
+
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.paging.PagedListAdapter
-import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.gameapp.databinding.GridItemBinding
+import com.example.gameapp.databinding.ListItemBinding
 import com.example.gameapp.domain.Game
 
-class GameGridAdapter(private val clickListener: GameClickListener) :
-    PagedListAdapter<Game, GameGridAdapter.CustomViewHolder>(GameDiffCallBack()) {
+class GameListAdapter(private val clickListener: GameClickListener) :
+    PagedListAdapter<Game, GameListAdapter.CustomViewHolder>(GameDiffCallBack()) {
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): GameGridAdapter.CustomViewHolder {
+    ): GameListAdapter.CustomViewHolder {
         return CustomViewHolder.from(parent)
     }
 
-    override fun onBindViewHolder(holder: GameGridAdapter.CustomViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: GameListAdapter.CustomViewHolder, position: Int) {
         val item = getItem(position)
         if(item != null)
             holder.bind(item, clickListener)
@@ -29,7 +31,7 @@ class GameGridAdapter(private val clickListener: GameClickListener) :
         }
     }
 
-    class CustomViewHolder private constructor(private val binding: GridItemBinding):
+    class CustomViewHolder private constructor(private val binding: ListItemBinding):
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item: Game, clickListener: GameClickListener) {
@@ -41,23 +43,9 @@ class GameGridAdapter(private val clickListener: GameClickListener) :
         companion object {
             fun from(parent: ViewGroup): CustomViewHolder {
                 val layoutInflater = LayoutInflater.from(parent.context)
-                val binding = GridItemBinding.inflate(layoutInflater,parent,false)
+                val binding = ListItemBinding.inflate(layoutInflater,parent,false)
                 return CustomViewHolder(binding)
             }
         }
     }
-}
-
-class GameDiffCallBack: DiffUtil.ItemCallback<Game>() {
-    override fun areItemsTheSame(oldItem: Game, newItem: Game): Boolean {
-        return oldItem.id == newItem.id
-    }
-
-    override fun areContentsTheSame(oldItem: Game, newItem: Game): Boolean {
-        return oldItem == newItem
-    }
-}
-
-class GameClickListener(val clickListener: (id: Long) -> Unit) {
-    fun onClick(id: Long) = clickListener(id)
 }
