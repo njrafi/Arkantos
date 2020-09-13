@@ -21,6 +21,7 @@ import com.example.gameapp.domain.Game
 import com.example.gameapp.network.GameApiBody
 import com.example.gameapp.setImageFromUrl
 import com.example.gameapp.ui.genreGrid.GameClickListener
+import com.synnapps.carouselview.ImageClickListener
 import com.synnapps.carouselview.ImageListener
 
 class HomeFragment : Fragment() {
@@ -65,6 +66,17 @@ class HomeFragment : Fragment() {
             if (it.isNotEmpty()) {
                 binding.carouselView.setImageListener(ImageListener { position, imageView ->
                     imageView.setImageFromUrl(it[position].coverImageUrl)
+                })
+                binding.carouselView.setImageClickListener(ImageClickListener { position ->
+                    Log.i("HomeFragment Touched", position.toString())
+                    it[position].id?.let { gameId ->
+                        findNavController().navigate(
+                            HomeFragmentDirections.actionHomeFragmentToGameDetailsFragment(
+                                gameId
+                            )
+                        )
+                    }
+
                 })
                 binding.carouselView.pageCount = it.size
             }

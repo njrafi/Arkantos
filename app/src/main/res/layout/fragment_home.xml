@@ -40,7 +40,7 @@
                 <com.synnapps.carouselview.CarouselView
                     android:id="@+id/carouselView"
                     android:layout_width="match_parent"
-                    android:layout_height="300dp"
+                    android:layout_height="500dp"
                     app:fillColor="#FFFFFFFF"
                     app:layout_constraintBottom_toTopOf="@+id/adventureGamesLayout"
                     app:layout_constraintEnd_toEndOf="parent"

@@ -6,18 +6,31 @@ class GameApiBody(
     val limit: Int = 50,
     val offset: Int = 0,
     var whereConditions: String = "cover.image_id != null",
+    var sortParameter: SortParameters = GameApiBody.SortParameters.None
 ) {
     fun getBodyString(): String {
         return "fields $fields;" +
                 "limit $limit;" +
                 "offset $offset;" +
-                "where $whereConditions;"
+                "where $whereConditions;" +
+                getSortString();
+    }
+
+    private fun getSortString(): String {
+        if(sortParameter == SortParameters.None) return ";"
+        return "sort ${sortParameter.value} desc;"
     }
 
     fun addGenre(genre: GenreString) {
         whereConditions += " & genres = ${genre.id}"
     }
 
+    enum class SortParameters(val value: String) {
+        Popularity("popularity"),
+        Rating("rating"),
+        AggregatedRating("aggregated_rating"),
+        None("none")
+    }
     enum class GenreString(val id: Int) {
         PointAndClick(2),
         Fighting(4),

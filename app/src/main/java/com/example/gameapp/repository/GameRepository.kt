@@ -36,15 +36,18 @@ class GameRepository {
                 Log.i("GameRepository", gameList.size.toString())
                 _allGames.postValue(gameList.asDomainModel())
                 _apiStatus.postValue(GameApiStatus.DONE)
-            } catch (t : Throwable) {
+            } catch (t: Throwable) {
                 handleError(t)
             }
         }
     }
 
-    suspend fun getPopularGames(limit: Int = 10) {
-        val gameApiBody = GameApiBody(limit = 10)
-        gameApiBody.addGenre(GameApiBody.GenreString.Racing)
+    suspend fun getPopularGames(limit: Int = 15) {
+        val gameApiBody = GameApiBody(
+            limit = limit,
+            sortParameter = GameApiBody.SortParameters.Popularity,
+            whereConditions = "aggregated_rating != null & cover.image_id != null & aggregated_rating >= 93"
+        )
         refreshGames(gameApiBody)
     }
 
@@ -55,9 +58,10 @@ class GameRepository {
     }
 
     suspend fun getGameById(id: Long) {
-        val fields = "name, summary, cover.image_id, storyline, rating, first_release_date, genres.name, platforms.name"
+        val fields =
+            "name, summary, cover.image_id, storyline, rating, first_release_date, genres.name, platforms.name"
         val whereConditions = "id = $id"
-        val body =  GameApiBody(fields = fields,whereConditions = whereConditions).getBodyString()
+        val body = GameApiBody(fields = fields, whereConditions = whereConditions).getBodyString()
         Log.i("GameRepository", body)
         withContext(Dispatchers.IO) {
             try {
