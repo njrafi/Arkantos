@@ -6,4 +6,7 @@
     <string name="api_status">Api Status</string>
     <string name="summary">Summary:</string>
     <string name="storyline">Storyline:</string>
+    <string name="go_to_all_genre">Go to All genre</string>
+    <string name="adventure_games">Adventure Games</string>
+    <string name="view_all">View All</string>
 </resources>
