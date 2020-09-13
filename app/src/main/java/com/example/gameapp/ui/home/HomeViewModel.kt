@@ -11,25 +11,25 @@ import com.example.gameapp.network.GameApiBody
 import com.example.gameapp.repository.GameApiStatus
 
 class HomeViewModel : ViewModel() {
-    val actionGamesApiStatus: LiveData<GameApiStatus>
-    val actionGamesPagedList: LiveData<PagedList<Game>>
-
     val adventureGamesApiStatus: LiveData<GameApiStatus>
-    var adventureGamesPagedList: LiveData<PagedList<Game>>
+    val adventureGamesPagedList: LiveData<PagedList<Game>>
+
+    val rpgGamesApiStatus: LiveData<GameApiStatus>
+    var rpgGamesPagedList: LiveData<PagedList<Game>>
 
     init {
         val pagedListConfig = PagedList.Config.Builder()
             .setPageSize(GameDataSource.pageSize)
             .build()
 
-        val actionGameDataSourceFactory = GameDataSourceFactory(GameApiBody.GenreString.Fighting)
-        actionGamesApiStatus = actionGameDataSourceFactory.gameDataSource.gameApiStatus
-        actionGamesPagedList = LivePagedListBuilder(actionGameDataSourceFactory, pagedListConfig)
+        val adventureGamesDataSourceFactory = GameDataSourceFactory(GameApiBody.GenreString.Adventure)
+        adventureGamesApiStatus = adventureGamesDataSourceFactory.gameDataSource.gameApiStatus
+        adventureGamesPagedList = LivePagedListBuilder(adventureGamesDataSourceFactory, pagedListConfig)
             .build()
 
-        val adventureGameDataSourceFactory = GameDataSourceFactory(GameApiBody.GenreString.Music)
-        adventureGamesApiStatus = adventureGameDataSourceFactory.gameDataSource.gameApiStatus
-        adventureGamesPagedList = LivePagedListBuilder(adventureGameDataSourceFactory, pagedListConfig)
+        val rpgGamesDataSourceFactory = GameDataSourceFactory(GameApiBody.GenreString.RolePlaying)
+        rpgGamesApiStatus = rpgGamesDataSourceFactory.gameDataSource.gameApiStatus
+        rpgGamesPagedList = LivePagedListBuilder(rpgGamesDataSourceFactory, pagedListConfig)
             .build()
 
     }
