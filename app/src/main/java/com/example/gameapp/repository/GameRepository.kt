@@ -42,6 +42,12 @@ class GameRepository {
         }
     }
 
+    suspend fun getGamesByGenre(genre: GameApiBody.GenreString) {
+        val gameApiBody = GameApiBody()
+        gameApiBody.addGenre(genre)
+        refreshGames(gameApiBody)
+    }
+
     suspend fun getGameById(id: Long) {
         val fields = "name, summary, cover.image_id, storyline, rating, first_release_date, genres.name, platforms.name"
         val whereConditions = "id = $id"

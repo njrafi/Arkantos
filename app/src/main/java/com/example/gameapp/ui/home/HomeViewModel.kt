@@ -7,6 +7,7 @@ import androidx.paging.PagedList
 import com.example.gameapp.domain.Game
 import com.example.gameapp.domain.GameDataSource
 import com.example.gameapp.domain.GameDataSourceFactory
+import com.example.gameapp.network.GameApiBody
 import com.example.gameapp.repository.GameApiStatus
 
 class HomeViewModel : ViewModel() {
@@ -21,12 +22,12 @@ class HomeViewModel : ViewModel() {
             .setPageSize(GameDataSource.pageSize)
             .build()
 
-        val actionGameDataSourceFactory = GameDataSourceFactory()
+        val actionGameDataSourceFactory = GameDataSourceFactory(GameApiBody.GenreString.Fighting)
         actionGamesApiStatus = actionGameDataSourceFactory.gameDataSource.gameApiStatus
         actionGamesPagedList = LivePagedListBuilder(actionGameDataSourceFactory, pagedListConfig)
             .build()
 
-        val adventureGameDataSourceFactory = GameDataSourceFactory()
+        val adventureGameDataSourceFactory = GameDataSourceFactory(GameApiBody.GenreString.Music)
         adventureGamesApiStatus = adventureGameDataSourceFactory.gameDataSource.gameApiStatus
         adventureGamesPagedList = LivePagedListBuilder(adventureGameDataSourceFactory, pagedListConfig)
             .build()
