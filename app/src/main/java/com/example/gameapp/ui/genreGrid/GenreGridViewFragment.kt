@@ -53,9 +53,7 @@ class GenreGridViewFragment : Fragment() {
         gameViewModel.gamePagedList.observe(viewLifecycleOwner, {
             adapter.submitList(it)
         })
-
         setupBottomSpinner(binding)
-
         return binding.root
     }
 

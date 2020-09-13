@@ -3,6 +3,8 @@ package com.example.gameapp
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import androidx.navigation.findNavController
+import androidx.navigation.ui.NavigationUI
 import com.example.gameapp.network.GameApi
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -18,13 +20,13 @@ class MainActivity : AppCompatActivity() {
             try {
                 val gameList = GameApi.retrofitService.getGames()
                 Log.i("gg", gameList.size.toString())
-                for(game in gameList) {
+                for (game in gameList) {
                     game.name?.let { Log.i("gg", it) }
                     game.summary?.let { Log.i("gg", it) }
                     game.id?.let { Log.i("gg", it.toString()) }
                 }
-            } catch (t : Throwable) {
-                if(t.message != null)
+            } catch (t: Throwable) {
+                if (t.message != null)
                     Log.i("gg", t.message!!)
                 else
                     Log.i("gg", "error with null message")
@@ -36,6 +38,12 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        //testNetworkCall()
+        val navController = this.findNavController(R.id.main_navhost_fragmnet)
+        NavigationUI.setupActionBarWithNavController(this, navController)
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        val navController = this.findNavController(R.id.main_navhost_fragmnet)
+        return navController.navigateUp()
     }
 }

@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/homeFragment"
         android:name="com.example.gameapp.ui.home.HomeFragment"
-        android:label="fragment_home"
+        android:label="HOME"
         tools:layout="@layout/fragment_home" >
         <action
             android:id="@+id/action_homeFragment_to_genreGridViewFragment"
@@ -20,7 +20,7 @@
     <fragment
         android:id="@+id/genreGridViewFragment"
         android:name="com.example.gameapp.ui.genreGrid.GenreGridViewFragment"
-        android:label="fragment_genre_grid_view_fragmnet"
+        android:label="{title}"
         tools:layout="@layout/fragment_genre_grid_view" >
         <action
             android:id="@+id/action_genreGridViewFragment_to_gameDetailsFragment"
@@ -28,11 +28,14 @@
         <argument
             android:name="genreId"
             app:argType="integer" />
+        <argument
+            android:name="title"
+            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/gameDetailsFragment"
         android:name="com.example.gameapp.ui.gameDetails.GameDetailsFragment"
-        android:label="GameDetailsFragment" >
+        android:label="Game Details" >
         <argument
             android:name="id"
             app:argType="long" />

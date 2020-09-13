@@ -39,7 +39,7 @@ class HomeFragment : Fragment() {
         binding.showAllGames.setOnClickListener {
             findNavController().navigate(
                 HomeFragmentDirections.actionHomeFragmentToGenreGridViewFragment(
-                    -1
+                    -1,"All Games"
                 )
             )
         }
@@ -47,12 +47,12 @@ class HomeFragment : Fragment() {
         setupGameContainer(
             binding.adventureGames,
             homeViewModel.adventureGamesPagedList,
-            binding.viewAdventureGamesButton, GameApiBody.GenreString.Adventure.id
+            binding.viewAdventureGamesButton, GameApiBody.GenreString.Adventure
         )
         setupGameContainer(
             binding.rpgGames,
             homeViewModel.rpgGamesPagedList,
-            binding.viewRpgGamesButton, GameApiBody.GenreString.RolePlaying.id
+            binding.viewRpgGamesButton, GameApiBody.GenreString.RolePlaying
         )
 
         return binding.root
@@ -62,12 +62,12 @@ class HomeFragment : Fragment() {
         container: RecyclerView,
         gameList: LiveData<PagedList<Game>>,
         viewAllButton: Button,
-        genreId: Int
+        genreString: GameApiBody.GenreString
     ) {
         viewAllButton.setOnClickListener {
             findNavController().navigate(
                 HomeFragmentDirections.actionHomeFragmentToGenreGridViewFragment(
-                    genreId
+                    genreString.id,"$genreString Games"
                 )
             )
         }
