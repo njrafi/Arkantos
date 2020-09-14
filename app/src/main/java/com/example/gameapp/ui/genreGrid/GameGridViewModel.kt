@@ -11,7 +11,7 @@ import com.example.gameapp.domain.GameDataSourceFactory
 import com.example.gameapp.network.GameApiBody
 import com.example.gameapp.repository.GameApiStatus
 
-class GameGridViewModel() : ViewModel() {
+class GameGridViewModel : ViewModel() {
     var apiStatus : LiveData<GameApiStatus>
     var gamePagedList: LiveData<PagedList<Game>>
     init {

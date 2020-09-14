@@ -13,7 +13,7 @@ class GameApiBody(
                 "limit $limit;" +
                 "offset $offset;" +
                 "where $whereConditions;" +
-                getSortString();
+                getSortString()
     }
 
     private fun getSortString(): String {
