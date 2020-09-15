@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
@@ -34,6 +35,7 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
+        (activity as AppCompatActivity).supportActionBar?.hide()
         val binding = DataBindingUtil.inflate<FragmentHomeBinding>(
             inflater, R.layout.fragment_home,
             container, false
@@ -60,9 +62,23 @@ class HomeFragment : Fragment() {
             homeViewModel.rpgGamesPagedList,
             binding.viewRpgGamesButton, GameApiBody.GenreString.RolePlaying
         )
-        //setupCarouselView(binding)
+        setupCarouselView(binding)
+        setupSplashScreen(binding)
+        return binding.root
+    }
+
+    private fun setupSplashScreen(binding: FragmentHomeBinding) {
+        homeViewModel.allGamesLoaded.observe(viewLifecycleOwner) {
+            if (it == homeViewModel.totalApiCalls) {
+                binding.logo.visibility = View.GONE
+                binding.splashScreen.visibility = View.GONE
+                binding.progressBar.visibility = View.GONE
+                (activity as AppCompatActivity).supportActionBar?.show()
+            }
+        }
+    }
+    private fun setupCarouselView(binding: FragmentHomeBinding) {
         homeViewModel.popularGames.observe(viewLifecycleOwner) {
-            Log.i("HomeFragment", it.size.toString())
             if (it.isNotEmpty()) {
                 binding.carouselView.setImageListener(ImageListener { position, imageView ->
                     imageView.setImageFromUrl(it[position].coverImageUrl)
@@ -79,29 +95,6 @@ class HomeFragment : Fragment() {
 
                 })
                 binding.carouselView.pageCount = it.size
-            }
-        }
-
-            Log.i("Home","on Create View()")
-        homeViewModel.allGamesLoaded.observe(viewLifecycleOwner) {
-            Log.i("Home",it.toString())
-            if(it == homeViewModel.totalApiCalls) {
-                binding.logo.visibility = View.GONE
-                binding.splashScreen.visibility = View.GONE
-                binding.progressBar.visibility = View.GONE
-            }
-        }
-        return binding.root
-    }
-
-    private fun setupCarouselView(binding: FragmentHomeBinding) {
-        homeViewModel.popularGames.observe(viewLifecycleOwner) {
-            Log.i("HomeFragment", it.size.toString())
-            if (it.isNotEmpty()) {
-                binding.carouselView.pageCount = it.size
-                binding.carouselView.setImageListener(ImageListener { position, imageView ->
-                    imageView.setImageFromUrl(it[position].coverImageUrl)
-                })
             }
         }
     }
