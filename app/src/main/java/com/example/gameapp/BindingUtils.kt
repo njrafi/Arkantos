@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import android.widget.ProgressBar
+import androidx.core.net.toUri
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
 import com.example.gameapp.repository.GameApiStatus
@@ -12,7 +13,7 @@ import com.example.gameapp.repository.GameApiStatus
 @BindingAdapter("imageUrl")
 fun ImageView.setImageFromUrl(imageUrl: String?) {
     imageUrl?.let {
-        val imageUri = Uri.parse(imageUrl).buildUpon().scheme("https").build()
+        val imageUri = it.toUri().buildUpon().scheme("https").build()
         Glide.with(context)
             .load(imageUri)
             .placeholder(R.drawable.loading_animation)
