@@ -81,6 +81,14 @@ class HomeFragment : Fragment() {
                 binding.carouselView.pageCount = it.size
             }
         }
+
+        homeViewModel.allGamesLoaded.observe(viewLifecycleOwner) {
+            if(it == homeViewModel.totalApiCalls) {
+                binding.logo.visibility = View.GONE
+                binding.splashScreen.visibility = View.GONE
+                binding.progressBar.visibility = View.GONE
+            }
+        }
         return binding.root
     }
 
