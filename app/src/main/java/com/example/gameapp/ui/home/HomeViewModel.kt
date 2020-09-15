@@ -21,7 +21,7 @@ class HomeViewModel : ViewModel() {
     private val job = Job()
     private val viewModelScope = CoroutineScope(Dispatchers.Main + job)
     private val gameRepository = GameRepository()
-    val totalApiCalls = 3
+    var totalApiCalls = -1
 
     private val adventureGamesApiStatus: LiveData<GameApiStatus>
     val adventureGamesPagedList: LiveData<PagedList<Game>>
@@ -56,17 +56,25 @@ class HomeViewModel : ViewModel() {
     }
 
     private fun addSources() {
+        // Remember to change
+        totalApiCalls = 3
         allGamesLoaded.addSource(popularGames) {
-            if(it.isNotEmpty())
+            if(it.isNotEmpty()) {
                 allGamesLoaded.value = allGamesLoaded.value?.plus(1)
+                allGamesLoaded.removeSource(popularGames)
+            }
         }
         allGamesLoaded.addSource(adventureGamesApiStatus) {
-            if(it == GameApiStatus.DONE)
+            if(it == GameApiStatus.DONE) {
                 allGamesLoaded.value = allGamesLoaded.value?.plus(1)
+                allGamesLoaded.removeSource(adventureGamesApiStatus)
+            }
         }
         allGamesLoaded.addSource(rpgGamesApiStatus) {
-            if(it == GameApiStatus.DONE)
+            if(it == GameApiStatus.DONE) {
                 allGamesLoaded.value = allGamesLoaded.value?.plus(1)
+                allGamesLoaded.removeSource(rpgGamesApiStatus)
+            }
         }
 
     }

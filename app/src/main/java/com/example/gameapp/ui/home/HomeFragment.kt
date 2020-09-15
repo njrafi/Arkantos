@@ -82,7 +82,9 @@ class HomeFragment : Fragment() {
             }
         }
 
+            Log.i("Home","on Create View()")
         homeViewModel.allGamesLoaded.observe(viewLifecycleOwner) {
+            Log.i("Home",it.toString())
             if(it == homeViewModel.totalApiCalls) {
                 binding.logo.visibility = View.GONE
                 binding.splashScreen.visibility = View.GONE
