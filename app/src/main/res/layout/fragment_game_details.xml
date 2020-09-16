@@ -63,6 +63,7 @@
                     android:fontFamily="sans-serif"
                     android:text="@{viewModel.game.name}"
                     android:textAlignment="center"
+                    android:textColor="@android:color/background_dark"
                     android:textSize="30sp"
                     android:textStyle="bold"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -79,6 +80,7 @@
                     android:layout_marginEnd="16dp"
                     android:layout_marginBottom="24dp"
                     android:text="@{viewModel.game.summary}"
+                    android:textColor="@android:color/background_dark"
                     app:layout_constraintBottom_toTopOf="@+id/textView2"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -91,6 +93,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="16dp"
                     android:text="@{viewModel.game.storyline}"
+                    android:textColor="@android:color/background_dark"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="@+id/summary"
                     app:layout_constraintStart_toStartOf="@+id/summary"
@@ -104,9 +107,10 @@
                     android:text="@string/summary"
                     android:textSize="18sp"
                     android:textStyle="bold"
+                    android:textColor="@android:color/background_dark"
                     app:goneUnless="@{viewModel.summaryShouldBeShown}"
                     app:layout_constraintStart_toStartOf="@+id/summary"
-                    app:layout_constraintTop_toBottomOf="@+id/textView6" />
+                    app:layout_constraintTop_toBottomOf="@+id/platformTextView" />
 
                 <TextView
                     android:id="@+id/textView2"
@@ -116,48 +120,57 @@
                     android:text="@string/storyline"
                     android:textSize="18sp"
                     android:textStyle="bold"
+                    android:textColor="@android:color/background_dark"
                     app:goneUnless="@{viewModel.storylineShouldBeShown}"
                     app:layout_constraintBottom_toTopOf="@+id/storyline"
                     app:layout_constraintStart_toStartOf="@+id/summary" />
 
                 <TextView
                     android:id="@+id/ratingTextView"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="24dp"
                     android:text="@{viewModel.rating}"
+                    android:textColor="@android:color/background_dark"
+                    app:layout_constraintEnd_toEndOf="@+id/summary"
                     app:layout_constraintStart_toStartOf="@+id/releaseDateTextView"
                     app:layout_constraintTop_toBottomOf="@+id/nameTextView"
                     tools:text="Rating: 50" />
 
                 <TextView
                     android:id="@+id/releaseDateTextView"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="24dp"
                     android:text="@{viewModel.releaseDate}"
+                    android:textColor="@android:color/background_dark"
+                    app:layout_constraintEnd_toEndOf="@+id/summary"
                     app:layout_constraintStart_toStartOf="@+id/textView"
                     app:layout_constraintTop_toBottomOf="@+id/ratingTextView"
                     tools:text="Relase Date: 23 Sept,1990" />
 
                 <TextView
-                    android:id="@+id/textView5"
-                    android:layout_width="wrap_content"
+                    android:id="@+id/genreTextView"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="24dp"
                     android:text="@{viewModel.genres}"
+                    android:textColor="@android:color/background_dark"
+                    app:layout_constraintEnd_toEndOf="@+id/summary"
                     app:layout_constraintStart_toStartOf="@+id/textView"
                     app:layout_constraintTop_toBottomOf="@+id/releaseDateTextView"
                     tools:text="Genres: RPG" />
 
                 <TextView
-                    android:id="@+id/textView6"
-                    android:layout_width="wrap_content"
+                    android:id="@+id/platformTextView"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="24dp"
                     android:text="@{viewModel.platforms}"
+                    android:textColor="@android:color/background_dark"
+                    app:layout_constraintEnd_toEndOf="@+id/summary"
                     app:layout_constraintStart_toStartOf="@+id/textView"
-                    app:layout_constraintTop_toBottomOf="@+id/textView5"
+                    app:layout_constraintTop_toBottomOf="@+id/genreTextView"
                     tools:text="Platforms: PC" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
