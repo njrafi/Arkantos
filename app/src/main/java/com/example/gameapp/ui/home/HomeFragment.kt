@@ -62,6 +62,11 @@ class HomeFragment : Fragment() {
             homeViewModel.rpgGamesPagedList,
             binding.viewRpgGamesButton, GameApiBody.GenreString.RolePlaying
         )
+        setupGameContainer(
+            binding.rtsGames,
+            homeViewModel.rtsGamesPagedList,
+            binding.viewRtsGamesButton, GameApiBody.GenreString.RealTimeStrategy
+        )
         setupCarouselView(binding)
         setupSplashScreen(binding)
         return binding.root

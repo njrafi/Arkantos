@@ -29,6 +29,9 @@ class HomeViewModel : ViewModel() {
     private val rpgGamesApiStatus: LiveData<GameApiStatus>
     var rpgGamesPagedList: LiveData<PagedList<Game>>
 
+    private val rtsGamesApiStatus: LiveData<GameApiStatus>
+    var rtsGamesPagedList: LiveData<PagedList<Game>>
+
     val popularGames = gameRepository.allGames
 
     val allGamesLoaded = MediatorLiveData<Int>()
@@ -52,12 +55,17 @@ class HomeViewModel : ViewModel() {
         rpgGamesPagedList = LivePagedListBuilder(rpgGamesDataSourceFactory, pagedListConfig)
             .build()
 
+        val rtsGamesDataSourceFactory = GameDataSourceFactory(GameApiBody.GenreString.RealTimeStrategy)
+        rtsGamesApiStatus = rtsGamesDataSourceFactory.gameDataSource.gameApiStatus
+        rtsGamesPagedList = LivePagedListBuilder(rtsGamesDataSourceFactory, pagedListConfig)
+            .build()
+
         addSources()
     }
 
     private fun addSources() {
         // Remember to change
-        totalApiCalls = 3
+        totalApiCalls = 4
         allGamesLoaded.addSource(popularGames) {
             if(it.isNotEmpty()) {
                 allGamesLoaded.value = allGamesLoaded.value?.plus(1)
@@ -74,6 +82,13 @@ class HomeViewModel : ViewModel() {
             if(it == GameApiStatus.DONE) {
                 allGamesLoaded.value = allGamesLoaded.value?.plus(1)
                 allGamesLoaded.removeSource(rpgGamesApiStatus)
+            }
+        }
+
+        allGamesLoaded.addSource(rtsGamesApiStatus) {
+            if(it == GameApiStatus.DONE) {
+                allGamesLoaded.value = allGamesLoaded.value?.plus(1)
+                allGamesLoaded.removeSource(rtsGamesApiStatus)
             }
         }
 

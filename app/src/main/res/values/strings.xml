@@ -11,4 +11,5 @@
     <string name="view_all">View All</string>
     <string name="rpg_games">RPG Games</string>
     <string name="show_all_games">Show All Games</string>
+    <string name="real_time_strategy_games">RTS Games</string>
 </resources>
