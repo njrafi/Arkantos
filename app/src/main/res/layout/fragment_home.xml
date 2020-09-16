@@ -43,7 +43,7 @@
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/adventureGamesLayout"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_marginTop="32dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -51,13 +51,12 @@
 
                     <Button
                         android:id="@+id/viewAdventureGamesButton"
-                        android:text="@string/view_all"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:text="@string/view_all"
                         android:textSize="14sp"
                         app:layout_constraintBaseline_toBaselineOf="@+id/adventureGamesTextView"
-                        app:layout_constraintEnd_toEndOf="@+id/adventureGames"
-                        />
+                        app:layout_constraintEnd_toEndOf="@+id/adventureGames" />
 
                     <TextView
                         android:id="@+id/adventureGamesTextView"
@@ -89,20 +88,19 @@
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/rpgGamesLayout"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/adventureGamesLayout">
 
                     <Button
                         android:id="@+id/viewRpgGamesButton"
-                        android:text="@string/view_all"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:text="@string/view_all"
                         android:textSize="14sp"
                         app:layout_constraintBaseline_toBaselineOf="@+id/rpgGamesTextView"
-                        app:layout_constraintEnd_toEndOf="@+id/rpgGames"
-                       />
+                        app:layout_constraintEnd_toEndOf="@+id/rpgGames" />
 
                     <TextView
                         android:id="@+id/rpgGamesTextView"
@@ -134,20 +132,19 @@
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/rtsGamesLayout"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/rpgGamesLayout">
 
                     <Button
                         android:id="@+id/viewRtsGamesButton"
-                        android:text="@string/view_all"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:text="@string/view_all"
                         android:textSize="14sp"
                         app:layout_constraintBaseline_toBaselineOf="@+id/rtsGamesTextView"
-                        app:layout_constraintEnd_toEndOf="@+id/rtsGames"
-                       />
+                        app:layout_constraintEnd_toEndOf="@+id/rtsGames" />
 
                     <TextView
                         android:id="@+id/rtsGamesTextView"
