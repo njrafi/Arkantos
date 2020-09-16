@@ -2,6 +2,7 @@ package com.example.gameapp.database
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import java.util.*
 
 @Entity(tableName = "games")
 data class GameDatabaseModel(
@@ -14,5 +15,6 @@ data class GameDatabaseModel(
     val rating: Int?,
     val releaseDate: Long?,
     val genres: List<String>?,
-    val platforms: List<String>?
+    val platforms: List<String>?,
+    val updatedTime: Long = System.currentTimeMillis()
 )

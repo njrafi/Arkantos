@@ -21,4 +21,7 @@ interface GamesDao {
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insert(game: List<GameDatabaseModel>)
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertOrUpdate(game: List<GameDatabaseModel>)
 }
