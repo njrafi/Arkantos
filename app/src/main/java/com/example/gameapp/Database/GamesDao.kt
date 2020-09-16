@@ -11,5 +11,5 @@ interface GamesDao {
     fun getAllGames(): List<GameDatabaseModel>
 
     @Insert
-    fun insert(game: GameDatabaseModel)
+    fun insert(vararg game: GameDatabaseModel)
 }
