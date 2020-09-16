@@ -82,6 +82,9 @@ dependencies {
     def paging_version = "2.1.2"
     implementation "androidx.paging:paging-runtime-ktx:$paging_version"
 
+    // material library
+    implementation 'com.google.android.material:material:1.2.1'
+
     implementation 'com.synnapps:carouselview:0.1.5'
     testImplementation 'junit:junit:4.13'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'

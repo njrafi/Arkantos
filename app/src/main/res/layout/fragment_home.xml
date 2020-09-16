@@ -52,9 +52,12 @@
                     <Button
                         android:id="@+id/viewAdventureGamesButton"
                         android:text="@string/view_all"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="14sp"
                         app:layout_constraintBaseline_toBaselineOf="@+id/adventureGamesTextView"
                         app:layout_constraintEnd_toEndOf="@+id/adventureGames"
-                        style="@style/primary_button" />
+                        />
 
                     <TextView
                         android:id="@+id/adventureGamesTextView"
@@ -94,9 +97,12 @@
                     <Button
                         android:id="@+id/viewRpgGamesButton"
                         android:text="@string/view_all"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="14sp"
                         app:layout_constraintBaseline_toBaselineOf="@+id/rpgGamesTextView"
                         app:layout_constraintEnd_toEndOf="@+id/rpgGames"
-                        style="@style/primary_button"/>
+                       />
 
                     <TextView
                         android:id="@+id/rpgGamesTextView"
@@ -136,9 +142,12 @@
                     <Button
                         android:id="@+id/viewRtsGamesButton"
                         android:text="@string/view_all"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="14sp"
                         app:layout_constraintBaseline_toBaselineOf="@+id/rtsGamesTextView"
                         app:layout_constraintEnd_toEndOf="@+id/rtsGames"
-                        style="@style/primary_button"/>
+                       />
 
                     <TextView
                         android:id="@+id/rtsGamesTextView"
@@ -166,12 +175,15 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/rtsGamesTextView" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
+
                 <Button
                     android:id="@+id/show_all_games"
-                    style="@style/primary_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_marginTop="32dp"
                     android:layout_marginBottom="16dp"
                     android:text="@string/go_to_all_genre"
+                    android:textSize="14sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.5"
