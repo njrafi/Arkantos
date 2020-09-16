@@ -1,6 +1,7 @@
 package com.example.gameapp.ui.genreGrid
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -35,9 +36,9 @@ class GenreGridViewFragment : Fragment() {
         binding.viewModel = gameViewModel
         binding.lifecycleOwner = this
 
-        val args = arguments?.let { GenreGridViewFragmentArgs.fromBundle(it)}
-        for(genreString in GameApiBody.GenreString.values()) {
-            if(genreString.id == args?.genreId) {
+        val args = arguments?.let { GenreGridViewFragmentArgs.fromBundle(it) }
+        for (genreString in GameApiBody.GenreString.values()) {
+            if (genreString.id == args?.genreId) {
                 gameViewModel.changeGenre(genreString)
             }
         }
@@ -65,7 +66,9 @@ class GenreGridViewFragment : Fragment() {
         binding.movieGridView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                 super.onScrollStateChanged(recyclerView, newState)
-                if (!recyclerView.canScrollVertically(1)) {
+                if (!recyclerView.canScrollVertically(1) &&
+                    gameViewModel.apiStatus.value == GameApiStatus.LOADING
+                ) {
                     binding.progressBar.visibility = View.VISIBLE
                     binding.progressBar.animate()
                 }

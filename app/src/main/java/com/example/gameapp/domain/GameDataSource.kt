@@ -9,8 +9,10 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
-class GameDataSource(private val genre: GameApiBody.GenreString?,
-                     application: Application) : PageKeyedDataSource<Int, Game>() {
+class GameDataSource(
+    private val genre: GameApiBody.GenreString?,
+    application: Application
+) : PageKeyedDataSource<Int, Game>() {
     private val job = Job()
     private val dataSourceScope = CoroutineScope(job + Dispatchers.Main)
     private val gameRepository = GameRepository(application)
@@ -29,10 +31,10 @@ class GameDataSource(private val genre: GameApiBody.GenreString?,
         dataSourceScope.launch {
             gameRepository.getGamesByGenre(genre)
             val gameList = gameRepository.allGames.value
-            if(gameList != null)
+            if (gameList != null)
                 callback.onResult(gameList, null, firstPage + 1)
             else
-                callback.onResult(listOf(),null,null)
+                callback.onResult(listOf(), null, null)
         }
     }
 
@@ -43,15 +45,17 @@ class GameDataSource(private val genre: GameApiBody.GenreString?,
             val gameList = gameRepository.allGames.value
             var nextKey: Int? = params.key + 1
             if ((params.key + 1) * pageSize > 5000) nextKey = null
-            if(gameList != null)
-                 callback.onResult(gameList, nextKey)
-            else
+
+            if (gameList != null) {
+                if (gameList.size < pageSize) nextKey = null
+                callback.onResult(gameList, nextKey)
+            } else
                 callback.onResult(listOf(), null)
         }
     }
 
     override fun loadBefore(params: LoadParams<Int>, callback: LoadCallback<Int, Game>) {
-            // No Need to implement
+        // No Need to implement
     }
 
 
