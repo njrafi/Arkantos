@@ -16,13 +16,14 @@ abstract class GamesDatabase : RoomDatabase() {
         private final const val DB_NAME = "Games_Database"
         private lateinit var instance: GamesDatabase
 
-
         fun getInstance(context: Context): GamesDatabase {
             synchronized(GamesDatabase::class.java) {
                 if (!::instance.isInitialized) {
-                    instance = Room.databaseBuilder(context.applicationContext,
+                    instance = Room.databaseBuilder(
+                        context.applicationContext,
                         GamesDatabase::class.java,
-                        DB_NAME)
+                        DB_NAME
+                    )
                         .fallbackToDestructiveMigration()
                         .build()
                 }
