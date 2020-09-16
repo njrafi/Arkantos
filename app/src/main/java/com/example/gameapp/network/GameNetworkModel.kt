@@ -1,5 +1,6 @@
 package com.example.gameapp.network
 
+import com.example.gameapp.Database.GameDatabaseModel
 import com.example.gameapp.domain.Game
 import kotlin.math.roundToInt
 
@@ -38,6 +39,23 @@ fun List<GameNetworkModel>.asDomainModel(): List<Game> {
             platforms = game.platforms?.map {
                 it.name
             }
+        )
+    }
+}
+
+fun List<GameNetworkModel>.asDatabaseModel(): List<GameDatabaseModel> {
+    return asDomainModel().map { game ->
+        GameDatabaseModel(
+            id = game.id,
+            name = game.name,
+            summary = game.summary,
+            storyline = game.storyline,
+            thumbnailUrl = game.thumbnailUrl,
+            coverImageUrl = game.coverImageUrl,
+            rating = game.rating,
+            releaseDate = game.releaseDate,
+            genres = game.genres,
+            platforms = game.platforms
         )
     }
 }
