@@ -29,9 +29,12 @@ class GameDataSource(private val genre: GameApiBody.GenreString?,
         dataSourceScope.launch {
 
             val body = GameApiBody(limit = pageSize, offset = firstPage)
+//            if(genre != null)
+//                body.addGenre(genre)
             if(genre != null)
-                body.addGenre(genre)
-            gameRepository.refreshGames(body)
+                gameRepository.getGamesByGenre(genre)
+            else
+                gameRepository.refreshGames(body)
             val gameList = gameRepository.allGames.value
             if(gameList != null)
                 callback.onResult(gameList, null, firstPage + 1)
@@ -43,9 +46,12 @@ class GameDataSource(private val genre: GameApiBody.GenreString?,
     override fun loadAfter(params: LoadParams<Int>, callback: LoadCallback<Int, Game>) {
         dataSourceScope.launch {
             val body = GameApiBody(limit = pageSize, offset = params.key * pageSize)
+//            if(genre != null)
+//                body.addGenre(genre)
             if(genre != null)
-                body.addGenre(genre)
-            gameRepository.refreshGames(body)
+                gameRepository.getGamesByGenre(genre)
+            else
+                gameRepository.refreshGames(body)
             val gameList = gameRepository.allGames.value
             var nextKey: Int? = params.key + 1
             if ((params.key + 1) * pageSize > 5000) nextKey = null

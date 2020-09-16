@@ -63,7 +63,23 @@ class GameRepository(private val application: Application) {
     suspend fun getGamesByGenre(genre: GameApiBody.GenreString) {
         val gameApiBody = GameApiBody()
         gameApiBody.addGenre(genre)
-        refreshGames(gameApiBody)
+        withContext(Dispatchers.IO) {
+            try {
+                _apiStatus.postValue(GameApiStatus.LOADING)
+                val gameList = GameApi.retrofitService.getGames(gameApiBody.getBodyString())
+                Log.i("GameRepository", gameList.size.toString())
+                Log.i("GameRepository", "Inserting to database")
+                database.gamesDao.insert(gameList.asDatabaseModel())
+                Log.i("GameRepository", "Inserting to database finished")
+                val gamesFromDatabase = database.gamesDao.getGamesByGenre(genre.stringValue)
+                Log.i("GameRepository", "Read From database finished")
+                Log.i("GameRepository", gamesFromDatabase.size.toString())
+                _allGames.postValue(gamesFromDatabase.asDomainModel())
+                _apiStatus.postValue(GameApiStatus.DONE)
+            } catch (t: Throwable) {
+                handleError(t)
+            }
+        }
     }
 
     suspend fun getGameById(id: Long) {

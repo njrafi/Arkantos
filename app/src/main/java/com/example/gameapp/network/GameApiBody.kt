@@ -31,18 +31,19 @@ class GameApiBody(
         AggregatedRating("aggregated_rating"),
         None("none")
     }
-    enum class GenreString(val id: Int) {
-        PointAndClick(2),
-        Fighting(4),
-        Shooter(5),
-        Music(7),
-        Platform(8),
-        Puzzle(9),
-        Racing(10),
-        RealTimeStrategy(11),
-        RolePlaying(12),
-        Simulator(13),
-        TurnBasedStrategy(16),
-        Adventure(31)
+    enum class GenreString(val id: Int,val stringValue: String) {
+        PointAndClick(2,"Point-and-click"),
+        Fighting(4,"Fighting"),
+        Shooter(5,"Shooter"),
+        Music(7,"Music"),
+        Platform(8,"Platform"),
+        Puzzle(9,"Puzzle"),
+        Racing(10,"Racing"),
+        RealTimeStrategy(11,"Real Time Strategy (RTS)"),
+        RolePlaying(12,"Role-playing (RPG)"),
+        Simulator(13,"Simulator"),
+        Sport(14,"Sport"),
+        TurnBasedStrategy(16,"Real Time Strategy"),
+        Adventure(31,"Adventure")
     }
 }
