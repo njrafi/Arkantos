@@ -12,6 +12,7 @@ import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
+import java.io.IOException
 
 @RunWith(AndroidJUnit4::class)
 class GamesDatabaseTest {
@@ -30,19 +31,27 @@ class GamesDatabaseTest {
     }
 
     @After
+    @Throws(IOException::class)
     fun closeDb() {
         db?.close()
     }
 
     @Test
     fun testInsert() {
-        db?.gamesDao?.insert(GameDatabaseModel(420,"dummyName"))
+        val game = GameDatabaseModel(
+            420,
+            "dummyName",
+            listOf("dummyGenre1","dummyGenre2")
+        )
+        db?.gamesDao?.insert(game)
         val allGames = db?.gamesDao?.getAllGames()
         Assert.assertNotNull(allGames)
+
         if(allGames != null) {
-            Assert.assertEquals(allGames[0].id, 420.toLong())
-            Assert.assertEquals(allGames[0].name, "dummyName")
-            //Assert.assertEquals(allGames[0].genres?.size,2)
+            Assert.assertEquals(allGames[0].id, game.id)
+            Assert.assertEquals(allGames[0].name, game.name)
+            Assert.assertEquals(allGames[0].genres?.size, game.genres?.size)
+            Assert.assertEquals(allGames[0].genres, game.genres)
         }
     }
 }

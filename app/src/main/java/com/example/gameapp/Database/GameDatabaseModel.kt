@@ -13,6 +13,6 @@ data class GameDatabaseModel(
 //    val storyline: String?,
 //    val rating: Int?,
 //    val releaseDate: Long?,
-    //val genres: List<String>?,
+    val genres: List<String>?,
 //    val platforms: List<String>?
 )
