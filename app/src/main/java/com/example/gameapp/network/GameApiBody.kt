@@ -21,8 +21,9 @@ class GameApiBody(
         return "sort ${sortParameter.value} desc;"
     }
 
-    fun addGenre(genre: GenreString) {
-        whereConditions += " & genres = ${genre.id}"
+    fun addGenre(genre: GenreString?) {
+        if(genre != null)
+            whereConditions += " & genres = ${genre.id}"
     }
 
     enum class SortParameters(val value: String) {

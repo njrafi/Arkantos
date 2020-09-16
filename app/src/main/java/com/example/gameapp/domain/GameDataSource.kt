@@ -27,14 +27,7 @@ class GameDataSource(private val genre: GameApiBody.GenreString?,
         callback: LoadInitialCallback<Int, Game>
     ) {
         dataSourceScope.launch {
-
-            val body = GameApiBody(limit = pageSize, offset = firstPage)
-//            if(genre != null)
-//                body.addGenre(genre)
-            if(genre != null)
-                gameRepository.getGamesByGenre(genre)
-            else
-                gameRepository.refreshGames(body)
+            gameRepository.getGamesByGenre(genre)
             val gameList = gameRepository.allGames.value
             if(gameList != null)
                 callback.onResult(gameList, null, firstPage + 1)
@@ -46,13 +39,7 @@ class GameDataSource(private val genre: GameApiBody.GenreString?,
     override fun loadAfter(params: LoadParams<Int>, callback: LoadCallback<Int, Game>) {
         dataSourceScope.launch {
             val offset = params.key * pageSize
-            val body = GameApiBody(limit = pageSize, offset = offset)
-//            if(genre != null)
-//                body.addGenre(genre)
-            if(genre != null)
-                gameRepository.getGamesByGenre(genre, pageSize, offset)
-            else
-                gameRepository.refreshGames(body)
+            gameRepository.getGamesByGenre(genre, pageSize, offset)
             val gameList = gameRepository.allGames.value
             var nextKey: Int? = params.key + 1
             if ((params.key + 1) * pageSize > 5000) nextKey = null
@@ -64,13 +51,7 @@ class GameDataSource(private val genre: GameApiBody.GenreString?,
     }
 
     override fun loadBefore(params: LoadParams<Int>, callback: LoadCallback<Int, Game>) {
-//        dataSourceScope.launch {
-//            val body = GameApiBody(limit = pageSize, offset = params.key * pageSize).getBodyString()
-//            val gameList = GameApi.retrofitService.getGames(body)
-//            var nextKey: Int? = params.key - 1
-//            if (params.key == 1) nextKey = null
-//            callback.onResult(gameList.asDomainModel(), nextKey)
-//        }
+            // No Need to implement
     }
 
 

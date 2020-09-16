@@ -4,7 +4,7 @@ import android.app.Application
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.example.gameapp.Database.GamesDatabase
+import com.example.gameapp.database.GamesDatabase
 import com.example.gameapp.domain.Game
 import com.example.gameapp.domain.GameDataSource
 import com.example.gameapp.domain.asDomainModel
@@ -35,7 +35,7 @@ class GameRepository(private val application: Application) {
 
     private val database = GamesDatabase.getInstance(application)
 
-    suspend fun refreshGames(gameApiBody: GameApiBody = GameApiBody()) {
+    private suspend fun refreshGames(gameApiBody: GameApiBody = GameApiBody()) {
         withContext(Dispatchers.IO) {
             try {
                 _apiStatus.postValue(GameApiStatus.LOADING)
@@ -62,7 +62,7 @@ class GameRepository(private val application: Application) {
     }
 
     suspend fun getGamesByGenre(
-        genre: GameApiBody.GenreString,
+        genre: GameApiBody.GenreString?,
         limit: Int = GameDataSource.pageSize,
         offset: Int = 0
     ) {
@@ -71,7 +71,7 @@ class GameRepository(private val application: Application) {
                 _apiStatus.postValue(GameApiStatus.LOADING)
                 Log.i("GameRepository", "Read From database Started")
                 val gamesFromDatabase =
-                    database.gamesDao.getGamesByGenre(genre.stringValue, limit, offset)
+                    database.gamesDao.getGamesByGenre(genre?.stringValue ?: "", limit, offset)
                 Log.i("GameRepository", "Read From database finished")
                 Log.i("GameRepository", gamesFromDatabase.size.toString())
                 if (gamesFromDatabase.size >= limit) {
@@ -90,7 +90,7 @@ class GameRepository(private val application: Application) {
                     database.gamesDao.insert(gamesFromNetwork.asDatabaseModel())
                     Log.i("GameRepository", "Inserting to database finished")
                     val gamesFromDatabaseAfterNetworkCall =
-                        database.gamesDao.getGamesByGenre(genre.stringValue, limit, offset)
+                        database.gamesDao.getGamesByGenre(genre?.stringValue ?: "", limit, offset)
                     Log.i("GameRepository", "Read From database After network call finished")
                     Log.i("GameRepository", gamesFromDatabaseAfterNetworkCall.size.toString())
                     _allGames.postValue(gamesFromDatabaseAfterNetworkCall.asDomainModel())

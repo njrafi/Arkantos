@@ -1,4 +1,4 @@
-package com.example.gameapp.Database
+package com.example.gameapp.database
 
 import androidx.room.TypeConverter
 import com.squareup.moshi.Moshi

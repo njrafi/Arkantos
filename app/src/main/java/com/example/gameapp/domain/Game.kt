@@ -1,9 +1,6 @@
 package com.example.gameapp.domain
 
-import com.example.gameapp.Database.GameDatabaseModel
-import com.example.gameapp.network.GameNetworkModel
-import com.example.gameapp.network.Platform
-import com.example.gameapp.network.asDomainModel
+import com.example.gameapp.database.GameDatabaseModel
 
 data class Game(
     val id: Long?,

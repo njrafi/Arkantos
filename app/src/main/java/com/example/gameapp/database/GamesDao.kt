@@ -1,4 +1,4 @@
-package com.example.gameapp.Database
+package com.example.gameapp.database
 
 import androidx.room.Dao
 import androidx.room.Insert
@@ -17,7 +17,7 @@ interface GamesDao {
     suspend fun getGamesByGenre(genre: String?): List<GameDatabaseModel>
 
     @Query("select * from games where genres Like '%' || (:genre) || '%' limit (:limit) offset (:offset)")
-    suspend fun getGamesByGenre(genre: String?, limit: Int, offset: Int): List<GameDatabaseModel>
+    suspend fun getGamesByGenre(genre: String, limit: Int, offset: Int): List<GameDatabaseModel>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insert(game: List<GameDatabaseModel>)

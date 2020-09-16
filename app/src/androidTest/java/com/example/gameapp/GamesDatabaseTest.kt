@@ -3,10 +3,9 @@ package com.example.gameapp
 import androidx.room.Room
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
-import com.example.gameapp.Database.GameDatabaseModel
-import com.example.gameapp.Database.GamesDao
-import com.example.gameapp.Database.GamesDatabase
-import com.example.gameapp.network.GameNetworkModel
+import com.example.gameapp.database.GameDatabaseModel
+import com.example.gameapp.database.GamesDao
+import com.example.gameapp.database.GamesDatabase
 import org.junit.After
 import org.junit.Assert
 import org.junit.Before

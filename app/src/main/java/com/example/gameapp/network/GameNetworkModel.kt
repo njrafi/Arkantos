@@ -1,6 +1,6 @@
 package com.example.gameapp.network
 
-import com.example.gameapp.Database.GameDatabaseModel
+import com.example.gameapp.database.GameDatabaseModel
 import com.example.gameapp.domain.Game
 import kotlin.math.roundToInt
 

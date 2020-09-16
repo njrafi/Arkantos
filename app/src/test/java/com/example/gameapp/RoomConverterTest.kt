@@ -1,6 +1,6 @@
 package com.example.gameapp
 
-import com.example.gameapp.Database.RoomConverters
+import com.example.gameapp.database.RoomConverters
 import org.junit.Assert
 import org.junit.Test
 
