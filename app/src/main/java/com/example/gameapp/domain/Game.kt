@@ -3,7 +3,7 @@ package com.example.gameapp.domain
 import com.example.gameapp.database.GameDatabaseModel
 
 data class Game(
-    val id: Long?,
+    val id: Long,
     val name: String?,
     val summary: String?,
     val thumbnailUrl: String?,

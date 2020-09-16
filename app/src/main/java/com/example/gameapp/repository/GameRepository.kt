@@ -5,6 +5,7 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.gameapp.database.GamesDatabase
+import com.example.gameapp.database.PopularGamesDatabaseModel
 import com.example.gameapp.domain.Game
 import com.example.gameapp.domain.GameDataSource
 import com.example.gameapp.domain.asDomainModel
@@ -53,12 +54,43 @@ class GameRepository(private val application: Application) {
     }
 
     suspend fun getPopularGames(limit: Int = 15) {
-        val gameApiBody = GameApiBody(
-            limit = limit,
-            sortParameter = GameApiBody.SortParameters.Popularity,
-            whereConditions = "aggregated_rating != null & cover.image_id != null & aggregated_rating >= 93"
-        )
-        refreshGames(gameApiBody)
+        withContext(Dispatchers.IO) {
+            try {
+                Log.i("GameRepository", "Read for popular games From database Started")
+                val popularGamesFromDatabase = database.gamesDao.getPopularGames()
+                Log.i("GameRepository", "Read for popular games From database Finished")
+                Log.i("GameRepository", popularGamesFromDatabase.size.toString())
+
+                if (popularGamesFromDatabase.size >= limit) {
+                    _allGames.postValue(popularGamesFromDatabase.asDomainModel())
+                } else {
+                    val gameApiBody = GameApiBody(
+                        limit = limit,
+                        sortParameter = GameApiBody.SortParameters.Popularity,
+                        whereConditions = "aggregated_rating != null & cover.image_id != null & aggregated_rating >= 93"
+                    )
+                    Log.i("GameRepository", "Retrieve From Network Started")
+                    val gamesFromNetwork =
+                        GameApi.retrofitService.getGames(gameApiBody.getBodyString())
+                    Log.i("GameRepository", "Retrieve From Network Finished")
+                    Log.i("GameRepository", gamesFromNetwork.size.toString())
+                    Log.i("GameRepository", "Inserting to database")
+                    database.gamesDao.insert(gamesFromNetwork.asDatabaseModel())
+                    Log.i("GameRepository", "Inserting to database finished")
+                    val popularGamesDatabaseModel = gamesFromNetwork.map {
+                        PopularGamesDatabaseModel(it.id)
+                    }
+                    Log.i("GameRepository", "Inserting to database popular games")
+                    database.gamesDao.insertPopularGames(popularGamesDatabaseModel)
+                    Log.i("GameRepository", "Inserting to database popular games finished")
+
+                    _allGames.postValue(gamesFromNetwork.asDomainModel())
+
+                }
+            } catch (t: Throwable) {
+                handleError(t)
+            }
+        }
     }
 
     suspend fun getGamesByGenre(

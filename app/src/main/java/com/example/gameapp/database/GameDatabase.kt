@@ -6,7 +6,11 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 
-@Database(entities = [GameDatabaseModel::class], version = 1)
+@Database(
+    entities = [GameDatabaseModel::class,
+        PopularGamesDatabaseModel::class],
+    version = 1
+)
 @TypeConverters(RoomConverters::class)
 abstract class GamesDatabase : RoomDatabase() {
     abstract val gamesDao: GamesDao

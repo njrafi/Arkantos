@@ -90,7 +90,7 @@ class HomeFragment : Fragment() {
                 })
                 binding.carouselView.setImageClickListener(ImageClickListener { position ->
                     Log.i("HomeFragment Touched", position.toString())
-                    it[position].id?.let { gameId ->
+                    it[position].id.let { gameId ->
                         findNavController().navigate(
                             HomeFragmentDirections.actionHomeFragmentToGameDetailsFragment(
                                 gameId

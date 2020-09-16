@@ -5,7 +5,7 @@ import com.example.gameapp.domain.Game
 import kotlin.math.roundToInt
 
 data class GameNetworkModel(
-    val id: Long?,
+    val id: Long,
     val name: String?,
     val summary: String?,
     val cover: GameCover?,

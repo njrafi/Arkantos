@@ -2,11 +2,11 @@ package com.example.gameapp.database
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import java.util.*
+
 
 @Entity(tableName = "games")
 data class GameDatabaseModel(
-    @PrimaryKey val id: Long?,
+    @PrimaryKey val id: Long,
     val name: String?,
     val summary: String?,
     val thumbnailUrl: String?,
