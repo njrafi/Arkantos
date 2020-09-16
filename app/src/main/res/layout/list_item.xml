@@ -4,32 +4,42 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="game"
             type="com.example.gameapp.domain.Game" />
+
         <variable
             name="clickListener"
             type="com.example.gameapp.ui.genreGrid.GameClickListener" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="@{() -> clickListener.onClick(game.id)}">
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/card"
+        android:layout_width="130dp"
+        android:layout_height="170dp"
+        android:layout_margin="5dp"
+        >
 
-        <ImageView
-            android:id="@+id/gameCoverImageView"
-            android:layout_width="130dp"
-            android:layout_height="170dp"
-            android:adjustViewBounds="true"
-            android:contentDescription="@string/gameCoverArt"
-            android:padding="3dp"
-            android:scaleType="centerCrop"
-            app:imageUrl="@{game.thumbnailUrl}"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:srcCompat="@tools:sample/avatars" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:onClick="@{() -> clickListener.onClick(game.id)}">
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <ImageView
+                android:id="@+id/gameCoverImageView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:adjustViewBounds="true"
+                android:contentDescription="@string/gameCoverArt"
+                android:padding="5dp"
+                android:scaleType="centerCrop"
+                app:imageUrl="@{game.thumbnailUrl}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:srcCompat="@tools:sample/avatars" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
 </layout>
