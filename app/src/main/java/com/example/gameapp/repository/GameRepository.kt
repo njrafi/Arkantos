@@ -6,6 +6,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.gameapp.Database.GamesDatabase
 import com.example.gameapp.domain.Game
+import com.example.gameapp.domain.asDomainModel
 import com.example.gameapp.network.GameApi
 import com.example.gameapp.network.GameApiBody
 import com.example.gameapp.network.asDatabaseModel
@@ -66,15 +67,10 @@ class GameRepository(private val application: Application) {
     }
 
     suspend fun getGameById(id: Long) {
-        val fields =
-            "name, summary, cover.image_id, storyline, rating, first_release_date, genres.name, platforms.name"
-        val whereConditions = "id = $id"
-        val body = GameApiBody(fields = fields, whereConditions = whereConditions).getBodyString()
-        Log.i("GameRepository", body)
         withContext(Dispatchers.IO) {
             try {
                 _apiStatus.postValue(GameApiStatus.LOADING)
-                val gameList = GameApi.retrofitService.getGames(body).asDomainModel()
+                val gameList = database.gamesDao.getGameById(id).asDomainModel()
                 if (gameList.isNotEmpty()) {
                     _singleGame.postValue(gameList[0])
                     _apiStatus.postValue(GameApiStatus.DONE)
