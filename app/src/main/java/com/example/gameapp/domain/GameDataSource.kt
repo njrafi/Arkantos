@@ -45,11 +45,12 @@ class GameDataSource(private val genre: GameApiBody.GenreString?,
 
     override fun loadAfter(params: LoadParams<Int>, callback: LoadCallback<Int, Game>) {
         dataSourceScope.launch {
-            val body = GameApiBody(limit = pageSize, offset = params.key * pageSize)
+            val offset = params.key * pageSize
+            val body = GameApiBody(limit = pageSize, offset = offset)
 //            if(genre != null)
 //                body.addGenre(genre)
             if(genre != null)
-                gameRepository.getGamesByGenre(genre)
+                gameRepository.getGamesByGenre(genre, pageSize, offset)
             else
                 gameRepository.refreshGames(body)
             val gameList = gameRepository.allGames.value

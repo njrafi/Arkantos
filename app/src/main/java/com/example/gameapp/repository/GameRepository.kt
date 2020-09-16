@@ -6,6 +6,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.gameapp.Database.GamesDatabase
 import com.example.gameapp.domain.Game
+import com.example.gameapp.domain.GameDataSource
 import com.example.gameapp.domain.asDomainModel
 import com.example.gameapp.network.GameApi
 import com.example.gameapp.network.GameApiBody
@@ -60,22 +61,41 @@ class GameRepository(private val application: Application) {
         refreshGames(gameApiBody)
     }
 
-    suspend fun getGamesByGenre(genre: GameApiBody.GenreString) {
-        val gameApiBody = GameApiBody()
-        gameApiBody.addGenre(genre)
+    suspend fun getGamesByGenre(
+        genre: GameApiBody.GenreString,
+        limit: Int = GameDataSource.pageSize,
+        offset: Int = 0
+    ) {
         withContext(Dispatchers.IO) {
             try {
                 _apiStatus.postValue(GameApiStatus.LOADING)
-                val gameList = GameApi.retrofitService.getGames(gameApiBody.getBodyString())
-                Log.i("GameRepository", gameList.size.toString())
-                Log.i("GameRepository", "Inserting to database")
-                database.gamesDao.insert(gameList.asDatabaseModel())
-                Log.i("GameRepository", "Inserting to database finished")
-                val gamesFromDatabase = database.gamesDao.getGamesByGenre(genre.stringValue)
+                Log.i("GameRepository", "Read From database Started")
+                val gamesFromDatabase =
+                    database.gamesDao.getGamesByGenre(genre.stringValue, limit, offset)
                 Log.i("GameRepository", "Read From database finished")
                 Log.i("GameRepository", gamesFromDatabase.size.toString())
-                _allGames.postValue(gamesFromDatabase.asDomainModel())
-                _apiStatus.postValue(GameApiStatus.DONE)
+                if (gamesFromDatabase.size >= limit) {
+                    Log.i("GameRepository", "Found all from database")
+                    _allGames.postValue(gamesFromDatabase.asDomainModel())
+                    _apiStatus.postValue(GameApiStatus.DONE)
+                } else {
+                    val gameApiBody = GameApiBody(limit = limit, offset = offset)
+                    gameApiBody.addGenre(genre)
+                    Log.i("GameRepository", "Retrieve From Network Started")
+                    val gamesFromNetwork =
+                        GameApi.retrofitService.getGames(gameApiBody.getBodyString())
+                    Log.i("GameRepository", "Retrieve From Network Finished")
+                    Log.i("GameRepository", gamesFromNetwork.size.toString())
+                    Log.i("GameRepository", "Inserting to database")
+                    database.gamesDao.insert(gamesFromNetwork.asDatabaseModel())
+                    Log.i("GameRepository", "Inserting to database finished")
+                    val gamesFromDatabaseAfterNetworkCall =
+                        database.gamesDao.getGamesByGenre(genre.stringValue, limit, offset)
+                    Log.i("GameRepository", "Read From database After network call finished")
+                    Log.i("GameRepository", gamesFromDatabaseAfterNetworkCall.size.toString())
+                    _allGames.postValue(gamesFromDatabaseAfterNetworkCall.asDomainModel())
+                    _apiStatus.postValue(GameApiStatus.DONE)
+                }
             } catch (t: Throwable) {
                 handleError(t)
             }
