@@ -9,14 +9,28 @@ import androidx.core.net.toUri
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
 import com.example.gameapp.repository.GameApiStatus
+import com.facebook.shimmer.Shimmer
+import com.facebook.shimmer.ShimmerDrawable
 
 @BindingAdapter("imageUrl")
 fun ImageView.setImageFromUrl(imageUrl: String?) {
+    val shimmer = Shimmer
+        .AlphaHighlightBuilder()
+        .setDuration(1500) // how long the shimmering animation takes to do one full sweep
+        .setBaseAlpha(0.95f) //the alpha of the underlying children
+        .setHighlightAlpha(0.90f) // the shimmer alpha amount
+        .setDirection(Shimmer.Direction.TOP_TO_BOTTOM)
+        .setAutoStart(true)
+        .build()
+    val shimmerDrawable = ShimmerDrawable().apply {
+        setShimmer(shimmer)
+    }
     imageUrl?.let {
         val imageUri = it.toUri().buildUpon().scheme("https").build()
         Glide.with(context)
             .load(imageUri)
-            .placeholder(R.drawable.loading_animation)
+            .placeholder(shimmerDrawable)
+            .error(R.drawable.ic_connection_error)
             .into(this)
     }
 }

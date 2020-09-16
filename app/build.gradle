@@ -86,7 +86,10 @@ dependencies {
     implementation 'com.google.android.material:material:1.2.1'
 
     // Stetho -> For Db Viewing
-    compile 'com.facebook.stetho:stetho:1.5.1'
+    implementation 'com.facebook.stetho:stetho:1.5.1'
+
+    // Shimmer
+    implementation 'com.facebook.shimmer:shimmer:0.5.0'
 
     implementation 'com.synnapps:carouselview:0.1.5'
     testImplementation 'junit:junit:4.13'
