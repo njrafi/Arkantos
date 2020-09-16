@@ -1,9 +1,7 @@
 package com.example.gameapp.ui.home
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MediatorLiveData
-import androidx.lifecycle.Transformations
-import androidx.lifecycle.ViewModel
+import android.app.Application
+import androidx.lifecycle.*
 import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
 import com.example.gameapp.domain.Game
@@ -17,10 +15,10 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
-class HomeViewModel : ViewModel() {
+class HomeViewModel(application: Application) : AndroidViewModel(application) {
     private val job = Job()
     private val viewModelScope = CoroutineScope(Dispatchers.Main + job)
-    private val gameRepository = GameRepository()
+    private val gameRepository = GameRepository(application)
     var totalApiCalls = -1
 
     private val adventureGamesApiStatus: LiveData<GameApiStatus>
@@ -45,17 +43,17 @@ class HomeViewModel : ViewModel() {
             .setPageSize(GameDataSource.pageSize)
             .build()
 
-        val adventureGamesDataSourceFactory = GameDataSourceFactory(GameApiBody.GenreString.Adventure)
+        val adventureGamesDataSourceFactory = GameDataSourceFactory(GameApiBody.GenreString.Adventure,application)
         adventureGamesApiStatus = adventureGamesDataSourceFactory.gameDataSource.gameApiStatus
         adventureGamesPagedList = LivePagedListBuilder(adventureGamesDataSourceFactory, pagedListConfig)
             .build()
 
-        val rpgGamesDataSourceFactory = GameDataSourceFactory(GameApiBody.GenreString.RolePlaying)
+        val rpgGamesDataSourceFactory = GameDataSourceFactory(GameApiBody.GenreString.RolePlaying,application)
         rpgGamesApiStatus = rpgGamesDataSourceFactory.gameDataSource.gameApiStatus
         rpgGamesPagedList = LivePagedListBuilder(rpgGamesDataSourceFactory, pagedListConfig)
             .build()
 
-        val rtsGamesDataSourceFactory = GameDataSourceFactory(GameApiBody.GenreString.RealTimeStrategy)
+        val rtsGamesDataSourceFactory = GameDataSourceFactory(GameApiBody.GenreString.RealTimeStrategy,application)
         rtsGamesApiStatus = rtsGamesDataSourceFactory.gameDataSource.gameApiStatus
         rtsGamesPagedList = LivePagedListBuilder(rtsGamesDataSourceFactory, pagedListConfig)
             .build()

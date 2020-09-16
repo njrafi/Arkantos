@@ -6,7 +6,7 @@ import com.squareup.moshi.Types
 
 class RoomConverters {
     @TypeConverter
-    fun fromStringListToString(value: List<String>): String {
+    fun fromStringListToString(value: List<String>?): String? {
         val moshi = Moshi.Builder().build()
         val type = Types.newParameterizedType(List::class.java, String::class.java)
         val jsonAdapter = moshi.adapter<List<String>>(type)
@@ -14,7 +14,7 @@ class RoomConverters {
     }
 
     @TypeConverter
-    fun fromStringToListString(value: String): List<String>? {
+    fun fromStringToListString(value: String?): List<String>? {
         val moshi = Moshi.Builder().build()
         val type = Types.newParameterizedType(List::class.java, String::class.java)
         val jsonAdapter = moshi.adapter<List<String>>(type)

@@ -1,5 +1,7 @@
 package com.example.gameapp.ui.gameDetails
 
+import android.app.Application
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 import com.example.gameapp.repository.GameRepository
@@ -10,16 +12,17 @@ import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.*
 
-class GameDetailsViewModel : ViewModel() {
+class GameDetailsViewModel(application: Application) :
+    AndroidViewModel(application) {
     private val viewModelJob = Job()
     private val viewModelScope = CoroutineScope(viewModelJob + Dispatchers.Main)
-    private val gameRepository = GameRepository()
+    private val gameRepository = GameRepository(application)
 
     val apiStatus = gameRepository.apiStatus
     val game = gameRepository.singleGame
 
     val rating = Transformations.map(game) {
-        if(it.rating == null) {
+        if (it.rating == null) {
             "Rating: N/A"
         } else {
             "Rating: ${it.rating}%"
@@ -28,7 +31,7 @@ class GameDetailsViewModel : ViewModel() {
 
     val releaseDate = Transformations.map(game) {
         var dateString = ""
-        if(it.releaseDate != null) {
+        if (it.releaseDate != null) {
             val simpleDateFormat = SimpleDateFormat("dd MMM, yyyy", Locale("en"))
             val date = Date(it.releaseDate * 1000)
             dateString = simpleDateFormat.format(date)
@@ -39,7 +42,7 @@ class GameDetailsViewModel : ViewModel() {
     val genres = Transformations.map(game) {
         var genresList = ""
         it.genres?.let { genres ->
-            for(genre in genres) {
+            for (genre in genres) {
                 if (genresList.isNotEmpty()) genresList += ", "
                 genresList += genre
             }
@@ -50,7 +53,7 @@ class GameDetailsViewModel : ViewModel() {
     val platforms = Transformations.map(game) {
         var platformsList = ""
         it.platforms?.let { platforms ->
-            for(platform in platforms) {
+            for (platform in platforms) {
                 if (platformsList.isNotEmpty()) platformsList += ", "
                 platformsList += platform
             }

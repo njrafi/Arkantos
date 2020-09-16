@@ -1,5 +1,6 @@
 package com.example.gameapp.domain
 
+import android.app.Application
 import androidx.paging.PageKeyedDataSource
 import com.example.gameapp.network.GameApiBody
 import com.example.gameapp.repository.GameRepository
@@ -8,10 +9,11 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
-class GameDataSource(private val genre: GameApiBody.GenreString?) : PageKeyedDataSource<Int, Game>() {
+class GameDataSource(private val genre: GameApiBody.GenreString?,
+                     application: Application) : PageKeyedDataSource<Int, Game>() {
     private val job = Job()
     private val dataSourceScope = CoroutineScope(job + Dispatchers.Main)
-    private val gameRepository = GameRepository()
+    private val gameRepository = GameRepository(application)
 
     companion object {
         const val pageSize = 48

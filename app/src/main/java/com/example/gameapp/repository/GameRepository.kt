@@ -1,11 +1,14 @@
 package com.example.gameapp.repository
 
+import android.app.Application
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.example.gameapp.Database.GamesDatabase
 import com.example.gameapp.domain.Game
 import com.example.gameapp.network.GameApi
 import com.example.gameapp.network.GameApiBody
+import com.example.gameapp.network.asDatabaseModel
 import com.example.gameapp.network.asDomainModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -14,7 +17,7 @@ enum class GameApiStatus {
     LOADING, ERROR, DONE
 }
 
-class GameRepository {
+class GameRepository(private val application: Application) {
 
     private val _allGames = MutableLiveData<List<Game>>()
     val allGames: LiveData<List<Game>>
@@ -28,12 +31,17 @@ class GameRepository {
     val apiStatus: LiveData<GameApiStatus>
         get() = _apiStatus
 
+    private val database = GamesDatabase.getInstance(application)
+
     suspend fun refreshGames(gameApiBody: GameApiBody = GameApiBody()) {
         withContext(Dispatchers.IO) {
             try {
                 _apiStatus.postValue(GameApiStatus.LOADING)
                 val gameList = GameApi.retrofitService.getGames(gameApiBody.getBodyString())
                 Log.i("GameRepository", gameList.size.toString())
+                Log.i("GameRepository", "Inserting to database")
+                database.gamesDao.insert(gameList.asDatabaseModel())
+                Log.i("GameRepository", "Inserting to database finished")
                 _allGames.postValue(gameList.asDomainModel())
                 _apiStatus.postValue(GameApiStatus.DONE)
             } catch (t: Throwable) {
