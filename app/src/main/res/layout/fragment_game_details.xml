@@ -41,49 +41,70 @@
                 android:layout_height="wrap_content"
                 tools:context=".ui.gameDetails.GameDetailsFragment">
 
-                <ImageView
-                    android:id="@+id/coverImage"
-                    android:layout_width="200dp"
-                    android:layout_height="300dp"
-                    android:layout_marginTop="16dp"
-                    android:scaleType="centerCrop"
-                    app:imageUrl="@{viewModel.game.coverImageUrl}"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    tools:srcCompat="@tools:sample/avatars" />
-
-                <TextView
-                    android:id="@+id/nameTextView"
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/card"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginEnd="16dp"
-                    android:fontFamily="sans-serif"
-                    android:text="@{viewModel.game.name}"
-                    android:textAlignment="center"
-                    android:textColor="@android:color/background_dark"
-                    android:textSize="30sp"
-                    android:textStyle="bold"
+                    android:layout_margin="8dp"
+                    android:layout_marginStart="32dp"
+                    android:layout_marginTop="32dp"
+                    android:layout_marginEnd="32dp"
+                    android:background="@color/lightWhite"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/coverImage"
-                    tools:text="Game Name" />
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <ImageView
+                            android:id="@+id/coverImage"
+                            android:layout_width="300dp"
+                            android:layout_height="400dp"
+                            android:layout_marginTop="8dp"
+                            android:scaleType="centerCrop"
+                            app:imageUrl="@{viewModel.game.coverImageUrl}"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            tools:srcCompat="@tools:sample/avatars" />
+
+                        <TextView
+                            android:id="@+id/nameTextView"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginTop="16dp"
+                            android:layout_marginEnd="16dp"
+                            android:layout_marginBottom="8dp"
+                            android:fontFamily="sans-serif"
+                            android:text="@{viewModel.game.name}"
+                            android:textAlignment="center"
+                            android:textColor="@android:color/background_dark"
+                            android:textSize="30sp"
+                            android:textStyle="bold"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/coverImage"
+                            tools:text="Game Name" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </com.google.android.material.card.MaterialCardView>
 
                 <com.sackcentury.shinebuttonlib.ShineButton
                     android:id="@+id/favoriteButton"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
-                    android:src="@android:color/darker_gray"
-                    app:btn_color="@android:color/darker_gray"
-                    app:btn_fill_color="@android:color/holo_red_light"
-                    app:allow_random_color="true"
-                    app:siShape="@raw/heart"
                     android:layout_marginTop="20dp"
                     android:layout_marginEnd="8dp"
-                    app:layout_constraintEnd_toEndOf="@+id/nameTextView"
-                    app:layout_constraintTop_toBottomOf="@+id/nameTextView" />
+                    android:src="@android:color/darker_gray"
+                    app:allow_random_color="true"
+                    app:btn_color="@android:color/darker_gray"
+                    app:btn_fill_color="@android:color/holo_red_light"
+                    app:layout_constraintEnd_toEndOf="@+id/card"
+                    app:layout_constraintTop_toBottomOf="@+id/card"
+                    app:siShape="@raw/heart" />
 
                 <TextView
                     android:id="@+id/summary"
@@ -148,7 +169,7 @@
                     android:textColor="@android:color/background_dark"
                     app:layout_constraintEnd_toEndOf="@+id/summary"
                     app:layout_constraintStart_toStartOf="@+id/releaseDateTextView"
-                    app:layout_constraintTop_toBottomOf="@+id/nameTextView"
+                    app:layout_constraintTop_toBottomOf="@+id/card"
                     tools:text="Rating: 50" />
 
                 <TextView
