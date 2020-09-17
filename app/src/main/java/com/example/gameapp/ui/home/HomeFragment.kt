@@ -3,16 +3,16 @@ package com.example.gameapp.ui.home
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.ui.NavigationUI
 import androidx.paging.PagedList
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -40,7 +40,7 @@ class HomeFragment : Fragment() {
             inflater, R.layout.fragment_home,
             container, false
         )
-
+        setHasOptionsMenu(true)
         binding.lifecycleOwner = this
 
         binding.showAllGames.text = getString(R.string.show_all_games)
@@ -82,6 +82,7 @@ class HomeFragment : Fragment() {
             }
         }
     }
+
     private fun setupCarouselView(binding: FragmentHomeBinding) {
         homeViewModel.popularGames.observe(viewLifecycleOwner) {
             if (it.isNotEmpty()) {
@@ -102,6 +103,22 @@ class HomeFragment : Fragment() {
                 binding.carouselView.pageCount = it.size
             }
         }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater.inflate(R.menu.main_menu, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.genreGridViewFragment -> findNavController().navigate(
+                HomeFragmentDirections.actionHomeFragmentToGenreGridViewFragment(
+                    -1, "All Games"
+                )
+            )
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     private fun setupGameContainer(
