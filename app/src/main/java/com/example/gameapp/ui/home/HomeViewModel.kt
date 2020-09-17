@@ -30,6 +30,15 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
     private val rtsGamesApiStatus: LiveData<GameApiStatus>
     var rtsGamesPagedList: LiveData<PagedList<Game>>
 
+    private val shooterGamesApiStatus: LiveData<GameApiStatus>
+    var shooterGamesPagedList: LiveData<PagedList<Game>>
+
+    private val fightingGamesApiStatus: LiveData<GameApiStatus>
+    var fightingGamesPagedList: LiveData<PagedList<Game>>
+
+    private val racingGamesApiStatus: LiveData<GameApiStatus>
+    var racingGamesPagedList: LiveData<PagedList<Game>>
+
     val popularGames = gameRepository.allGames
 
     val allGamesLoaded = MediatorLiveData<Int>()
@@ -43,6 +52,7 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
             .setPageSize(GameDataSource.pageSize)
             .build()
 
+        // TODO: Refactor?
         val adventureGamesDataSourceFactory = GameDataSourceFactory(GameApiBody.GenreString.Adventure,application)
         adventureGamesApiStatus = adventureGamesDataSourceFactory.gameDataSource.gameApiStatus
         adventureGamesPagedList = LivePagedListBuilder(adventureGamesDataSourceFactory, pagedListConfig)
@@ -58,12 +68,27 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
         rtsGamesPagedList = LivePagedListBuilder(rtsGamesDataSourceFactory, pagedListConfig)
             .build()
 
+        val shooterGamesDataSourceFactory = GameDataSourceFactory(GameApiBody.GenreString.Shooter,application)
+        shooterGamesApiStatus = shooterGamesDataSourceFactory.gameDataSource.gameApiStatus
+        shooterGamesPagedList = LivePagedListBuilder(shooterGamesDataSourceFactory, pagedListConfig)
+            .build()
+
+        val racingGamesDataSourceFactory = GameDataSourceFactory(GameApiBody.GenreString.Racing,application)
+        racingGamesApiStatus = racingGamesDataSourceFactory.gameDataSource.gameApiStatus
+        racingGamesPagedList = LivePagedListBuilder(racingGamesDataSourceFactory, pagedListConfig)
+            .build()
+
+        val fightingGamesDataSourceFactory = GameDataSourceFactory(GameApiBody.GenreString.Fighting,application)
+        fightingGamesApiStatus = fightingGamesDataSourceFactory.gameDataSource.gameApiStatus
+        fightingGamesPagedList = LivePagedListBuilder(fightingGamesDataSourceFactory, pagedListConfig)
+            .build()
+
         addSources()
     }
 
     private fun addSources() {
         // Remember to change
-        totalApiCalls = 4
+        totalApiCalls = 7
         allGamesLoaded.addSource(popularGames) {
             if(it.isNotEmpty()) {
                 allGamesLoaded.value = allGamesLoaded.value?.plus(1)
@@ -87,6 +112,27 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
             if(it == GameApiStatus.DONE) {
                 allGamesLoaded.value = allGamesLoaded.value?.plus(1)
                 allGamesLoaded.removeSource(rtsGamesApiStatus)
+            }
+        }
+
+        allGamesLoaded.addSource(shooterGamesApiStatus) {
+            if(it == GameApiStatus.DONE) {
+                allGamesLoaded.value = allGamesLoaded.value?.plus(1)
+                allGamesLoaded.removeSource(shooterGamesApiStatus)
+            }
+        }
+
+        allGamesLoaded.addSource(fightingGamesApiStatus) {
+            if(it == GameApiStatus.DONE) {
+                allGamesLoaded.value = allGamesLoaded.value?.plus(1)
+                allGamesLoaded.removeSource(fightingGamesApiStatus)
+            }
+        }
+
+        allGamesLoaded.addSource(racingGamesApiStatus) {
+            if(it == GameApiStatus.DONE) {
+                allGamesLoaded.value = allGamesLoaded.value?.plus(1)
+                allGamesLoaded.removeSource(racingGamesApiStatus)
             }
         }
 

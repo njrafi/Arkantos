@@ -1,7 +1,7 @@
 package com.example.gameapp.network
 
 class GameApiBody(
-    val fields: String =
+    private val fields: String =
         "name, summary, cover.image_id, storyline, rating, first_release_date, genres.name, platforms.name",
     val limit: Int = 50,
     val offset: Int = 0,
@@ -44,7 +44,7 @@ class GameApiBody(
         RolePlaying(12,"Role-playing (RPG)"),
         Simulator(13,"Simulator"),
         Sport(14,"Sport"),
-        TurnBasedStrategy(16,"Real Time Strategy"),
+        TurnBasedStrategy(16,"Turn Bases Strategy"),
         Adventure(31,"Adventure")
     }
 }

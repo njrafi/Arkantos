@@ -17,7 +17,7 @@ import java.lang.Appendable
 class GameGridViewModel(application: Application) : AndroidViewModel(application) {
     var apiStatus : LiveData<GameApiStatus>
     var gamePagedList: LiveData<PagedList<Game>>
-    val applicationRef = application
+    private val applicationRef = application
     init {
         val gameDataSourceFactory = GameDataSourceFactory(null,application)
         apiStatus = gameDataSourceFactory.gameDataSource.gameApiStatus

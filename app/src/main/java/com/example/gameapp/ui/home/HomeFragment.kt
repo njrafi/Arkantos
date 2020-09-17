@@ -67,6 +67,21 @@ class HomeFragment : Fragment() {
             homeViewModel.rtsGamesPagedList,
             binding.viewRtsGamesButton, GameApiBody.GenreString.RealTimeStrategy
         )
+        setupGameContainer(
+            binding.racingGames,
+            homeViewModel.racingGamesPagedList,
+            binding.viewRacingGamesButton, GameApiBody.GenreString.Racing
+        )
+        setupGameContainer(
+            binding.shooterGames,
+            homeViewModel.shooterGamesPagedList,
+            binding.viewShooterGamesButton, GameApiBody.GenreString.Shooter
+        )
+        setupGameContainer(
+            binding.fightingGames,
+            homeViewModel.fightingGamesPagedList,
+            binding.viewFightingGamesButton, GameApiBody.GenreString.Fighting
+        )
         setupCarouselView(binding)
         setupSplashScreen(binding)
         return binding.root

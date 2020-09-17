@@ -11,4 +11,7 @@
     <string name="rpg_games">RPG Games</string>
     <string name="show_all_games">Show All Games</string>
     <string name="real_time_strategy_games">RTS Games</string>
+    <string name="shooter_games">Shooter Games</string>
+    <string name="racing_games">Racing Games</string>
+    <string name="fighting_games">Fighting Games</string>
 </resources>
