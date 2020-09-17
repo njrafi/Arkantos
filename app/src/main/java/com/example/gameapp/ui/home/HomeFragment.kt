@@ -42,7 +42,12 @@ class HomeFragment : Fragment() {
         )
         setHasOptionsMenu(true)
         binding.lifecycleOwner = this
+        if (binding.progressBar.visibility == View.VISIBLE)
+            initialSetup(binding)
+        return binding.root
+    }
 
+    private fun initialSetup(binding: FragmentHomeBinding) {
         binding.showAllGames.text = getString(R.string.show_all_games)
         binding.showAllGames.setOnClickListener {
             findNavController().navigate(
@@ -84,7 +89,6 @@ class HomeFragment : Fragment() {
         )
         setupCarouselView(binding)
         setupSplashScreen(binding)
-        return binding.root
     }
 
     private fun setupSplashScreen(binding: FragmentHomeBinding) {
