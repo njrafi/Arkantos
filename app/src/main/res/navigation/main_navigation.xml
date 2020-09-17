@@ -9,7 +9,7 @@
         android:id="@+id/homeFragment"
         android:name="com.example.gameapp.ui.home.HomeFragment"
         android:label="HOME"
-        tools:layout="@layout/fragment_home" >
+        tools:layout="@layout/fragment_home">
         <action
             android:id="@+id/action_homeFragment_to_genreGridViewFragment"
             app:destination="@id/genreGridViewFragment" />
@@ -24,7 +24,7 @@
         android:id="@+id/genreGridViewFragment"
         android:name="com.example.gameapp.ui.genreGrid.GenreGridViewFragment"
         android:label="{title}"
-        tools:layout="@layout/fragment_genre_grid_view" >
+        tools:layout="@layout/fragment_genre_grid_view">
         <action
             android:id="@+id/action_genreGridViewFragment_to_gameDetailsFragment"
             app:destination="@id/gameDetailsFragment" />
@@ -38,7 +38,7 @@
     <fragment
         android:id="@+id/gameDetailsFragment"
         android:name="com.example.gameapp.ui.gameDetails.GameDetailsFragment"
-        android:label="Game Details" >
+        android:label="Game Details">
         <argument
             android:name="id"
             app:argType="long" />
@@ -46,7 +46,7 @@
     <fragment
         android:id="@+id/favoriteGamesFragment"
         android:name="com.example.gameapp.ui.favoriteGames.FavoriteGamesFragment"
-        android:label="Favorite Games" >
+        android:label="Favorite Games">
         <action
             android:id="@+id/action_favoriteGamesFragment_to_gameDetailsFragment"
             app:destination="@id/gameDetailsFragment" />

@@ -12,12 +12,12 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         supportActionBar?.hide()
-        val navController = this.findNavController(R.id.main_navhost_fragmnet)
+        val navController = this.findNavController(R.id.myNavHostFragment)
         NavigationUI.setupActionBarWithNavController(this, navController)
     }
 
     override fun onSupportNavigateUp(): Boolean {
-        val navController = this.findNavController(R.id.main_navhost_fragmnet)
+        val navController = this.findNavController(R.id.myNavHostFragment)
         return navController.navigateUp()
     }
 }

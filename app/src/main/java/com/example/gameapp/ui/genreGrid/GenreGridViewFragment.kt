@@ -14,12 +14,16 @@ import com.example.gameapp.R
 import com.example.gameapp.databinding.FragmentGenreGridViewBinding
 import com.example.gameapp.network.GameApiBody
 import com.example.gameapp.repository.GameApiStatus
+import com.example.gameapp.ui.gameDetails.GameDetailsViewModel
 import kotlin.reflect.jvm.internal.impl.load.kotlin.JvmType
 
 class GenreGridViewFragment : Fragment() {
 
+    private var genre: GameApiBody.GenreString? = null
     private val gameViewModel: GameGridViewModel by lazy {
-        ViewModelProvider(this).get(GameGridViewModel::class.java)
+        ViewModelProvider(this, GameGridViewModel.Factory(activity?.application!!, genre)).get(
+            GameGridViewModel::class.java
+        )
     }
 
     override fun onCreateView(
@@ -32,17 +36,16 @@ class GenreGridViewFragment : Fragment() {
             inflater,
             R.layout.fragment_genre_grid_view, container, false
         )
-        // Setting view model
-        binding.viewModel = gameViewModel
-        binding.lifecycleOwner = this
-
         val args = arguments?.let { GenreGridViewFragmentArgs.fromBundle(it) }
         for (genreString in GameApiBody.GenreString.values()) {
             if (genreString.id == args?.genreId) {
-                gameViewModel.changeGenre(genreString)
+                genre = genreString
             }
         }
 
+        // Setting view model
+        binding.viewModel = gameViewModel
+        binding.lifecycleOwner = this
 
         // Setting the adapter
         val adapter = GameGridAdapter(GameClickListener {
