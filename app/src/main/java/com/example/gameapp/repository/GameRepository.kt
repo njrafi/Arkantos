@@ -4,8 +4,9 @@ import android.app.Application
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.example.gameapp.database.FavoriteGameDatabaseModel
 import com.example.gameapp.database.GamesDatabase
-import com.example.gameapp.database.PopularGamesDatabaseModel
+import com.example.gameapp.database.PopularGameDatabaseModel
 import com.example.gameapp.domain.Game
 import com.example.gameapp.domain.GameDataSource
 import com.example.gameapp.domain.asDomainModel
@@ -78,7 +79,7 @@ class GameRepository(private val application: Application) {
                     database.gamesDao.insert(gamesFromNetwork.asDatabaseModel())
                     Log.i("GameRepository", "Inserting to database finished")
                     val popularGamesDatabaseModel = gamesFromNetwork.map {
-                        PopularGamesDatabaseModel(it.id)
+                        PopularGameDatabaseModel(it.id)
                     }
                     Log.i("GameRepository", "Inserting to database popular games")
                     database.gamesDao.insertPopularGames(popularGamesDatabaseModel)
@@ -150,6 +151,28 @@ class GameRepository(private val application: Application) {
             }
         }
     }
+
+    suspend fun getFavoriteGames() {
+        withContext(Dispatchers.IO) {
+            try {
+                _allGames.postValue(database.gamesDao.getFavoriteGames().asDomainModel())
+            } catch (t: Throwable) {
+                handleError(t)
+            }
+        }
+    }
+
+    suspend fun addToFavorites(gameId: Long) {
+        withContext(Dispatchers.IO) {
+            try {
+                database.gamesDao.insertFavoriteGame(FavoriteGameDatabaseModel(gameId))
+            } catch (t: Throwable) {
+                handleError(t)
+            }
+        }
+    }
+
+
 
 
     private fun handleError(t: Throwable) {

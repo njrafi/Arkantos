@@ -71,6 +71,16 @@
                     app:layout_constraintTop_toBottomOf="@id/coverImage"
                     tools:text="Game Name" />
 
+                <com.like.LikeButton
+                    android:id="@+id/favoriteButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    app:icon_size="30dp"
+                    app:icon_type="heart"
+                    app:layout_constraintEnd_toEndOf="@+id/nameTextView"
+                    app:layout_constraintTop_toBottomOf="@+id/nameTextView" />
+
                 <TextView
                     android:id="@+id/summary"
                     android:layout_width="0dp"
@@ -81,10 +91,10 @@
                     android:layout_marginBottom="24dp"
                     android:text="@{viewModel.game.summary}"
                     android:textColor="@android:color/background_dark"
-                    app:layout_constraintBottom_toTopOf="@+id/textView2"
+                    app:layout_constraintBottom_toTopOf="@+id/storyLabel"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textView"
+                    app:layout_constraintTop_toBottomOf="@+id/summaryLabel"
                     tools:text="Game Summary" />
 
                 <TextView
@@ -100,27 +110,27 @@
                     tools:text="Game Storyline" />
 
                 <TextView
-                    android:id="@+id/textView"
+                    android:id="@+id/summaryLabel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="27dp"
                     android:text="@string/summary"
+                    android:textColor="@android:color/background_dark"
                     android:textSize="18sp"
                     android:textStyle="bold"
-                    android:textColor="@android:color/background_dark"
                     app:goneUnless="@{viewModel.summaryShouldBeShown}"
                     app:layout_constraintStart_toStartOf="@+id/summary"
                     app:layout_constraintTop_toBottomOf="@+id/platformTextView" />
 
                 <TextView
-                    android:id="@+id/textView2"
+                    android:id="@+id/storyLabel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="8dp"
                     android:text="@string/storyline"
+                    android:textColor="@android:color/background_dark"
                     android:textSize="18sp"
                     android:textStyle="bold"
-                    android:textColor="@android:color/background_dark"
                     app:goneUnless="@{viewModel.storylineShouldBeShown}"
                     app:layout_constraintBottom_toTopOf="@+id/storyline"
                     app:layout_constraintStart_toStartOf="@+id/summary" />
@@ -145,7 +155,7 @@
                     android:text="@{viewModel.releaseDate}"
                     android:textColor="@android:color/background_dark"
                     app:layout_constraintEnd_toEndOf="@+id/summary"
-                    app:layout_constraintStart_toStartOf="@+id/textView"
+                    app:layout_constraintStart_toStartOf="@+id/summaryLabel"
                     app:layout_constraintTop_toBottomOf="@+id/ratingTextView"
                     tools:text="Relase Date: 23 Sept,1990" />
 
@@ -157,7 +167,7 @@
                     android:text="@{viewModel.genres}"
                     android:textColor="@android:color/background_dark"
                     app:layout_constraintEnd_toEndOf="@+id/summary"
-                    app:layout_constraintStart_toStartOf="@+id/textView"
+                    app:layout_constraintStart_toStartOf="@+id/summaryLabel"
                     app:layout_constraintTop_toBottomOf="@+id/releaseDateTextView"
                     tools:text="Genres: RPG" />
 
@@ -169,7 +179,7 @@
                     android:text="@{viewModel.platforms}"
                     android:textColor="@android:color/background_dark"
                     app:layout_constraintEnd_toEndOf="@+id/summary"
-                    app:layout_constraintStart_toStartOf="@+id/textView"
+                    app:layout_constraintStart_toStartOf="@+id/summaryLabel"
                     app:layout_constraintTop_toBottomOf="@+id/genreTextView"
                     tools:text="Platforms: PC" />
 

@@ -6,7 +6,7 @@ import androidx.room.PrimaryKey
 import androidx.room.Relation
 
 @Entity(tableName = "popular_games")
-data class PopularGamesDatabaseModel(
+data class PopularGameDatabaseModel(
     @PrimaryKey
     val gameId: Long,
 )

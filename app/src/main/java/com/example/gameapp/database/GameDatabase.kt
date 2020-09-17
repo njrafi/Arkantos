@@ -8,7 +8,8 @@ import androidx.room.TypeConverters
 
 @Database(
     entities = [GameDatabaseModel::class,
-        PopularGamesDatabaseModel::class],
+        PopularGameDatabaseModel::class,
+        FavoriteGameDatabaseModel::class],
     version = 1
 )
 @TypeConverters(RoomConverters::class)

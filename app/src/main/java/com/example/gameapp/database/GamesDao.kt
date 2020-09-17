@@ -25,12 +25,19 @@ interface GamesDao {
     @Query("select * from games inner join popular_games on games.id = popular_games.gameId")
     suspend fun getPopularGames(): List<GameDatabaseModel>
 
+    @Transaction
+    @Query("select * from games inner join favorite_games on games.id = favorite_games.gameId")
+    suspend fun getFavoriteGames(): List<GameDatabaseModel>
+
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insert(game: List<GameDatabaseModel>)
 
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
-    suspend fun insertPopularGames(game: List<PopularGamesDatabaseModel>)
-
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertOrUpdate(game: List<GameDatabaseModel>)
+
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    suspend fun insertPopularGames(game: List<PopularGameDatabaseModel>)
+
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    suspend fun insertFavoriteGame(game: FavoriteGameDatabaseModel)
 }
