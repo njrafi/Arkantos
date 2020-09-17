@@ -92,7 +92,7 @@ dependencies {
     implementation 'com.facebook.shimmer:shimmer:0.5.0'
 
     // favorite button
-    implementation 'com.github.jd-alexander:LikeButton:0.2.3'
+    implementation 'com.sackcentury:shinebutton:1.0.0'
 
     implementation 'com.synnapps:carouselview:0.1.5'
     testImplementation 'junit:junit:4.13'

@@ -71,13 +71,17 @@
                     app:layout_constraintTop_toBottomOf="@id/coverImage"
                     tools:text="Game Name" />
 
-                <com.like.LikeButton
+                <com.sackcentury.shinebuttonlib.ShineButton
                     android:id="@+id/favoriteButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    app:icon_size="30dp"
-                    app:icon_type="heart"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:src="@android:color/darker_gray"
+                    app:btn_color="@android:color/darker_gray"
+                    app:btn_fill_color="@android:color/holo_red_light"
+                    app:allow_random_color="true"
+                    app:siShape="@raw/heart"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginEnd="8dp"
                     app:layout_constraintEnd_toEndOf="@+id/nameTextView"
                     app:layout_constraintTop_toBottomOf="@+id/nameTextView" />
 
