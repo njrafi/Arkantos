@@ -117,6 +117,9 @@ class HomeFragment : Fragment() {
                     -1, "All Games"
                 )
             )
+            R.id.favoriteGamesFragment -> findNavController().navigate(
+                HomeFragmentDirections.actionHomeFragmentToFavoriteGamesFragment()
+            )
         }
         return super.onOptionsItemSelected(item);
     }

@@ -16,6 +16,9 @@
         <action
             android:id="@+id/action_homeFragment_to_gameDetailsFragment"
             app:destination="@id/gameDetailsFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_favoriteGamesFragment"
+            app:destination="@id/favoriteGamesFragment" />
     </fragment>
     <fragment
         android:id="@+id/genreGridViewFragment"
@@ -39,5 +42,13 @@
         <argument
             android:name="id"
             app:argType="long" />
+    </fragment>
+    <fragment
+        android:id="@+id/favoriteGamesFragment"
+        android:name="com.example.gameapp.ui.favoriteGames.FavoriteGamesFragment"
+        android:label="Favorite Games" >
+        <action
+            android:id="@+id/action_favoriteGamesFragment_to_gameDetailsFragment"
+            app:destination="@id/gameDetailsFragment" />
     </fragment>
 </navigation>
