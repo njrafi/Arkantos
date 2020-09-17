@@ -1,6 +1,7 @@
 package com.example.gameapp.ui.gameDetails
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -13,8 +14,11 @@ import com.like.LikeButton
 import com.like.OnLikeListener
 
 class GameDetailsFragment : Fragment() {
+    private var gameId: Long = -1
     private val gameDetailsViewModel: GameDetailsViewModel by lazy {
-        ViewModelProvider(this).get(GameDetailsViewModel::class.java)
+        ViewModelProvider(this, GameDetailsViewModel.Factory(activity?.application!!, gameId)).get(
+            GameDetailsViewModel::class.java
+        )
     }
 
     override fun onCreateView(
@@ -26,26 +30,38 @@ class GameDetailsFragment : Fragment() {
             inflater,
             R.layout.fragment_game_details, container, false
         )
-        binding.viewModel = gameDetailsViewModel
-        binding.lifecycleOwner = this
 
         val args = arguments?.let { GameDetailsFragmentArgs.fromBundle(it) }
         args?.id?.let {
-            gameDetailsViewModel.getSpecificGame(it)
-            setupFavoriteButton(binding, it)
+            gameId = it
         }
+        binding.viewModel = gameDetailsViewModel
+        binding.lifecycleOwner = this
+        binding.favoriteButton.visibility = View.GONE
 
+        setupFavoriteButton(binding)
         return binding.root
     }
 
-    private fun setupFavoriteButton(binding: FragmentGameDetailsBinding, gameId: Long) {
+    private fun setupFavoriteButton(binding: FragmentGameDetailsBinding) {
         binding.favoriteButton.setOnLikeListener(object : OnLikeListener {
             override fun liked(likeButton: LikeButton?) {
-                gameDetailsViewModel.addToFavorite(gameId)
+                gameDetailsViewModel.addToFavorite()
             }
 
             override fun unLiked(likeButton: LikeButton?) {
-                gameDetailsViewModel.removeFromFavourite(gameId)
+                gameDetailsViewModel.removeFromFavourite()
+            }
+        })
+
+        gameDetailsViewModel.favoriteGames.observe(viewLifecycleOwner, {
+            // TODO: Update to individual function
+            if (binding.favoriteButton.visibility == View.GONE) {
+                binding.favoriteButton.visibility = View.VISIBLE
+                binding.favoriteButton.isLiked = false
+                for (game in it) {
+                    if (game.id == gameId) binding.favoriteButton.isLiked = true
+                }
             }
         })
 

@@ -36,6 +36,7 @@ class GameRepository(private val application: Application) {
         get() = _apiStatus
 
     private val database = GamesDatabase.getInstance(application)
+    val favoriteGames = database.gamesDao.getFavoriteGames()
 
     private suspend fun refreshGames(gameApiBody: GameApiBody = GameApiBody()) {
         withContext(Dispatchers.IO) {
@@ -146,16 +147,6 @@ class GameRepository(private val application: Application) {
                 } else {
                     _apiStatus.postValue(GameApiStatus.ERROR)
                 }
-            } catch (t: Throwable) {
-                handleError(t)
-            }
-        }
-    }
-
-    suspend fun getFavoriteGames() {
-        withContext(Dispatchers.IO) {
-            try {
-                _allGames.postValue(database.gamesDao.getFavoriteGames().asDomainModel())
             } catch (t: Throwable) {
                 handleError(t)
             }

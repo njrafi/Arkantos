@@ -1,6 +1,7 @@
 package com.example.gameapp.ui.gameDetails
 
 import android.app.Application
+import android.view.View
 import androidx.lifecycle.*
 import com.example.gameapp.repository.GameRepository
 import kotlinx.coroutines.CoroutineScope
@@ -10,19 +11,16 @@ import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.*
 
-class GameDetailsViewModel(application: Application) :
+class GameDetailsViewModel(application: Application, val gameId: Long) :
     AndroidViewModel(application) {
     private val viewModelJob = Job()
     private val viewModelScope = CoroutineScope(viewModelJob + Dispatchers.Main)
     private val gameRepository = GameRepository(application)
 
-
-    private val _isFavorited = MutableLiveData<Boolean>(false)
-    val isFavorited: LiveData<Boolean>
-        get() = _isFavorited
-
     val apiStatus = gameRepository.apiStatus
     val game = gameRepository.singleGame
+
+    val favoriteGames = gameRepository.favoriteGames
 
     val rating = Transformations.map(game) {
         if (it.rating == null) {
@@ -71,29 +69,22 @@ class GameDetailsViewModel(application: Application) :
         it?.storyline != null
     }
 
-    fun getSpecificGame(id: Long) {
+    init {
         viewModelScope.launch {
-            gameRepository.getGameById(id)
-            gameRepository.getFavoriteGames()
-            // TODO: Make individual function
-            gameRepository.allGames.value?.forEach { game ->
-                if (game.id == id) _isFavorited.postValue(true)
-            }
+            gameRepository.getGameById(gameId)
         }
     }
 
-    fun addToFavorite(gameId: Long) {
+    fun addToFavorite() {
         viewModelScope.launch {
-            _isFavorited.postValue(true)
             gameRepository.addToFavorites(gameId)
         }
 
     }
 
-    fun removeFromFavourite(gameId: Long) {
+    fun removeFromFavourite() {
         viewModelScope.launch {
             gameRepository.removeFromFavorites(gameId)
-            _isFavorited.postValue(false)
         }
 
     }
@@ -101,6 +92,19 @@ class GameDetailsViewModel(application: Application) :
     override fun onCleared() {
         super.onCleared()
         viewModelJob.cancel()
+    }
+
+    /**
+     * Factory for constructing GameDetailViewModel with parameter
+     */
+    class Factory(val app: Application, val gameId: Long) : ViewModelProvider.Factory {
+        override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+            if (modelClass.isAssignableFrom(GameDetailsViewModel::class.java)) {
+                @Suppress("UNCHECKED_CAST")
+                return GameDetailsViewModel(app, gameId) as T
+            }
+            throw IllegalArgumentException("Unable to construct viewmodel")
+        }
     }
 
 }
