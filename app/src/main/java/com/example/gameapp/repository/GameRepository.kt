@@ -172,8 +172,15 @@ class GameRepository(private val application: Application) {
         }
     }
 
-
-
+    suspend fun removeFromFavorites(gameId: Long) {
+        withContext(Dispatchers.IO) {
+            try {
+                database.gamesDao.deleteFavoriteGame(FavoriteGameDatabaseModel(gameId))
+            } catch (t: Throwable) {
+                handleError(t)
+            }
+        }
+    }
 
     private fun handleError(t: Throwable) {
         _apiStatus.postValue(GameApiStatus.ERROR)

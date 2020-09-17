@@ -1,7 +1,6 @@
 package com.example.gameapp.ui.gameDetails
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -10,8 +9,8 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import com.example.gameapp.R
 import com.example.gameapp.databinding.FragmentGameDetailsBinding
-import com.example.gameapp.repository.GameApiStatus
-import com.example.gameapp.ui.genreGrid.GameGridViewModel
+import com.like.LikeButton
+import com.like.OnLikeListener
 
 class GameDetailsFragment : Fragment() {
     private val gameDetailsViewModel: GameDetailsViewModel by lazy {
@@ -33,7 +32,22 @@ class GameDetailsFragment : Fragment() {
         val args = arguments?.let { GameDetailsFragmentArgs.fromBundle(it) }
         args?.id?.let {
             gameDetailsViewModel.getSpecificGame(it)
+            setupFavoriteButton(binding, it)
         }
+
         return binding.root
+    }
+
+    private fun setupFavoriteButton(binding: FragmentGameDetailsBinding, gameId: Long) {
+        binding.favoriteButton.setOnLikeListener(object : OnLikeListener {
+            override fun liked(likeButton: LikeButton?) {
+                gameDetailsViewModel.addToFavorite(gameId)
+            }
+
+            override fun unLiked(likeButton: LikeButton?) {
+                gameDetailsViewModel.removeFromFavourite(gameId)
+            }
+        })
+
     }
 }

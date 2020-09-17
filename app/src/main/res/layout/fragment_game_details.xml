@@ -78,6 +78,7 @@
                     android:layout_marginTop="8dp"
                     app:icon_size="30dp"
                     app:icon_type="heart"
+                    app:liked="@{viewModel.isFavorited}"
                     app:layout_constraintEnd_toEndOf="@+id/nameTextView"
                     app:layout_constraintTop_toBottomOf="@+id/nameTextView" />
 

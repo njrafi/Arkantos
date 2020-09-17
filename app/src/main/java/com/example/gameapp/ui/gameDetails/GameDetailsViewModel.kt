@@ -1,9 +1,7 @@
 package com.example.gameapp.ui.gameDetails
 
 import android.app.Application
-import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.Transformations
-import androidx.lifecycle.ViewModel
+import androidx.lifecycle.*
 import com.example.gameapp.repository.GameRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -17,6 +15,11 @@ class GameDetailsViewModel(application: Application) :
     private val viewModelJob = Job()
     private val viewModelScope = CoroutineScope(viewModelJob + Dispatchers.Main)
     private val gameRepository = GameRepository(application)
+
+
+    private val _isFavorited = MutableLiveData<Boolean>(false)
+    val isFavorited: LiveData<Boolean>
+        get() = _isFavorited
 
     val apiStatus = gameRepository.apiStatus
     val game = gameRepository.singleGame
@@ -71,7 +74,28 @@ class GameDetailsViewModel(application: Application) :
     fun getSpecificGame(id: Long) {
         viewModelScope.launch {
             gameRepository.getGameById(id)
+            gameRepository.getFavoriteGames()
+            // TODO: Make individual function
+            gameRepository.allGames.value?.forEach { game ->
+                if (game.id == id) _isFavorited.postValue(true)
+            }
         }
+    }
+
+    fun addToFavorite(gameId: Long) {
+        viewModelScope.launch {
+            _isFavorited.postValue(true)
+            gameRepository.addToFavorites(gameId)
+        }
+
+    }
+
+    fun removeFromFavourite(gameId: Long) {
+        viewModelScope.launch {
+            gameRepository.removeFromFavorites(gameId)
+            _isFavorited.postValue(false)
+        }
+
     }
 
     override fun onCleared() {
