@@ -35,7 +35,7 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        (activity as AppCompatActivity).supportActionBar?.hide()
+        //(activity as AppCompatActivity).supportActionBar?.hide()
         val binding = DataBindingUtil.inflate<FragmentHomeBinding>(
             inflater, R.layout.fragment_home,
             container, false

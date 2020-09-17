@@ -31,7 +31,7 @@ class GameDetailsViewModel(application: Application, val gameId: Long) :
     }
 
     val releaseDate = Transformations.map(game) {
-        var dateString = ""
+        var dateString = "N/A"
         if (it.releaseDate != null) {
             val simpleDateFormat = SimpleDateFormat("dd MMM, yyyy", Locale("en"))
             val date = Date(it.releaseDate * 1000)
@@ -48,6 +48,7 @@ class GameDetailsViewModel(application: Application, val gameId: Long) :
                 genresList += genre
             }
         }
+        if(genresList.isEmpty()) genresList = "N/A"
         "Genres: $genresList"
     }
 
@@ -59,6 +60,7 @@ class GameDetailsViewModel(application: Application, val gameId: Long) :
                 platformsList += platform
             }
         }
+        if(platformsList.isEmpty()) platformsList = "N/A"
         "Platforms: $platformsList"
     }
 
