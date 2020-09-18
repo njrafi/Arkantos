@@ -98,6 +98,8 @@ class HomeFragment : Fragment() {
                 binding.splashScreen.visibility = View.GONE
                 binding.progressBar.visibility = View.GONE
                 (activity as AppCompatActivity).supportActionBar?.show()
+            } else if(it == 0) {
+                (activity as AppCompatActivity).supportActionBar?.hide()
             }
         }
     }
