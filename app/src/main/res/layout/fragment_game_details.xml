@@ -7,7 +7,7 @@
 
         <variable
             name="viewModel"
-            type="com.example.gameapp.ui.gameDetails.GameDetailsViewModel" />
+            type="com.arkantos.arkantos.ui.gameDetails.GameDetailsViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
