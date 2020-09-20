@@ -7,11 +7,11 @@
 
         <variable
             name="game"
-            type="com.example.gameapp.domain.Game" />
+            type="com.arkantos.arkantos.domain.Game" />
 
         <variable
             name="clickListener"
-            type="com.example.gameapp.ui.genreGrid.GameClickListener" />
+            type="com.arkantos.arkantos.ui.genreGrid.GameClickListener" />
     </data>
 
     <com.google.android.material.card.MaterialCardView
