@@ -13,7 +13,6 @@ import androidx.navigation.fragment.findNavController
 import androidx.paging.PagedList
 import androidx.recyclerview.widget.RecyclerView
 import com.arkantos.arkantos.LoginActivity
-import com.arkantos.arkantos.MainActivity
 import com.arkantos.arkantos.R
 import com.arkantos.arkantos.databinding.FragmentHomeBinding
 import com.arkantos.arkantos.domain.Game
@@ -21,8 +20,6 @@ import com.arkantos.arkantos.network.GameApiBody
 import com.arkantos.arkantos.setImageFromUrl
 import com.arkantos.arkantos.ui.genreGrid.GameClickListener
 import com.firebase.ui.auth.AuthUI
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.ktx.Firebase
 import com.synnapps.carouselview.ImageClickListener
 import com.synnapps.carouselview.ImageListener
 
