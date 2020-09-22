@@ -19,7 +19,7 @@ android {
         jvmTarget = JavaVersion.VERSION_1_8.toString()
     }
     defaultConfig {
-        applicationId "com.example.gameapp"
+        applicationId "com.arkantos.arkantos"
         minSdkVersion 23
         targetSdkVersion 30
         versionCode 1
