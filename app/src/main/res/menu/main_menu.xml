@@ -2,9 +2,12 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/genreGridViewFragment"
-        android:title="All Games" />
+        android:title="@string/all_games" />
     <item
         android:id="@+id/favoriteGamesFragment"
-        android:title="Favorite Games" />
+        android:title="@string/favorite_games" />
+    <item
+        android:id="@+id/signOutMenuButton"
+        android:title="@string/sign_out" />
 
 </menu>

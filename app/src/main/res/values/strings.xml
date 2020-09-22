@@ -14,4 +14,8 @@
     <string name="shooter_games">Shooter Games</string>
     <string name="racing_games">Racing Games</string>
     <string name="fighting_games">Fighting Games</string>
+    <string name="move_to_login">Move to Login</string>
+    <string name="all_games">All Games</string>
+    <string name="favorite_games">Favorite Games</string>
+    <string name="sign_out">Sign Out</string>
 </resources>

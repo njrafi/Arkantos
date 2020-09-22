@@ -6,7 +6,7 @@
     <data>
         <variable
             name="viewModel"
-            type="com.example.gameapp.ui.genreGrid.GameGridViewModel" />
+            type="com.arkantos.arkantos.ui.genreGrid.GameGridViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
