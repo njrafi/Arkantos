@@ -50,6 +50,8 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
         }
         val pagedListConfig = PagedList.Config.Builder()
             .setPageSize(GameDataSource.pageSize)
+            .setPrefetchDistance(GameDataSource.pageSize/2)
+            .setInitialLoadSizeHint(GameDataSource.pageSize/2)
             .build()
 
         // TODO: Refactor?

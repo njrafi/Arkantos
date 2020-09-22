@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "970082138809",
+    "firebase_url": "https://arkantos-1.firebaseio.com",
+    "project_id": "arkantos-1",
+    "storage_bucket": "arkantos-1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:970082138809:android:40447fba64454bdec3b968",
+        "android_client_info": {
+          "package_name": "com.arkantos.arkantos"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "970082138809-laprg9kjvqdd62h5517qh9kujjhke0kb.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.arkantos.arkantos",
+            "certificate_hash": "bf631dcdda91ad1e0ba0df91319e5046f0319408"
+          }
+        },
+        {
+          "client_id": "970082138809-illuu2mke5tq11539psa7t8uustn9ri0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC70hydb3qphiB-4jW2MDCk1bViYDZPM2M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "970082138809-illuu2mke5tq11539psa7t8uustn9ri0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

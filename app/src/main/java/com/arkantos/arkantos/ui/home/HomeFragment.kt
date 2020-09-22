@@ -1,10 +1,10 @@
 package com.arkantos.arkantos.ui.home
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.*
 import android.widget.Button
-import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
@@ -12,12 +12,14 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.paging.PagedList
 import androidx.recyclerview.widget.RecyclerView
+import com.arkantos.arkantos.LoginActivity
 import com.arkantos.arkantos.R
 import com.arkantos.arkantos.databinding.FragmentHomeBinding
 import com.arkantos.arkantos.domain.Game
 import com.arkantos.arkantos.network.GameApiBody
 import com.arkantos.arkantos.setImageFromUrl
 import com.arkantos.arkantos.ui.genreGrid.GameClickListener
+import com.firebase.ui.auth.AuthUI
 import com.synnapps.carouselview.ImageClickListener
 import com.synnapps.carouselview.ImageListener
 
@@ -38,8 +40,7 @@ class HomeFragment : Fragment() {
         )
         setHasOptionsMenu(true)
         binding.lifecycleOwner = this
-        if (binding.progressBar.visibility == View.VISIBLE)
-            initialSetup(binding)
+        initialSetup(binding)
         return binding.root
     }
 
@@ -84,20 +85,6 @@ class HomeFragment : Fragment() {
             binding.viewFightingGamesButton, GameApiBody.GenreString.Fighting
         )
         setupCarouselView(binding)
-        setupSplashScreen(binding)
-    }
-
-    private fun setupSplashScreen(binding: FragmentHomeBinding) {
-        homeViewModel.allGamesLoaded.observe(viewLifecycleOwner) {
-            if (it == homeViewModel.totalApiCalls) {
-                binding.logo.visibility = View.GONE
-                binding.splashScreen.visibility = View.GONE
-                binding.progressBar.visibility = View.GONE
-                (activity as AppCompatActivity).supportActionBar?.show()
-            } else if(it == 0) {
-                (activity as AppCompatActivity).supportActionBar?.hide()
-            }
-        }
     }
 
     private fun setupCarouselView(binding: FragmentHomeBinding) {
@@ -137,6 +124,7 @@ class HomeFragment : Fragment() {
             R.id.favoriteGamesFragment -> findNavController().navigate(
                 HomeFragmentDirections.actionHomeFragmentToFavoriteGamesFragment()
             )
+            R.id.signOutMenuButton -> signOutFromApplication()
         }
         return super.onOptionsItemSelected(item);
     }
@@ -163,6 +151,16 @@ class HomeFragment : Fragment() {
         gameList.observe(viewLifecycleOwner, {
             adapter.submitList(it)
         })
+    }
+
+    private fun signOutFromApplication() {
+        activity?.application?.let { application ->
+            AuthUI.getInstance().signOut(application).addOnCompleteListener {
+                val intent = Intent(application, LoginActivity::class.java)
+                startActivity(intent)
+                activity?.finish()
+            }
+        }
     }
 
 
