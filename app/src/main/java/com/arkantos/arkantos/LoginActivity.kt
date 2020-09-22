@@ -7,7 +7,9 @@ import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.ViewModelProvider
 import com.arkantos.arkantos.databinding.ActivityLoginBinding
+import com.arkantos.arkantos.ui.home.HomeViewModel
 import com.firebase.ui.auth.AuthUI
 import com.firebase.ui.auth.ErrorCodes
 import com.firebase.ui.auth.IdpResponse
@@ -16,6 +18,9 @@ import com.google.firebase.ktx.Firebase
 
 class LoginActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLoginBinding
+    private val homeViewModel: HomeViewModel by lazy {
+        ViewModelProvider(this).get(HomeViewModel::class.java)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,6 +60,21 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
+    private fun goToMainActivity() {
+        binding.loginButton.visibility = View.INVISIBLE
+        binding.progressBar.visibility = View.VISIBLE
+        homeViewModel.allGamesLoaded.observe(this) {
+            Log.i("home",it.toString())
+            if (it == homeViewModel.totalApiCalls) {
+                val intent = Intent(this, MainActivity::class.java)
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                startActivity(intent)
+                finish()
+            }
+        }
+    }
+
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
@@ -90,15 +110,6 @@ class LoginActivity : AppCompatActivity() {
             Toast.makeText(baseContext, "Unknown sign in response", Toast.LENGTH_SHORT).show();
 
         }
-    }
-
-    private fun goToMainActivity() {
-        binding.loginButton.visibility = View.INVISIBLE
-        binding.progressBar.visibility = View.VISIBLE
-        val intent = Intent(this, MainActivity::class.java)
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-        startActivity(intent)
-        finish()
     }
 
 

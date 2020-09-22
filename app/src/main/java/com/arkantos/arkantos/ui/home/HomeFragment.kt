@@ -38,8 +38,8 @@ class HomeFragment : Fragment() {
         )
         setHasOptionsMenu(true)
         binding.lifecycleOwner = this
-        if (binding.progressBar.visibility == View.VISIBLE)
-            initialSetup(binding)
+
+        initialSetup(binding)
         return binding.root
     }
 
@@ -84,20 +84,7 @@ class HomeFragment : Fragment() {
             binding.viewFightingGamesButton, GameApiBody.GenreString.Fighting
         )
         setupCarouselView(binding)
-        setupSplashScreen(binding)
-    }
-
-    private fun setupSplashScreen(binding: FragmentHomeBinding) {
-        homeViewModel.allGamesLoaded.observe(viewLifecycleOwner) {
-            if (it == homeViewModel.totalApiCalls) {
-                binding.logo.visibility = View.GONE
-                binding.splashScreen.visibility = View.GONE
-                binding.progressBar.visibility = View.GONE
-                (activity as AppCompatActivity).supportActionBar?.show()
-            } else if(it == 0) {
-                (activity as AppCompatActivity).supportActionBar?.hide()
-            }
-        }
+        //setupSplashScreen(binding)
     }
 
     private fun setupCarouselView(binding: FragmentHomeBinding) {

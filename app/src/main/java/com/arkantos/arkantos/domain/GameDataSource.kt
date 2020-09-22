@@ -24,6 +24,11 @@ class GameDataSource(
 
     val gameApiStatus = gameRepository.apiStatus
 
+    init {
+        dataSourceScope.launch {
+            gameRepository.getGamesByGenre(genre)
+        }
+    }
     override fun loadInitial(
         params: LoadInitialParams<Int>,
         callback: LoadInitialCallback<Int, Game>
