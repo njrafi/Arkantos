@@ -3,10 +3,11 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 apply plugin: "androidx.navigation.safeargs"
+apply plugin: 'com.google.gms.google-services'
 
-def apikeyPropertiesFile = rootProject.file("apikey.properties")
-def apikeyProperties = new Properties()
-apikeyProperties.load(new FileInputStream(apikeyPropertiesFile))
+def apiKeyPropertiesFile = rootProject.file("apikey.properties")
+def apiKeyProperties = new Properties()
+apiKeyProperties.load(new FileInputStream(apiKeyPropertiesFile))
 
 android {
     compileSdkVersion 30
@@ -25,7 +26,7 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-        buildConfigField("String", "IGDB_USER_KEY", apikeyProperties['IGDB_USER_KEY'])
+        buildConfigField("String", "IGDB_USER_KEY", apiKeyProperties['IGDB_USER_KEY'])
     }
 
     buildTypes {
@@ -93,6 +94,9 @@ dependencies {
 
     // favorite button
     implementation 'com.sackcentury:shinebutton:1.0.0'
+
+    // Firebase Analytics
+    implementation 'com.google.firebase:firebase-analytics:17.5.0'
 
     implementation 'com.synnapps:carouselview:0.1.5'
     testImplementation 'junit:junit:4.13'
