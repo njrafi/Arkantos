@@ -64,10 +64,8 @@ class LoginActivity : AppCompatActivity() {
         binding.loginButton.visibility = View.INVISIBLE
         binding.progressBar.visibility = View.VISIBLE
         homeViewModel.allGamesLoaded.observe(this) {
-            Log.i("home",it.toString())
             if (it == homeViewModel.totalApiCalls) {
                 val intent = Intent(this, MainActivity::class.java)
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
                 startActivity(intent)
                 finish()
             }
