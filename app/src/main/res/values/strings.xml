@@ -14,4 +14,5 @@
     <string name="shooter_games">Shooter Games</string>
     <string name="racing_games">Racing Games</string>
     <string name="fighting_games">Fighting Games</string>
+    <string name="move_to_login">Move to Login</string>
 </resources>

@@ -4,6 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import com.arkantos.arkantos.databinding.ActivityLoginBinding
@@ -14,35 +15,44 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 
 class LoginActivity : AppCompatActivity() {
+    private lateinit var binding: ActivityLoginBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val binding = DataBindingUtil.setContentView<ActivityLoginBinding>(
+        supportActionBar?.hide()
+        binding = DataBindingUtil.setContentView<ActivityLoginBinding>(
             this,
             R.layout.activity_login
         )
         Firebase.auth.currentUser?.reload()
-        if (Firebase.auth.currentUser == null)
+
+        if (Firebase.auth.currentUser == null) {
             createSignInIntent()
-        else
+        } else {
             goToMainActivity()
+        }
+
     }
 
     private fun createSignInIntent() {
-        val providers = arrayListOf(
-            AuthUI.IdpConfig.PhoneBuilder().build(),
-            AuthUI.IdpConfig.GoogleBuilder().build()
-        )
-
-        // Create and launch sign-in intent
-        startActivityForResult(
-            AuthUI.getInstance()
-                .createSignInIntentBuilder()
-                .setIsSmartLockEnabled(false)
-                .setAvailableProviders(providers)
-                .setLogo(R.drawable.leonidas)
-                .build(),
-            RC_SIGN_IN
-        )
+        binding.loginButton.visibility = View.VISIBLE
+        binding.progressBar.visibility = View.INVISIBLE
+        binding.loginButton.setOnClickListener {
+            val providers = arrayListOf(
+                AuthUI.IdpConfig.PhoneBuilder().build(),
+                AuthUI.IdpConfig.GoogleBuilder().build()
+            )
+            // Create and launch sign-in intent
+            startActivityForResult(
+                AuthUI.getInstance()
+                    .createSignInIntentBuilder()
+                    .setIsSmartLockEnabled(false)
+                    .setAvailableProviders(providers)
+                    .setLogo(R.drawable.leonidas)
+                    .build(),
+                RC_SIGN_IN
+            )
+        }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -83,6 +93,8 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun goToMainActivity() {
+        binding.loginButton.visibility = View.INVISIBLE
+        binding.progressBar.visibility = View.VISIBLE
         val intent = Intent(this, MainActivity::class.java)
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
         startActivity(intent)
