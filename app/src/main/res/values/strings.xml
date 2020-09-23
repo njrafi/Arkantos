@@ -18,4 +18,7 @@
     <string name="all_games">All Games</string>
     <string name="favorite_games">Favorite Games</string>
     <string name="sign_out">Sign Out</string>
+    <!-- Facebook application ID and custom URL scheme (app ID prefixed by 'fb'). -->
+    <string name="facebook_application_id" translatable="false">639111953455797</string>
+    <string name="facebook_login_protocol_scheme" translatable="false">fb639111953455797</string>
 </resources>

@@ -44,8 +44,9 @@ class LoginActivity : AppCompatActivity() {
         binding.progressBar.visibility = View.INVISIBLE
         binding.loginButton.setOnClickListener {
             val providers = arrayListOf(
-                AuthUI.IdpConfig.PhoneBuilder().build(),
-                AuthUI.IdpConfig.GoogleBuilder().build()
+                AuthUI.IdpConfig.GoogleBuilder().build(),
+                AuthUI.IdpConfig.FacebookBuilder().build(),
+                AuthUI.IdpConfig.PhoneBuilder().build()
             )
             // Create and launch sign-in intent
             startActivityForResult(

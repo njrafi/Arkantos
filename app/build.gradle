@@ -100,7 +100,12 @@ dependencies {
 
     // Firebase UI for login screen
     implementation 'com.firebaseui:firebase-ui-auth:6.3.0'
+
+    // Firebase Auth
     implementation 'com.google.firebase:firebase-auth-ktx:19.4.0'
+
+    // Facebook auth sdk
+    implementation 'com.facebook.android:facebook-android-sdk:5.0.0'
 
     implementation 'com.synnapps:carouselview:0.1.5'
     testImplementation 'junit:junit:4.13'
