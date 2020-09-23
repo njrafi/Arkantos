@@ -25,7 +25,7 @@ class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         supportActionBar?.hide()
-        binding = DataBindingUtil.setContentView<ActivityLoginBinding>(
+        binding = DataBindingUtil.setContentView(
             this,
             R.layout.activity_login
         )
@@ -93,22 +93,22 @@ class LoginActivity : AppCompatActivity() {
 
                 if (response == null) {
                     // User pressed back button
-                    Toast.makeText(baseContext, "Sign in cancelled", Toast.LENGTH_SHORT).show();
-                    return;
+                    Toast.makeText(baseContext, "Sign in cancelled", Toast.LENGTH_SHORT).show()
+                    return
                 }
 
                 if (response.error?.errorCode == ErrorCodes.NO_NETWORK) {
-                    Toast.makeText(baseContext, "No internet", Toast.LENGTH_SHORT).show();
-                    return;
+                    Toast.makeText(baseContext, "No internet", Toast.LENGTH_SHORT).show()
+                    return
                 }
 
                 if (response.error?.errorCode == ErrorCodes.UNKNOWN_ERROR) {
-                    Toast.makeText(baseContext, "Unknown error", Toast.LENGTH_SHORT).show();
-                    return;
+                    Toast.makeText(baseContext, "Unknown error", Toast.LENGTH_SHORT).show()
+                    return
                 }
             }
 
-            Toast.makeText(baseContext, "Unknown sign in response", Toast.LENGTH_SHORT).show();
+            Toast.makeText(baseContext, "Unknown sign in response", Toast.LENGTH_SHORT).show()
 
         }
     }
