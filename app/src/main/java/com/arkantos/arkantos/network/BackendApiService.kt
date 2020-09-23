@@ -2,11 +2,11 @@ package com.arkantos.arkantos.network
 
 import retrofit2.http.Body
 import retrofit2.http.GET
+import retrofit2.http.POST
 
 interface BackendApiService {
-
-    @GET("/")
-    suspend fun getRootForTest()
+    @POST("auth/login")
+    suspend fun login(@Body user: UserNetworkModel)
 }
 
 object BackendApi {

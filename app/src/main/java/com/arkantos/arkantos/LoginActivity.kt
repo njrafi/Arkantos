@@ -34,6 +34,7 @@ class LoginActivity : AppCompatActivity() {
         if (Firebase.auth.currentUser == null) {
             createSignInIntent()
         } else {
+            homeViewModel.loginFinished()
             goToMainActivity()
         }
 
@@ -68,7 +69,6 @@ class LoginActivity : AppCompatActivity() {
             if (it == homeViewModel.totalApiCalls) {
                 val intent = Intent(this, MainActivity::class.java)
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-
                 startActivity(intent)
                 finish()
             }
@@ -84,6 +84,7 @@ class LoginActivity : AppCompatActivity() {
             if (resultCode == RESULT_OK) {
                 Log.i("firebase", "Signed in Successfully")
                 goToMainActivity()
+                homeViewModel.loginFinished()
                 return
                 // ...
             } else {

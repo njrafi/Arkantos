@@ -1,6 +1,5 @@
 package com.arkantos.arkantos.network
 
-import com.arkantos.arkantos.BuildConfig
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import okhttp3.OkHttpClient
