@@ -54,4 +54,7 @@ interface GamesDao {
 
     @Delete
     suspend fun deleteFavoriteGame(game: FavoriteGameDatabaseModel)
+
+    @Query("delete from favorite_games")
+    suspend fun deleteAllFavoriteGames()
 }

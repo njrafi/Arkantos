@@ -108,6 +108,12 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
+    fun signOut() {
+        viewModelScope.launch {
+            gameRepository.deleteAllFavoriteGames()
+        }
+    }
+
 
     private fun addSources() {
         // Remember to change
@@ -160,6 +166,4 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
         }
 
     }
-
-
 }

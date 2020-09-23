@@ -173,6 +173,16 @@ class GameRepository(application: Application) {
         }
     }
 
+    suspend fun deleteAllFavoriteGames() {
+        withContext(Dispatchers.IO) {
+            try {
+                database.gamesDao.deleteAllFavoriteGames()
+            } catch (t: Throwable) {
+                handleError(t)
+            }
+        }
+    }
+
     private fun handleError(t: Throwable) {
         _apiStatus.postValue(GameApiStatus.ERROR)
         if (t.message != null)
