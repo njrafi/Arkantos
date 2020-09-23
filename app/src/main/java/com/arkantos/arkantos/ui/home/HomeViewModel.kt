@@ -8,6 +8,7 @@ import com.arkantos.arkantos.domain.Game
 import com.arkantos.arkantos.domain.GameDataSource
 import com.arkantos.arkantos.domain.GameDataSourceFactory
 import com.arkantos.arkantos.network.GameApiBody
+import com.arkantos.arkantos.repository.BackendRepository
 import com.arkantos.arkantos.repository.GameApiStatus
 import com.arkantos.arkantos.repository.GameRepository
 import kotlinx.coroutines.CoroutineScope
@@ -47,6 +48,8 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
         allGamesLoaded.value = 0
         viewModelScope.launch {
             gameRepository.getPopularGames()
+            // TODO: delete it
+            BackendRepository(application).getRootForTest()
         }
         val pagedListConfig = PagedList.Config.Builder()
             .setPageSize(GameDataSource.pageSize)

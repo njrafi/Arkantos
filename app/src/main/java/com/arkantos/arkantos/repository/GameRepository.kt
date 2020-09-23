@@ -21,7 +21,7 @@ enum class GameApiStatus {
     LOADING, ERROR, DONE
 }
 
-class GameRepository(private val application: Application) {
+class GameRepository(application: Application) {
 
     private val _allGames = MutableLiveData<List<Game>>()
     val allGames: LiveData<List<Game>>

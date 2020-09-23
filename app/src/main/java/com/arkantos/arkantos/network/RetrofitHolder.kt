@@ -11,13 +11,13 @@ import retrofit2.converter.scalars.ScalarsConverterFactory
 
 object RetrofitHolder {
     private const val MOVIE_API_URL = "https://api-v3.igdb.com/"
-    private const val BACKEND_URL  = "http://192:168:0:193/"
+    private const val BACKEND_URL  = "http://192.168.0.193:4000/"
 
     private val moshi = Moshi.Builder()
         .add(KotlinJsonAdapterFactory())
         .build()
-    private val scalarsConverterFactory = ScalarsConverterFactory.create()
     private val moshiConverterFactory = MoshiConverterFactory.create(moshi)
+    private val scalarsConverterFactory = ScalarsConverterFactory.create()
     private val httpClient = OkHttpClient.Builder()
         .addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BASIC))
         .build()
