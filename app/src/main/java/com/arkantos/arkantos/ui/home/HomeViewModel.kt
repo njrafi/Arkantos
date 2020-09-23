@@ -8,7 +8,7 @@ import com.arkantos.arkantos.domain.Game
 import com.arkantos.arkantos.domain.GameDataSource
 import com.arkantos.arkantos.domain.GameDataSourceFactory
 import com.arkantos.arkantos.network.GameApiBody
-import com.arkantos.arkantos.network.asNetworkModel
+import com.arkantos.arkantos.network.models.asNetworkModel
 import com.arkantos.arkantos.repository.BackendRepository
 import com.arkantos.arkantos.repository.GameApiStatus
 import com.arkantos.arkantos.repository.GameRepository

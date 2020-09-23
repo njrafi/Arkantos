@@ -2,6 +2,7 @@ package com.arkantos.arkantos.ui.gameDetails
 
 import android.app.Application
 import androidx.lifecycle.*
+import com.arkantos.arkantos.repository.BackendRepository
 import com.arkantos.arkantos.repository.GameRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -15,6 +16,7 @@ class GameDetailsViewModel(application: Application, val gameId: Long) :
     private val viewModelJob = Job()
     private val viewModelScope = CoroutineScope(viewModelJob + Dispatchers.Main)
     private val gameRepository = GameRepository(application)
+    private val backendRepository = BackendRepository(application)
 
     val apiStatus = gameRepository.apiStatus
     val game = gameRepository.singleGame
@@ -76,9 +78,11 @@ class GameDetailsViewModel(application: Application, val gameId: Long) :
         }
     }
 
+    // TODO: Sync backendRepository after a while
     fun addToFavorite() {
         viewModelScope.launch {
             gameRepository.addToFavorites(gameId)
+            backendRepository.syncFavoriteGames()
         }
 
     }
@@ -86,6 +90,7 @@ class GameDetailsViewModel(application: Application, val gameId: Long) :
     fun removeFromFavourite() {
         viewModelScope.launch {
             gameRepository.removeFromFavorites(gameId)
+            backendRepository.syncFavoriteGames()
         }
 
     }
@@ -104,7 +109,7 @@ class GameDetailsViewModel(application: Application, val gameId: Long) :
                 @Suppress("UNCHECKED_CAST")
                 return GameDetailsViewModel(app, gameId) as T
             }
-            throw IllegalArgumentException("Unable to construct viewmodel")
+            throw IllegalArgumentException("Unable to construct viewModel")
         }
     }
 

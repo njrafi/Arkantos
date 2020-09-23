@@ -1,6 +1,7 @@
 package com.arkantos.arkantos.network
 
 import com.arkantos.arkantos.BuildConfig
+import com.arkantos.arkantos.network.models.GameNetworkModel
 import retrofit2.http.*
 
 private const val USER_KEY = BuildConfig.IGDB_USER_KEY

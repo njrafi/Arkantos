@@ -12,8 +12,8 @@ import com.arkantos.arkantos.domain.GameDataSource
 import com.arkantos.arkantos.domain.asDomainModel
 import com.arkantos.arkantos.network.GameApi
 import com.arkantos.arkantos.network.GameApiBody
-import com.arkantos.arkantos.network.asDatabaseModel
-import com.arkantos.arkantos.network.asDomainModel
+import com.arkantos.arkantos.network.models.asDatabaseModel
+import com.arkantos.arkantos.network.models.asDomainModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 

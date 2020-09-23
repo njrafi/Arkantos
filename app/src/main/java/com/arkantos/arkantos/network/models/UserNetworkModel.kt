@@ -1,4 +1,4 @@
-package com.arkantos.arkantos.network
+package com.arkantos.arkantos.network.models
 
 import com.google.firebase.auth.FirebaseUser
 
