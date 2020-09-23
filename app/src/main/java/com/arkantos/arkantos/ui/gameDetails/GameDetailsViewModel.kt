@@ -82,7 +82,7 @@ class GameDetailsViewModel(application: Application, val gameId: Long) :
     fun addToFavorite() {
         viewModelScope.launch {
             gameRepository.addToFavorites(gameId)
-            backendRepository.syncFavoriteGames()
+            backendRepository.syncFavoriteGamesWithServer()
         }
 
     }
@@ -90,7 +90,7 @@ class GameDetailsViewModel(application: Application, val gameId: Long) :
     fun removeFromFavourite() {
         viewModelScope.launch {
             gameRepository.removeFromFavorites(gameId)
-            backendRepository.syncFavoriteGames()
+            backendRepository.syncFavoriteGamesWithServer()
         }
 
     }

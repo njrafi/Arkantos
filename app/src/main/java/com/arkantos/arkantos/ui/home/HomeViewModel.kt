@@ -104,6 +104,7 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
     fun loginFinished() {
         viewModelScope.launch {
             Firebase.auth.currentUser?.asNetworkModel()?.let { backendRepository.login(it) }
+            backendRepository.getFavoriteGamesFromServer()
         }
     }
 

@@ -7,7 +7,7 @@ import com.google.firebase.ktx.Firebase
 
 data class FavoriteGamesNetworkModel(
     val userToken: String,
-    val favoriteGames: List<FavoriteGame>
+    val favoriteGames: List<GameDatabaseModel>
 )
 
 data class FavoriteGame(
@@ -18,9 +18,7 @@ data class FavoriteGame(
 fun List<GameDatabaseModel>.asFavoriteGamesNetworkModel(): FavoriteGamesNetworkModel {
     val userId = Firebase.auth.currentUser?.uid
     if (userId != null)
-        return FavoriteGamesNetworkModel(userId, map { game ->
-            FavoriteGame(game.id, game.name)
-        })
+        return FavoriteGamesNetworkModel(userId, this)
     else {
         throw Throwable("User not found")
     }

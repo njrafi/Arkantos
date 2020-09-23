@@ -49,6 +49,9 @@ interface GamesDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insertFavoriteGame(game: FavoriteGameDatabaseModel)
 
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    suspend fun insertFavoriteGame(game: List<FavoriteGameDatabaseModel>)
+
     @Delete
     suspend fun deleteFavoriteGame(game: FavoriteGameDatabaseModel)
 }
