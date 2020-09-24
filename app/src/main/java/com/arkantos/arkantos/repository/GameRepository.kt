@@ -12,8 +12,8 @@ import com.arkantos.arkantos.domain.GameDataSource
 import com.arkantos.arkantos.domain.asDomainModel
 import com.arkantos.arkantos.network.GameApi
 import com.arkantos.arkantos.network.GameApiBody
-import com.arkantos.arkantos.network.asDatabaseModel
-import com.arkantos.arkantos.network.asDomainModel
+import com.arkantos.arkantos.network.models.asDatabaseModel
+import com.arkantos.arkantos.network.models.asDomainModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
@@ -21,7 +21,7 @@ enum class GameApiStatus {
     LOADING, ERROR, DONE
 }
 
-class GameRepository(private val application: Application) {
+class GameRepository(application: Application) {
 
     private val _allGames = MutableLiveData<List<Game>>()
     val allGames: LiveData<List<Game>>
@@ -167,6 +167,16 @@ class GameRepository(private val application: Application) {
         withContext(Dispatchers.IO) {
             try {
                 database.gamesDao.deleteFavoriteGame(FavoriteGameDatabaseModel(gameId))
+            } catch (t: Throwable) {
+                handleError(t)
+            }
+        }
+    }
+
+    suspend fun deleteAllFavoriteGames() {
+        withContext(Dispatchers.IO) {
+            try {
+                database.gamesDao.deleteAllFavoriteGames()
             } catch (t: Throwable) {
                 handleError(t)
             }

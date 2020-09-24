@@ -154,6 +154,7 @@ class HomeFragment : Fragment() {
     }
 
     private fun signOutFromApplication() {
+        homeViewModel.signOut()
         activity?.application?.let { application ->
             AuthUI.getInstance().signOut(application).addOnCompleteListener {
                 val intent = Intent(application, LoginActivity::class.java)
