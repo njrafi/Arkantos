@@ -42,9 +42,19 @@ interface GamesDao {
     @Query("select games.* from games inner join favorite_games on games.id = favorite_games.gameId")
     fun getFavoriteGames(): LiveData<List<GameDatabaseModel>>
 
+    @Transaction
+    @Query("select games.* from games inner join favorite_games on games.id = favorite_games.gameId")
+    suspend fun getFavoriteGamesSync(): List<GameDatabaseModel>
+
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insertFavoriteGame(game: FavoriteGameDatabaseModel)
 
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    suspend fun insertFavoriteGame(game: List<FavoriteGameDatabaseModel>)
+
     @Delete
     suspend fun deleteFavoriteGame(game: FavoriteGameDatabaseModel)
+
+    @Query("delete from favorite_games")
+    suspend fun deleteAllFavoriteGames()
 }

@@ -1,4 +1,4 @@
-package com.arkantos.arkantos.network
+package com.arkantos.arkantos.network.models
 
 import com.arkantos.arkantos.database.GameDatabaseModel
 import com.arkantos.arkantos.domain.Game
