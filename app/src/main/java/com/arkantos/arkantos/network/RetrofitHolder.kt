@@ -10,8 +10,8 @@ import retrofit2.converter.scalars.ScalarsConverterFactory
 
 object RetrofitHolder {
     private const val MOVIE_API_URL = "https://api-v3.igdb.com/"
-    //private const val BACKEND_URL  = "http://192.168.0.193:4000/"
-    private const val BACKEND_URL  = "https://arkantos-backend.herokuapp.com/"
+    private const val BACKEND_URL  = "http://192.168.0.193:4000/"
+    //private const val BACKEND_URL  = "https://arkantos-backend.herokuapp.com/"
     private val moshi = Moshi.Builder()
         .add(KotlinJsonAdapterFactory())
         .build()

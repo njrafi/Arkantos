@@ -7,7 +7,9 @@ import androidx.paging.PagedList
 import com.arkantos.arkantos.domain.Game
 import com.arkantos.arkantos.domain.GameDataSource
 import com.arkantos.arkantos.domain.GameDataSourceFactory
+import com.arkantos.arkantos.helpers.UserHolder
 import com.arkantos.arkantos.network.GameApiBody
+import com.arkantos.arkantos.network.models.UserNetworkModel
 import com.arkantos.arkantos.network.models.asNetworkModel
 import com.arkantos.arkantos.repository.BackendRepository
 import com.arkantos.arkantos.repository.GameApiStatus
@@ -99,6 +101,30 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
                 .build()
 
         addSources()
+    }
+
+    fun signUp(completed: (Boolean) -> Unit) {
+        viewModelScope.launch {
+            val user = Firebase.auth.currentUser
+            if (user == null) {
+                completed(false)
+            } else {
+                user.getIdToken(true).addOnCompleteListener { task ->
+                    val idToken = task.result?.token
+                    if (task.isSuccessful && idToken != null) {
+//                        UserHolder.user = UserNetworkModel(
+//                            idToken,
+//                            user.displayName,
+//                            user.email,
+//                            user.photoUrl.toString(),
+//                            user.providerId
+//                        )
+                    }
+
+                }
+            }
+        }
+        completed(false)
     }
 
     fun loginFinished() {

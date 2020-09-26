@@ -18,7 +18,7 @@ abstract class GamesDatabase : RoomDatabase() {
 
 
     companion object {
-        private final const val DB_NAME = "Games_Database"
+        private const val DB_NAME = "Games_Database"
         private lateinit var instance: GamesDatabase
 
         fun getInstance(context: Context): GamesDatabase {

@@ -1,7 +1,9 @@
 package com.arkantos.arkantos.network.models
 
 import com.google.firebase.auth.FirebaseUser
+import com.squareup.moshi.JsonClass
 
+@JsonClass(generateAdapter = true)
 data class UserNetworkModel(
     val token: String,
     val name: String?,

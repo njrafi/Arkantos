@@ -126,7 +126,7 @@ class HomeFragment : Fragment() {
             )
             R.id.signOutMenuButton -> signOutFromApplication()
         }
-        return super.onOptionsItemSelected(item);
+        return super.onOptionsItemSelected(item)
     }
 
     private fun setupGameContainer(
