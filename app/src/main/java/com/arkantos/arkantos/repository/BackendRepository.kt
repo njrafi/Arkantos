@@ -27,6 +27,16 @@ class BackendRepository(application: Application) {
         }
     }
 
+    suspend fun updateProfile(user: UserNetworkModel) {
+        withContext(Dispatchers.IO) {
+            try {
+                BackendApi.retrofitService.updateUser(user)
+            } catch (t: Throwable) {
+                handleError(t)
+            }
+        }
+    }
+
     suspend fun syncFavoriteGamesWithServer() {
         withContext(Dispatchers.IO) {
             try {
