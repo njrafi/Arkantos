@@ -6,6 +6,7 @@ import com.arkantos.arkantos.database.FavoriteGameDatabaseModel
 import com.arkantos.arkantos.database.GameDatabaseModel
 import com.arkantos.arkantos.database.GamesDatabase
 import com.arkantos.arkantos.domain.Game
+import com.arkantos.arkantos.helpers.UserHolder
 import com.arkantos.arkantos.network.BackendApi
 import com.arkantos.arkantos.network.models.UserNetworkModel
 import com.arkantos.arkantos.network.models.asFavoriteGamesNetworkModel
@@ -21,6 +22,8 @@ class BackendRepository(application: Application) {
         withContext(Dispatchers.IO) {
             try {
                 BackendApi.retrofitService.login(user)
+                // TODO: Remove this line.
+                UserHolder.setUser(user)
             } catch (t: Throwable) {
                 handleError(t)
             }
@@ -31,6 +34,7 @@ class BackendRepository(application: Application) {
         withContext(Dispatchers.IO) {
             try {
                 BackendApi.retrofitService.updateUser(user)
+                UserHolder.setUser(user)
             } catch (t: Throwable) {
                 handleError(t)
             }

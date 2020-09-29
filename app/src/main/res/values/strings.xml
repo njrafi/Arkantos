@@ -21,4 +21,8 @@
     <!-- Facebook application ID and custom URL scheme (app ID prefixed by 'fb'). -->
     <string name="facebook_application_id" translatable="false">639111953455797</string>
     <string name="facebook_login_protocol_scheme" translatable="false">fb639111953455797</string>
+    <string name="name">Name:</string>
+    <string name="email">Email:</string>
+    <string name="profile">Profile</string>
+    <string name="profile_picture">Profile Picture</string>
 </resources>
