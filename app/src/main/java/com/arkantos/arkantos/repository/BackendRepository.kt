@@ -40,7 +40,7 @@ class BackendRepository(application: Application) {
 
     suspend fun getFavoriteGamesFromServer() {
         withContext(Dispatchers.IO) {
-            try {3
+            try {
                 val userToken = Firebase.auth.currentUser?.uid
                 if (userToken != null) {
                     val favoriteGames = BackendApi.retrofitService.getFavoriteGames(userToken)
