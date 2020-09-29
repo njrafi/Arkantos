@@ -1,16 +1,15 @@
 package com.arkantos.arkantos.ui.home
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.*
 import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
 import com.arkantos.arkantos.domain.Game
 import com.arkantos.arkantos.domain.GameDataSource
 import com.arkantos.arkantos.domain.GameDataSourceFactory
-import com.arkantos.arkantos.helpers.UserHolder
 import com.arkantos.arkantos.network.GameApiBody
 import com.arkantos.arkantos.network.models.UserNetworkModel
-import com.arkantos.arkantos.network.models.asNetworkModel
 import com.arkantos.arkantos.repository.BackendRepository
 import com.arkantos.arkantos.repository.GameApiStatus
 import com.arkantos.arkantos.repository.GameRepository
@@ -104,33 +103,27 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     fun signUp(completed: (Boolean) -> Unit) {
-        viewModelScope.launch {
-            val user = Firebase.auth.currentUser
-            if (user == null) {
-                completed(false)
-            } else {
-                user.getIdToken(true).addOnCompleteListener { task ->
-                    val idToken = task.result?.token
-                    if (task.isSuccessful && idToken != null) {
-//                        UserHolder.user = UserNetworkModel(
-//                            idToken,
-//                            user.displayName,
-//                            user.email,
-//                            user.photoUrl.toString(),
-//                            user.providerId
-//                        )
-                    }
-
+        val firebaseUser = Firebase.auth.currentUser
+        if (firebaseUser == null) {
+            completed(false)
+        } else {
+            val user = UserNetworkModel(
+                firebaseUser.uid,
+                firebaseUser.displayName,
+                firebaseUser.email,
+                firebaseUser.photoUrl.toString(),
+                firebaseUser.providerId
+            )
+            viewModelScope.launch {
+                try {
+                    backendRepository.login(user)
+                    backendRepository.getFavoriteGamesFromServer()
+                    completed(true)
+                } catch (t: Throwable) {
+                    Log.e("HomeViewModel", t.message.toString())
+                    completed(false)
                 }
             }
-        }
-        completed(false)
-    }
-
-    fun loginFinished() {
-        viewModelScope.launch {
-            Firebase.auth.currentUser?.asNetworkModel()?.let { backendRepository.login(it) }
-            backendRepository.getFavoriteGamesFromServer()
         }
     }
 

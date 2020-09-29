@@ -17,6 +17,7 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 
 class LoginActivity : AppCompatActivity() {
+    private val tag = "Login Activity"
     private lateinit var binding: ActivityLoginBinding
     private val homeViewModel: HomeViewModel by lazy {
         ViewModelProvider(this).get(HomeViewModel::class.java)
@@ -34,10 +35,8 @@ class LoginActivity : AppCompatActivity() {
         if (Firebase.auth.currentUser == null) {
             createSignInIntent()
         } else {
-            homeViewModel.loginFinished()
             goToMainActivity()
         }
-
     }
 
     private fun createSignInIntent() {
@@ -81,15 +80,21 @@ class LoginActivity : AppCompatActivity() {
         if (requestCode == RC_SIGN_IN) {
             val response = IdpResponse.fromResultIntent(data)
             if (resultCode == RESULT_OK) {
-                Log.i("firebase", "Signed in Successfully")
-                goToMainActivity()
-                homeViewModel.loginFinished()
+                Log.i(tag, "Signed up Successfully in firebase server")
+                homeViewModel.signUp { signUpCompleted ->
+                    if (signUpCompleted) {
+                        Log.i(tag, "Sign Up Finished in backend server")
+                        goToMainActivity()
+                    } else {
+                        Toast.makeText(baseContext, "Sign Up Failed", Toast.LENGTH_SHORT).show()
+                    }
+                }
                 return
                 // ...
             } else {
-                Log.i("firebase", "Signed in Failed")
+                Log.i(tag, "Signed in Failed")
                 if (response != null)
-                    Log.i("firebase", response.error.toString())
+                    Log.i(tag, response.error.toString())
 
                 if (response == null) {
                     // User pressed back button

@@ -55,16 +55,12 @@ class BackendRepository(application: Application) {
     suspend fun getFavoriteGamesFromServer() {
         withContext(Dispatchers.IO) {
             try {
-                val userToken = Firebase.auth.currentUser?.uid
-                if (userToken != null) {
-                    val favoriteGames = BackendApi.retrofitService.getFavoriteGames(userToken)
-                    database.gamesDao.insert(favoriteGames.favoriteGames)
-                    database.gamesDao.insertFavoriteGame(favoriteGames.favoriteGames.map {
-                        FavoriteGameDatabaseModel(it.id)
-                    })
-                } else {
-                    throw Throwable("UserToken Found null in getFavoriteGames")
-                }
+                val userToken = UserHolder.getUser().token
+                val favoriteGames = BackendApi.retrofitService.getFavoriteGames(userToken)
+                database.gamesDao.insert(favoriteGames.favoriteGames)
+                database.gamesDao.insertFavoriteGame(favoriteGames.favoriteGames.map {
+                    FavoriteGameDatabaseModel(it.id)
+                })
             } catch (t: Throwable) {
                 handleError(t)
             }
