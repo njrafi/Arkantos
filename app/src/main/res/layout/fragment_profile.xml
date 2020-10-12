@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="viewModel"
             type="com.arkantos.arkantos.ui.profile.ProfileViewModel" />
@@ -18,76 +19,110 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraintLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        tools:context=".ui.profile.ProfileFragment">
-
-        <ImageView
-            android:id="@+id/profilePicture"
-            android:layout_width="200dp"
-            android:layout_height="200dp"
-            android:layout_marginTop="24dp"
-            android:src="@drawable/leonidas"
-            android:contentDescription="@string/profile_picture"
-            app:imageUrl="@{viewModel.profilePictureUrl}"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/nameLabel"
-            android:layout_width="wrap_content"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayout"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="32dp"
-            android:text="@string/name"
-            android:textColor="@android:color/background_dark"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/profilePicture" />
+            tools:context=".ui.profile.ProfileFragment">
 
-        <TextView
-            android:id="@+id/nameTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:textSize="18sp"
-            android:textColor="@android:color/background_dark"
-            android:text="@{viewModel.name}"
-            app:layout_constraintBaseline_toBaselineOf="@+id/nameLabel"
-            app:layout_constraintStart_toEndOf="@+id/nameLabel"
-            tools:text="Kuddus" />
+            <ImageView
+                android:id="@+id/profilePicture"
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                android:layout_marginTop="24dp"
+                android:contentDescription="@string/profile_picture"
+                android:src="@drawable/leonidas"
+                app:imageUrl="@{viewModel.profilePictureUrl}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/emailLabel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:layout_marginBottom="24dp"
-            android:text="@string/email"
-            android:textColor="@android:color/background_dark"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/nameLabel"
-            app:layout_constraintTop_toBottomOf="@+id/nameLabel" />
+            <TextView
+                android:id="@+id/nameLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="32dp"
+                android:text="@string/name"
+                android:textColor="@android:color/background_dark"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/profilePicture" />
 
-        <TextView
-            android:id="@+id/emailTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:textSize="18sp"
-            android:textColor="@android:color/background_dark"
-            android:text="@{viewModel.email}"
-            app:layout_constraintBaseline_toBaselineOf="@+id/emailLabel"
-            app:layout_constraintStart_toEndOf="@+id/emailLabel"
-            tools:text="Kuddus@kuddus.com" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <EditText
+                android:id="@+id/nameTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:inputType="none"
+                android:text="@{viewModel.name}"
+                android:textColor="@android:color/background_dark"
+                android:textSize="18sp"
+                app:enableEditing="@{false}"
+                app:layout_constraintBaseline_toBaselineOf="@+id/nameLabel"
+                app:layout_constraintStart_toEndOf="@+id/nameLabel"
+                tools:text="Kuddus" />
 
-</androidx.core.widget.NestedScrollView>
+            <TextView
+                android:id="@+id/emailLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:layout_marginBottom="24dp"
+                android:text="@string/email"
+                android:textColor="@android:color/background_dark"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toTopOf="@+id/submitButton"
+                app:layout_constraintStart_toStartOf="@+id/nameLabel"
+                app:layout_constraintTop_toBottomOf="@+id/nameLabel" />
+
+            <EditText
+                android:id="@+id/emailTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="@{viewModel.email}"
+                android:textColor="@android:color/background_dark"
+                android:textSize="18sp"
+                app:enableEditing="@{false}"
+                app:layout_constraintBaseline_toBaselineOf="@+id/emailLabel"
+                app:layout_constraintStart_toEndOf="@+id/emailLabel"
+                tools:text="kuddusBoyati@gmail.com" />
+
+            <ImageView
+                android:id="@+id/editNameButton"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginEnd="32dp"
+                app:layout_constraintBottom_toBottomOf="@+id/nameLabel"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/nameLabel"
+                app:srcCompat="@drawable/edit_icon" />
+
+            <ImageView
+                android:id="@+id/editEmailButton"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginEnd="32dp"
+                app:layout_constraintBottom_toBottomOf="@+id/emailLabel"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/emailLabel"
+                app:srcCompat="@drawable/edit_icon" />
+
+            <Button
+                android:id="@+id/submitButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="32dp"
+                android:layout_marginBottom="24dp"
+                android:text="@string/submit"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.core.widget.NestedScrollView>
 </layout>
