@@ -21,9 +21,8 @@ class BackendRepository(application: Application) {
     suspend fun login(user: UserNetworkModel) {
         withContext(Dispatchers.IO) {
             try {
-                BackendApi.retrofitService.login(user)
-                // TODO: Remove this line.
-                UserHolder.setUser(user)
+                val loginResponse = BackendApi.retrofitService.login(user)
+                UserHolder.setUser(loginResponse.user)
             } catch (t: Throwable) {
                 handleError(t)
             }

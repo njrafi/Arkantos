@@ -10,6 +10,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.arkantos.arkantos.R
 import com.arkantos.arkantos.databinding.FragmentProfileBinding
 import com.arkantos.arkantos.enableEditing
+import com.arkantos.arkantos.helpers.UserHolder
 
 class ProfileFragment : Fragment() {
     private val profileViewModel: ProfileViewModel by lazy {
@@ -42,12 +43,19 @@ class ProfileFragment : Fragment() {
         }
         binding.submitButton.setOnClickListener {
             hideAllButtonAndDisableEditing(binding)
+            updateProfile(binding)
         }
         binding.cancelButton.setOnClickListener {
             hideAllButtonAndDisableEditing(binding)
         }
     }
 
+    private fun updateProfile(binding: FragmentProfileBinding) {
+        val newProfile = UserHolder.getUser().copy()
+        newProfile.name = binding.nameTextView.text.toString()
+        newProfile.email = binding.emailTextView.text.toString()
+        profileViewModel.updateProfile(newProfile)
+    }
     private fun hideAllButtonAndDisableEditing(binding: FragmentProfileBinding) {
         binding.cancelButton.visibility = View.GONE
         binding.submitButton.visibility = View.GONE
