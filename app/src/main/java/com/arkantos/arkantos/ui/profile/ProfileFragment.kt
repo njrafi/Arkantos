@@ -1,7 +1,6 @@
 package com.arkantos.arkantos.ui.profile
 
 import android.os.Bundle
-import android.text.InputType
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -11,7 +10,6 @@ import androidx.lifecycle.ViewModelProvider
 import com.arkantos.arkantos.R
 import com.arkantos.arkantos.databinding.FragmentProfileBinding
 import com.arkantos.arkantos.enableEditing
-import com.arkantos.arkantos.ui.home.HomeViewModel
 
 class ProfileFragment : Fragment() {
     private val profileViewModel: ProfileViewModel by lazy {
@@ -36,14 +34,30 @@ class ProfileFragment : Fragment() {
     private fun setupButtons(binding: FragmentProfileBinding) {
         binding.editNameButton.setOnClickListener {
             binding.nameTextView.enableEditing(true)
+            showAllButton(binding)
         }
         binding.editEmailButton.setOnClickListener {
             binding.emailTextView.enableEditing(true)
+            showAllButton(binding)
         }
         binding.submitButton.setOnClickListener {
-            binding.nameTextView.enableEditing(false)
-            binding.emailTextView.enableEditing(false)
+            hideAllButtonAndDisableEditing(binding)
         }
+        binding.cancelButton.setOnClickListener {
+            hideAllButtonAndDisableEditing(binding)
+        }
+    }
+
+    private fun hideAllButtonAndDisableEditing(binding: FragmentProfileBinding) {
+        binding.cancelButton.visibility = View.GONE
+        binding.submitButton.visibility = View.GONE
+        binding.nameTextView.enableEditing(false)
+        binding.emailTextView.enableEditing(false)
+    }
+
+    private fun showAllButton(binding: FragmentProfileBinding) {
+        binding.cancelButton.visibility = View.VISIBLE
+        binding.submitButton.visibility = View.VISIBLE
     }
 
 
