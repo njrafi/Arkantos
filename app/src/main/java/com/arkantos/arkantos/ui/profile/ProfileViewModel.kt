@@ -18,6 +18,8 @@ class ProfileViewModel(application: Application) : AndroidViewModel(application)
     private val viewModelScope = CoroutineScope(Dispatchers.Main + job)
     private val backendRepository = BackendRepository(application)
 
+    val apiStatus = backendRepository.apiStatus
+
     private val _name = MutableLiveData<String>()
     val name: LiveData<String>
         get() = _name

@@ -46,13 +46,17 @@ class ProfileFragment : Fragment() {
         binding.lifecycleOwner = this
         binding.viewModel = profileViewModel
         setupButtons(binding)
-        binding.profilePicture.setOnClickListener {
-            selectImage(requireContext())
-        }
+
         return binding.root
     }
 
     private fun setupButtons(binding: FragmentProfileBinding) {
+        binding.profilePicture.setOnClickListener {
+            selectImage(requireContext())
+        }
+        binding.editProfilePictureButton.setOnClickListener {
+            selectImage(requireContext())
+        }
         binding.editNameButton.setOnClickListener {
             binding.nameTextView.enableEditing(true)
             showAllButton(binding)

@@ -2,6 +2,8 @@ package com.arkantos.arkantos.repository
 
 import android.app.Application
 import android.util.Log
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import com.arkantos.arkantos.database.FavoriteGameDatabaseModel
 import com.arkantos.arkantos.database.GameDatabaseModel
 import com.arkantos.arkantos.database.GamesDatabase
@@ -17,7 +19,9 @@ import kotlinx.coroutines.withContext
 
 class BackendRepository(application: Application) {
     private val database = GamesDatabase.getInstance(application)
-
+    private val _apiStatus = MutableLiveData<GameApiStatus>()
+    val apiStatus: LiveData<GameApiStatus>
+        get() = _apiStatus
     suspend fun login(user: UserNetworkModel) {
         withContext(Dispatchers.IO) {
             try {
@@ -32,9 +36,11 @@ class BackendRepository(application: Application) {
     suspend fun updateProfile(user: UserNetworkModel) {
         withContext(Dispatchers.IO) {
             try {
+                _apiStatus.postValue(GameApiStatus.LOADING)
                 val userResponse = BackendApi.retrofitService.updateUser(user)
                 if (userResponse.user != null)
                     UserHolder.setUser(userResponse.user)
+                _apiStatus.postValue(GameApiStatus.DONE)
             } catch (t: Throwable) {
                 handleError(t)
             }
@@ -69,6 +75,7 @@ class BackendRepository(application: Application) {
 
 
     private fun handleError(t: Throwable) {
+        _apiStatus.postValue(GameApiStatus.ERROR)
         Log.i("BackendRepository", t.message ?: "error with null message")
     }
 }

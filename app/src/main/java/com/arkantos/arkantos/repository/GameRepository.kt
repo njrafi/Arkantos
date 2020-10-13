@@ -185,10 +185,7 @@ class GameRepository(application: Application) {
 
     private fun handleError(t: Throwable) {
         _apiStatus.postValue(GameApiStatus.ERROR)
-        if (t.message != null)
-            Log.i("GameRepository", t.message!!)
-        else
-            Log.i("GameRepository", "error with null message")
+        Log.i("GameRepository", t.message ?: "error with null message")
     }
 
 

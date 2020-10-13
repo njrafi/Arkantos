@@ -71,7 +71,7 @@ fun View.setVisibility(visible: Boolean) {
 @BindingAdapter("enableEditing")
 fun EditText.enableEditing(value: Boolean) {
     inputType = if(value)
-        InputType.TYPE_CLASS_TEXT
+        InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS
     else
         InputType.TYPE_NULL
     isEnabled = value
