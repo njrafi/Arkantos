@@ -90,6 +90,11 @@ class ProfileFragment : Fragment() {
         binding.submitButton.visibility = View.VISIBLE
     }
 
+    enum class PhotoRequestCode(val requestCode: Int) {
+        CAMERA(0),
+        GALLERY(1)
+    }
+
     private fun selectImage(context: Context) {
         val options = arrayOf<CharSequence>("Take Photo", "Choose from Gallery", "Cancel")
         val builder = AlertDialog.Builder(context)
@@ -98,12 +103,12 @@ class ProfileFragment : Fragment() {
             when {
                 options[item] == "Take Photo" -> {
                     val takePicture = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-                    startActivityForResult(takePicture, 0)
+                    startActivityForResult(takePicture, PhotoRequestCode.CAMERA.requestCode)
                 }
                 options[item] == "Choose from Gallery" -> {
                     val pickPhoto =
                         Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
-                    startActivityForResult(pickPhoto, 1)
+                    startActivityForResult(pickPhoto, PhotoRequestCode.GALLERY.requestCode)
                 }
                 options[item] == "Cancel" -> {
                     dialog.dismiss()
@@ -116,31 +121,21 @@ class ProfileFragment : Fragment() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (resultCode != RESULT_CANCELED) {
             when (requestCode) {
-                0 -> if (resultCode == RESULT_OK && data != null) {
-                    val selectedImage = data.extras!!["data"] as Bitmap?
-                    //imageView.setImageBitmap(selectedImage)
+                PhotoRequestCode.CAMERA.requestCode -> if (resultCode == RESULT_OK && data != null) {
+                    val bitmapImage = data.extras?.get("data") as Bitmap?
+                    val base64ImageString =
+                        ImageHelper.convertBitmapImageToBase64Encoded(bitmapImage)
+                    profileViewModel.updateProfilePicture(base64ImageString)
                 }
-                1 -> if (resultCode == RESULT_OK && data != null) {
+                PhotoRequestCode.GALLERY.requestCode -> if (resultCode == RESULT_OK && data != null) {
                     val selectedImage = data.data
-                    val bitmapImage = convertImageUriToBitmap(selectedImage, requireContext())
-                    val base64ImageString = ImageHelper.convertBitmapImageToBase64Encoded(bitmapImage)
+                    val bitmapImage =
+                        ImageHelper.convertImageUriToBitmap(selectedImage, requireContext())
+                    val base64ImageString =
+                        ImageHelper.convertBitmapImageToBase64Encoded(bitmapImage)
                     profileViewModel.updateProfilePicture(base64ImageString)
                 }
             }
         }
     }
-
-    private fun convertImageUriToBitmap(selectedPhotoUri: Uri?, context: Context): Bitmap? {
-        if(selectedPhotoUri == null) return null
-        return if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.P) {
-            val source = ImageDecoder.createSource(context.contentResolver, selectedPhotoUri)
-            ImageDecoder.decodeBitmap(source)
-        } else {
-            MediaStore.Images.Media.getBitmap(
-                context.contentResolver,
-                selectedPhotoUri
-            )
-        }
-    }
-
 }
