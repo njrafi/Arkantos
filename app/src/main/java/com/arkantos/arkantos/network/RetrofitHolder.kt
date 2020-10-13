@@ -1,5 +1,7 @@
 package com.arkantos.arkantos.network
 
+import com.arkantos.arkantos.BuildConfig
+import com.arkantos.arkantos.network.RetrofitHolder.BACKEND_URL
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import okhttp3.OkHttpClient
@@ -10,8 +12,7 @@ import retrofit2.converter.scalars.ScalarsConverterFactory
 
 object RetrofitHolder {
     private const val MOVIE_API_URL = "https://api-v3.igdb.com/"
-    private const val BACKEND_URL  = "http://192.168.0.193:4000/"
-    //private const val BACKEND_URL  = "https://arkantos-backend.herokuapp.com/"
+    private const val BACKEND_URL  = BuildConfig.BACKEND_URL
     private val moshi = Moshi.Builder()
         .add(KotlinJsonAdapterFactory())
         .build()

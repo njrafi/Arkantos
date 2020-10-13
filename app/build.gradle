@@ -33,6 +33,16 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            buildConfigField("String", "BACKEND_URL", '"https://arkantos-backend.herokuapp.com/"')
+        }
+
+        stage {
+            initWith debug
+            buildConfigField("String", "BACKEND_URL", '"https://arkantos-backend.herokuapp.com/"')
+        }
+
+        debug {
+            buildConfigField("String", "BACKEND_URL", '"http://192.168.0.193:4000/"')
         }
     }
     buildFeatures {
