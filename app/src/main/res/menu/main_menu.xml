@@ -7,6 +7,9 @@
         android:id="@+id/favoriteGamesFragment"
         android:title="@string/favorite_games" />
     <item
+        android:id="@+id/profileFragment"
+        android:title="@string/profile" />
+    <item
         android:id="@+id/signOutMenuButton"
         android:title="@string/sign_out" />
 

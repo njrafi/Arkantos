@@ -19,6 +19,9 @@
         <action
             android:id="@+id/action_homeFragment_to_favoriteGamesFragment"
             app:destination="@id/favoriteGamesFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
     </fragment>
     <fragment
         android:id="@+id/genreGridViewFragment"
@@ -51,4 +54,8 @@
             android:id="@+id/action_favoriteGamesFragment_to_gameDetailsFragment"
             app:destination="@id/gameDetailsFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.arkantos.arkantos.ui.profile.ProfileFragment"
+        android:label="Profile" />
 </navigation>

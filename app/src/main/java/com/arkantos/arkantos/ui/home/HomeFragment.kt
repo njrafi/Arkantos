@@ -124,9 +124,12 @@ class HomeFragment : Fragment() {
             R.id.favoriteGamesFragment -> findNavController().navigate(
                 HomeFragmentDirections.actionHomeFragmentToFavoriteGamesFragment()
             )
+            R.id.profileFragment -> findNavController().navigate(
+                HomeFragmentDirections.actionHomeFragmentToProfileFragment()
+            )
             R.id.signOutMenuButton -> signOutFromApplication()
         }
-        return super.onOptionsItemSelected(item);
+        return super.onOptionsItemSelected(item)
     }
 
     private fun setupGameContainer(

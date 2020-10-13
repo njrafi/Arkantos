@@ -1,7 +1,9 @@
 package com.arkantos.arkantos
 
+import android.text.InputType
 import android.util.Log
 import android.view.View
+import android.widget.EditText
 import android.widget.ImageView
 import android.widget.ProgressBar
 import androidx.core.net.toUri
@@ -64,4 +66,21 @@ fun ProgressBar.setApiStatus(status: GameApiStatus?) {
 @BindingAdapter("goneUnless")
 fun View.setVisibility(visible: Boolean) {
     visibility = if (visible) View.VISIBLE else View.GONE
+}
+
+@BindingAdapter("enableEditing")
+fun EditText.enableEditing(value: Boolean) {
+    inputType = if(value)
+        InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS
+    else
+        InputType.TYPE_NULL
+    isEnabled = value
+    isFocusable = value
+    isFocusableInTouchMode = value
+    if(!value)
+        setBackgroundResource(android.R.color.transparent)
+    else {
+        background = EditText(context).background
+    }
+    Log.i("EditText", value.toString())
 }

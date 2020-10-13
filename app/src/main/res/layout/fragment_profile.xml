@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.arkantos.arkantos.ui.profile.ProfileViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.profile.ProfileFragment">
+
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/scrollView"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toTopOf="@+id/submitButton"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/nestedConstraintLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:context=".ui.profile.ProfileFragment">
+
+                <ImageView
+                    android:id="@+id/profilePicture"
+                    android:layout_width="300dp"
+                    android:layout_height="300dp"
+                    android:layout_marginTop="24dp"
+                    android:contentDescription="@string/profile_picture"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/leonidas"
+                    app:imageUrl="@{viewModel.profilePictureUrl}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/nameLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="80dp"
+                    android:text="@string/name"
+                    android:textColor="@android:color/background_dark"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/profilePicture" />
+
+                <EditText
+                    android:id="@+id/nameTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:inputType="none"
+                    android:text="@{viewModel.name}"
+                    android:textColor="@android:color/background_dark"
+                    android:textSize="18sp"
+                    app:enableEditing="@{false}"
+                    app:layout_constraintBaseline_toBaselineOf="@+id/nameLabel"
+                    app:layout_constraintStart_toEndOf="@+id/nameLabel"
+                    tools:text="Kuddus" />
+
+                <TextView
+                    android:id="@+id/emailLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
+                    android:layout_marginBottom="24dp"
+                    android:text="@string/email"
+                    android:textColor="@android:color/background_dark"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/nameLabel"
+                    app:layout_constraintTop_toBottomOf="@+id/nameLabel" />
+
+                <EditText
+                    android:id="@+id/emailTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:text="@{viewModel.email}"
+                    android:textColor="@android:color/background_dark"
+                    android:textSize="18sp"
+                    app:enableEditing="@{false}"
+                    app:layout_constraintBaseline_toBaselineOf="@+id/emailLabel"
+                    app:layout_constraintStart_toEndOf="@+id/emailLabel"
+                    tools:text="kuddusBoyati@gmail.com" />
+
+                <ImageView
+                    android:id="@+id/editNameButton"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginEnd="16dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/nameLabel"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/nameLabel"
+                    app:srcCompat="@drawable/edit_icon" />
+
+                <ImageView
+                    android:id="@+id/editEmailButton"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginEnd="16dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/emailLabel"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/emailLabel"
+                    app:srcCompat="@drawable/edit_icon" />
+
+                <ImageView
+                    android:id="@+id/editProfilePictureButton"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginStart="-20dp"
+                    app:layout_constraintStart_toEndOf="@+id/profilePicture"
+                    app:layout_constraintTop_toBottomOf="@+id/profilePicture"
+                    app:srcCompat="@drawable/edit_icon" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.core.widget.NestedScrollView>
+
+        <Button
+            android:id="@+id/submitButton"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            android:text="@string/submit"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:visibility="visible" />
+
+        <Button
+            android:id="@+id/cancelButton"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginBottom="16dp"
+            android:backgroundTint="#BA1313"
+            android:text="@string/cancel"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:visibility="visible" />
+
+        <ProgressBar
+            android:id="@+id/profileUpdateProgressBar"
+            style="?android:attr/progressBarStyle"
+            apiStatus="@{viewModel.apiStatus}"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:indeterminateTint="@color/colorPrimary"
+            android:indeterminateTintMode="src_in"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

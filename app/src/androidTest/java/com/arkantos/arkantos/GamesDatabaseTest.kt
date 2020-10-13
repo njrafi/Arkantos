@@ -6,6 +6,7 @@ import androidx.test.platform.app.InstrumentationRegistry
 import com.arkantos.arkantos.database.GameDatabaseModel
 import com.arkantos.arkantos.database.GamesDao
 import com.arkantos.arkantos.database.GamesDatabase
+import kotlinx.coroutines.runBlocking
 import org.junit.After
 import org.junit.Assert
 import org.junit.Before
@@ -48,25 +49,27 @@ class GamesDatabaseTest {
             42,
             listOf("dummyGenre1,dummyGenre2"),
             listOf("dummyPlatform")
-
         )
-        db?.gamesDao?.insert(game)
-        val allGames = db?.gamesDao?.getAllGames()
-        Assert.assertNotNull(allGames)
+        runBlocking {
+            db?.gamesDao?.insert(listOf(game))
+            val allGames = db?.gamesDao?.getAllGames()
+            Assert.assertNotNull(allGames)
 
-        if (allGames != null) {
-            Assert.assertEquals(allGames[0].id, game.id)
-            Assert.assertEquals(allGames[0].name, game.name)
-            Assert.assertEquals(allGames[0].summary, game.summary)
-            Assert.assertEquals(allGames[0].thumbnailUrl, game.thumbnailUrl)
-            Assert.assertEquals(allGames[0].coverImageUrl, game.coverImageUrl)
-            Assert.assertEquals(allGames[0].storyline, game.storyline)
-            Assert.assertEquals(allGames[0].rating, game.rating)
-            Assert.assertEquals(allGames[0].releaseDate, game.releaseDate)
-            Assert.assertEquals(allGames[0].genres?.size, game.genres?.size)
-            Assert.assertEquals(allGames[0].genres, game.genres)
-            Assert.assertEquals(allGames[0].platforms?.size, game.platforms?.size)
-            Assert.assertEquals(allGames[0].platforms, game.platforms)
+            if (allGames != null) {
+                Assert.assertEquals(allGames[0].id, game.id)
+                Assert.assertEquals(allGames[0].name, game.name)
+                Assert.assertEquals(allGames[0].summary, game.summary)
+                Assert.assertEquals(allGames[0].thumbnailUrl, game.thumbnailUrl)
+                Assert.assertEquals(allGames[0].coverImageUrl, game.coverImageUrl)
+                Assert.assertEquals(allGames[0].storyline, game.storyline)
+                Assert.assertEquals(allGames[0].rating, game.rating)
+                Assert.assertEquals(allGames[0].releaseDate, game.releaseDate)
+                Assert.assertEquals(allGames[0].genres?.size, game.genres?.size)
+                Assert.assertEquals(allGames[0].genres, game.genres)
+                Assert.assertEquals(allGames[0].platforms?.size, game.platforms?.size)
+                Assert.assertEquals(allGames[0].platforms, game.platforms)
+            }
         }
+
     }
 }
