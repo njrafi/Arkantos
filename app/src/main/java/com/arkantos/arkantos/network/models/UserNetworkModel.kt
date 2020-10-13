@@ -8,13 +8,13 @@ data class UserNetworkModel(
     val token: String,
     var name: String?,
     var email: String?,
-    val photoUrl: String?,
+    var photoUrl: String?,
     val providerId: String?
 )
 
-data class SignUpResponseNetworkModel(
+data class UserResponseModel(
     val message: String?,
-    val user: UserNetworkModel
+    val user: UserNetworkModel?
 )
 
 fun FirebaseUser.asNetworkModel(): UserNetworkModel {

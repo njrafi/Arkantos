@@ -32,8 +32,9 @@ class BackendRepository(application: Application) {
     suspend fun updateProfile(user: UserNetworkModel) {
         withContext(Dispatchers.IO) {
             try {
-                BackendApi.retrofitService.updateUser(user)
-                UserHolder.setUser(user)
+                val userResponse = BackendApi.retrofitService.updateUser(user)
+                if (userResponse.user != null)
+                    UserHolder.setUser(userResponse.user)
             } catch (t: Throwable) {
                 handleError(t)
             }

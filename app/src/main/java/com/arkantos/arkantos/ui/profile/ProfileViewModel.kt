@@ -34,10 +34,16 @@ class ProfileViewModel(application: Application) : AndroidViewModel(application)
         updateUi()
     }
 
-    private fun updateUi() {
+    fun updateUi() {
         _name.value = UserHolder.getUser().name
         _email.value = UserHolder.getUser().email
         _profilePictureUrl.value = UserHolder.getUser().photoUrl
+    }
+
+    fun updateProfilePicture(base64ImageString: String?) {
+        val newProfile = UserHolder.getUser().copy()
+        newProfile.photoUrl = base64ImageString
+        updateProfile(newProfile)
     }
 
     fun updateProfile(newProfile: UserNetworkModel) {

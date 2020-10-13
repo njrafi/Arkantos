@@ -1,7 +1,7 @@
 package com.arkantos.arkantos.network
 
 import com.arkantos.arkantos.network.models.FavoriteGamesNetworkModel
-import com.arkantos.arkantos.network.models.SignUpResponseNetworkModel
+import com.arkantos.arkantos.network.models.UserResponseModel
 import com.arkantos.arkantos.network.models.UserNetworkModel
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -10,7 +10,7 @@ import retrofit2.http.Path
 
 interface BackendApiService {
     @POST("auth/login")
-    suspend fun login(@Body user: UserNetworkModel): SignUpResponseNetworkModel
+    suspend fun login(@Body user: UserNetworkModel): UserResponseModel
 
     @GET("games/favoriteGames/{userToken}")
     suspend fun getFavoriteGames(@Path("userToken") userToken: String): FavoriteGamesNetworkModel
@@ -19,7 +19,7 @@ interface BackendApiService {
     suspend fun postFavoriteGames(@Body favoriteGames: FavoriteGamesNetworkModel)
 
     @POST("profile/update")
-    suspend fun updateUser(@Body user: UserNetworkModel)
+    suspend fun updateUser(@Body user: UserNetworkModel): UserResponseModel
 }
 
 object BackendApi {
