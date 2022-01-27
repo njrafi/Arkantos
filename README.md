@@ -1,2 +1,2 @@
 # Arkantos
-An android app to finding great games
+An app for Android that helps you discover fantastic games.
