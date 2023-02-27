@@ -1,6 +1,8 @@
 # Arkantos
 An app for Android that helps you discover fantastic games.
 
+Demo video: https://youtu.be/JvWwdAy-qnA
+
 ## App Description
 
 1. Fetch game info from server and show on UI.
