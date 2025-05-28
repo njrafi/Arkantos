@@ -19,7 +19,7 @@ Demo video: https://youtu.be/JvWwdAy-qnA
 
 ## Technical Components
 
-1. language: Kotling
+1. language: Kotlin
 
 2. Api: "https://www.igdb.com/api"
 
